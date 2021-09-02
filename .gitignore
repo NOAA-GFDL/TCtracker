@@ -1,3 +1,5 @@
+*.o
+*.mod
 
 # http://www.gnu.org/software/automake
 
@@ -33,4 +35,5 @@ autom4te.cache
 
 # Other build generated files
 config.h
-
+trajectory_analysis/trajectory_analysis_csc
+tstorms_driver/tstorms_driver
