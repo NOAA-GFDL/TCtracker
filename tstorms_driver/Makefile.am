@@ -26,7 +26,10 @@ tstorms_mod.$(FC_MODEXT): spline_mod.$(FC_MODEXT)
 MODFILES = \
   get_date_mod.$(FC_MODEXT) \
   indata_mod.$(FC_MODEXT) \
+  spline_mod.$(FC_MODEXT) \
   time_manager_mod.$(FC_MODEXT) \
+  tsgpad_mod.$(FC_MODEXT) \
+  tstorms_mod.$(FC_MODEXT) \
   utilities_mod.$(FC_MODEXT) \
   vorcomp_mod.$(FC_MODEXT)
 BUILT_SOURCES = $(MODFILES)

@@ -9,7 +9,7 @@ AC_INIT([GFDL Tropical Storms Analysis],
 AC_CONFIG_SRCDIR([tstorms_driver/tstorms_drive.f90])
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE([foreign dist-zip subdir-objects])
+AM_INIT_AUTOMAKE([foreign tar-pax subdir-objects])
 
 AC_PROG_FC([gfortran ifort])
 AC_FC_MODULE_FLAG
