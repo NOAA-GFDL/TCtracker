@@ -1,0 +1,179 @@
+#!/bin/csh -f
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#  XMGRACE graphs of tropical storm time series
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+                        set WORKDIR = /home/${user}/tmpdir
+if ( ! -e $WORKDIR ) mkdir $WORKDIR
+                        cd $WORKDIR
+alias rm  "rm -f"
+alias mv  "mv -f"
+
+#============================================================
+# INPUT
+#============================================================
+
+if ( ( $1 == "-help" ) || ( $1 == "-h" ) ) then
+#--------------------------------------------------
+   echo "   "
+   echo "   Input Aguments:"
+   echo "   1) path name of directory where tropical storm data are stored "
+   echo "   2) path name for output figures                                "
+   echo "   3) starting year                                               "
+   echo "   4) ending year                                                 "
+   echo "   5) experiment name for figures                                 "
+   echo "   6) compare with obs                                            "
+   echo "   "
+   exit
+#--------------------------------------------------
+else
+#--------------------------------------------------
+   set indir    = $1 ; shift
+   set outpix   = $1 ; shift
+   set year_beg = $1 ; shift                                          
+   set year_end = $1 ; shift        
+   set exp1     = $1 ; shift
+   set exp0     = $1 ; shift
+   set opt      = $1                         
+#--------------------------------------------------
+endif
+
+set exp_list = ($exp0 $exp1)
+set blind    = y
+
+#============================================================
+# PATH NAMES & DIRECTORIES
+#============================================================
+
+if ($opt == hur) then
+    set dobs  = /home/fms/local/opt/fre-analysis/test/keo/tropical_storms/ibtracs/obs_hur
+    set dpub2 = /home/fms/local/opt/fre-analysis/test/keo/tropical_storms/miztstorm/miz_run_hurricanes_cat1-5
+else
+    set dobs  = /home/fms/local/opt/fre-analysis/test/keo/tropical_storms/ibtracs
+    set dpub2 = /home/fms/local/opt/fre-analysis/test/keo/tropical_storms/miztstorm/miz_run_tcyclones
+endif
+set cyrbeg = ${year_beg}
+set cyrend = ${year_end}
+
+source $MODULESHOME/init/csh
+module load grace
+#the above is to get gracebat
+#set gracebat = /usr/local/grace-5.1.22/bin/gracebat
+
+# --- make output directory
+if ( ! -e $outpix ) mkdir -p $outpix
+
+# --- parameter file for xmgrace
+set xparam = ${dpub2}/xmgrace_params/time_series.par
+
+#============================================================
+# MISC
+#============================================================
+
+set titles = ( 'Global             ' \
+               'West_Atlantic      ' \
+               'East_Atlantic      ' \
+               'West_Pacific       ' \
+               'East_Pacific       ' \
+               'North_Indian_Ocean ' \
+               'South_Indian_Ocean ' \
+               'Australia          ' \
+               'South_Pacific      ' \
+               'South_Atlantic     ' \
+               'Northern_Hemisphere' \
+               'Southern_Hemisphere' )
+
+ 
+set region_list = (G WA EA WP EP NI SI AU SP SA NH SH)
+
+set ymax = (110 20 10 50 30 10 20 20 30 10 80 50)
+set yinc = ( 10  2  1  5  5  1  2  2  5  1 10  5)
+
+set ireg_list = (1 2 4 5 11 12)
+
+#============================================================
+# FOR EACH FIGURE ............
+#============================================================
+
+foreach ireg ( $ireg_list )
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+sed -e "s/REGION/${titles[$ireg]}/" $xparam     > xparam_updt
+sed -e "s/YYMAX/${ymax[$ireg]}/"    xparam_updt > xparam_new
+                                 mv xparam_new    xparam_updt
+sed -e "s/YYINC/${yinc[$ireg]}/"    xparam_updt > xparam_new
+                                 mv xparam_new    xparam_updt
+
+# --- BUILD INPUT FOR XMGRACE 
+  @ ie = 0
+foreach exp ( $exp_list )
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#  @ ie ++
+
+if ( $exp == obs ) then
+  set yrb = ${cyrbeg}
+  set yre = ${cyrend}
+else
+  set yrb = $year_beg
+  set yre = $year_end
+endif
+
+if ( $exp == obs ) then
+   set fstats = ${indir}/stats_obs_${yrb}-${yre}
+else
+   set fstats = ${indir}/stats_model_${yrb}-${yre}
+endif
+
+if ( ! -e $fstats ) goto end_exp
+
+       @ yr  = $yrb
+while ( $yr <= $yre )
+  awk ' ( $1 == '${yr}' ) { print $0 } ' $fstats >> ytmp
+  set xx = `head -$ireg ytmp | tail -1 `
+  rm ytmp
+  echo $xx[1] $xx[14] >> xmgrdat
+  @ yr ++
+end
+echo "&" >> xmgrdat
+
+# UPDATE PARAMETER FILE FOR EXPERIMENT NAME
+  @ ie ++
+set xmean = ` grep mean $fstats | head -$ireg | tail -1 `
+set expxx = "${exp}  ( $xmean[14] )" 
+sed -e "s/EXP${ie}/${expxx}/" xparam_updt > xx_new
+mv xx_new xparam_updt
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+end_exp:
+end
+
+#--- PLOT GRAPHS
+
+set pix = time_series_${region_list[$ireg]}.ps
+
+#                  set xarg =       ( -autoscale x )
+                   set xarg =       ( -autoscale xy )
+                   set xarg = ( $xarg -printfile $pix )
+                   set xarg = ( $xarg -param xparam_updt )
+if ( $blind == y ) set xarg = ( $xarg -hardcopy )
+
+if ( $blind == y ) then
+    gracebat $xarg xmgrdat
+else
+    xmgrace $xarg xmgrdat
+endif 
+
+if ( -e ${pix} ) then
+   gzip ${pix} 
+   mv   ${pix}.gz $outpix
+endif 
+
+#--- CLEAN UP
+rm xmgrdat
+rm xparam_updt
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+end
+
+exit
