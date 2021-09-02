@@ -6,6 +6,7 @@ AC_INIT([GFDL Tropical Storms Analysis],
         [TSTORMS],
         [https://www.gfdl.noaa.gov/tstorms/])
 
+AC_CONFIG_SRCDIR([tstorms_driver/tstorms_drive.f90])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([foreign dist-zip subdir-objects])
@@ -26,6 +27,10 @@ if test "$with_netcdf_fortran" = "no"; then
 fi
 AC_LANG_POP([Fortran])
 
+# Define the directory where *.mod files will reside.
+# Used in Makefiles.
+AC_SUBST([MODDIR],[.mods])
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
@@ -33,4 +38,3 @@ AC_CONFIG_FILES([Makefile
                  tstorms_driver/Makefile
 ])
 AC_OUTPUT
-
