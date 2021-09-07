@@ -3,13 +3,15 @@ AC_PREREQ([2.69])
 AC_INIT([GFDL Tropical Storms Analysis],
         [1.0.0],
         [gfdl.climate.model.info@noaa.gov],
-        [TSTORMS],
+        [tstorms],
         [https://www.gfdl.noaa.gov/tstorms/])
 
 AC_CONFIG_SRCDIR([tstorms_driver/tstorms_drive.f90])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([foreign tar-pax subdir-objects])
+
+AC_PROG_SED
 
 AC_PROG_FC([gfortran ifort])
 AC_FC_MODULE_FLAG

@@ -1,4 +1,5 @@
-bin_PROGRAMS = trajectory_analysis_csc
+pkglibexec_PROGRAMS = trajectory_analysis_csc
+pkglibexec_SCRIPTS = dotraj_new.m
 
 AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR) $(NETCDF_FCFLAGS)
 

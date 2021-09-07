@@ -1,4 +1,4 @@
-bin_PROGRAMS = tstorms_driver
+pkglibexec_PROGRAMS = tstorms_driver
 
 AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR) $(NETCDF_FCFLAGS)
 LDADD = $(NETCDF_FCLDFLAGS) $(NETCDF_FCLIBS)
