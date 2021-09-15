@@ -14,8 +14,8 @@ end
 clon=1./(v.lon(ii+1)-v.lon(ii));
 alon=(v.lon(ii+1)-lon_ts   ) *clon;
 blon=(lon_ts     -v.lon(ii)) *clon;
-tmp1 =v.lm(jj,ii)  *alat + v.lm(jj+1,ii)  *blat;
-tmp2 =v.lm(jj,ii+1)*alat + v.lm(jj+1,ii+1)*blat;
+tmp1 =v.lm(ii,jj)  *alat + v.lm(ii,jj+1)  *blat;
+tmp2 =v.lm(ii+1,jj)*alat + v.lm(ii+1,jj+1)*blat;
 land =tmp1*alon+tmp2*blon;
 
 return

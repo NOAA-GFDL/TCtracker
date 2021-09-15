@@ -1,5 +1,5 @@
 pkglibexec_PROGRAMS = trajectory_analysis_csc
-pkglibexec_SCRIPTS = dotraj_new.m rdtraj_new.m
+pkglibexec_SCRIPTS = dotraj_new.m rdtraj_new.m landfall.m regions_ibtrac.m
 
 AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR) $(NETCDF_FCFLAGS)
 

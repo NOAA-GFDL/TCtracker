@@ -462,7 +462,10 @@ EOF
 
 	set graph_option = hur
 
-	matlab910 -nodisplay -nosplash -r "try, dotraj_new, catch me, fprintf('%s / %s\n', me.identifier, me.message), exit(1), end, exit(0)"
+        setenv MATLABPATH $script_dir
+
+	#matlab910 -nodisplay -nosplash -r "try, dotraj_new, catch me, fprintf('%s / %s\n', me.identifier, me.message), exit(1), end, exit(0)"
+	matlab910 -batch "dotraj_new"
 
 	echo "creating hurricane plots..."
 	$plot_scripts/ori_stat $hurricane_cat1to5_output ${first_year} ${last_year} y $graph_option

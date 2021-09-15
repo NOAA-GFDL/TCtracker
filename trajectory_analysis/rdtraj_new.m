@@ -65,10 +65,10 @@ while (1 > 0)
     ts(n).day  (i) =fscanf(fid,'%f',1); 
     ts(n).hour (i) =fscanf(fid,'%f',1); 
     if (strcmp(opt,'mod'))
-      ts(n).iii  (i) =fscanf(fid,'%d',1); 
-      ts(n).jjj  (i) =fscanf(fid,'%d',1);
-      ts(n).vort (i) =fscanf(fid,'%f',1); 
-      ts(n).twc  (i) =fscanf(fid,'%f',1);
+%      ts(n).iii  (i) =fscanf(fid,'%d',1); 
+%      ts(n).jjj  (i) =fscanf(fid,'%d',1);
+%      ts(n).vort (i) =fscanf(fid,'%f',1); 
+%      ts(n).twc  (i) =fscanf(fid,'%f',1);
     end
   end
   ts(n).landf=(max(ts(n).land)>0);
