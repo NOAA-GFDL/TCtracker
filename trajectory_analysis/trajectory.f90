@@ -64,9 +64,12 @@
   real     :: slat = -40. !miz
   logical  :: do_spline = .false.
   logical  :: do_thickness = .false.
+  character(len=1028) :: landmask_file = 'landsea.map'
+  character(len=1028) :: cmask_file = 'imask_2'
 
   namelist / input /  rcrit, wcrit, wcritm, nwcrit, do_filt, &
-       vcrit, twc_crit, thick_crit, nlat, slat, do_spline, do_thickness !miz
+      & vcrit, twc_crit, thick_crit, nlat, slat, do_spline, do_thickness, &
+      & landmask_file, cmask_file
 
 !===================================================================
 
@@ -425,13 +428,13 @@
 ! --- FILTER DATA
 !===================================================================
 
-  if( do_filt ) CALL TS_FILTER(nlat,slat)
+  if( do_filt ) CALL TS_FILTER(nlat, slat, trim(landmask_file))
 
 !===================================================================
 ! --- STATS
 !===================================================================
 
-  CALL TS_STATS ( do_filt )
+  CALL TS_STATS (do_filt, trim(cmask_file))
 
 !===================================================================
   end PROGRAM TRAJECTORY
