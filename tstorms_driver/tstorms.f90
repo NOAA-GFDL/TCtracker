@@ -11,10 +11,10 @@
 
 
 
-  real :: crit_vort  =  3.5E-5   
-  real :: crit_twc   =  0.5   
-  real :: crit_thick = 50.0   
-  real :: crit_dist  =  4.0  
+  real :: crit_vort  =  3.5E-5
+  real :: crit_twc   =  0.5
+  real :: crit_thick = 50.0
+  real :: crit_dist  =  4.0
   real :: lat_bound_n =  90.0
   real :: lat_bound_s = -90.0
   logical :: do_spline = .false.
@@ -40,7 +40,7 @@
                        iucy   )
 
 !===================================================================
-! --- LOCATE TROPICAL STORMS 
+! --- LOCATE TROPICAL STORMS
 !===================================================================
 
   use TSGPAD_MOD, only : GPAD2,  GPAD1
@@ -48,12 +48,12 @@
   implicit none
 
 !-------------------------------------------------------------------
-! --- INPUT ARGUMENTS 
+! --- INPUT ARGUMENTS
 !     Gwind  - wind speed at 850 mb
 !     Gvort  - vorticity  at 850 mb
 !     Gtbar  - mean temperature for warm core layer
 !     Gpsl   - sea level pressure
-!     Gthick - thickness of 200 to 1000 mb layer 
+!     Gthick - thickness of 200 to 1000 mb layer
 !     Grlon  - longitudes
 !     Grlat  - latitudes
 !     iyear  - year
@@ -62,22 +62,22 @@
 !     ihour  - hour
 !     iucy   - unit for output
 !-------------------------------------------------------------------
-! --- OUTPUT - file "cyclones" 
+! --- OUTPUT - file "cyclones"
 !-------------------------------------------------------------------
-! --- record # 1 
+! --- record # 1
 !     num0   - day
 !     imon0  - month
 !     iyear  - year
 !     number - number of cyclones found
-! --- records # 2...number+1 
-!     idex, jdex - (i,j) index of cyclone 
-!     svort_max  - max vorticity                  
-!     swind_max  - max wind              
-!      spsl_min  - min sea level pressure                 
-!     svort_lon,  svort_lat - longitude & latitude of max vorticity 
-!      spsl_lon,   spsl_lat - longitude & latitude of min slp 
-!      stwc_lon,   stwc_lat - longitude & latitude of warm core 
-!    sthick_lon, sthick_lat - longitude & latitude of max thickness 
+! --- records # 2...number+1
+!     idex, jdex - (i,j) index of cyclone
+!     svort_max  - max vorticity
+!     swind_max  - max wind
+!      spsl_min  - min sea level pressure
+!     svort_lon,  svort_lat - longitude & latitude of max vorticity
+!      spsl_lon,   spsl_lat - longitude & latitude of min slp
+!      stwc_lon,   stwc_lat - longitude & latitude of warm core
+!    sthick_lon, sthick_lat - longitude & latitude of max thickness
 !-------------------------------------------------------------------
 
   real,    intent(in),    dimension(:,:) :: Gwind, Gvort, Gtbar
@@ -94,7 +94,7 @@
   integer, parameter :: nx2  = 2*nx
   integer, parameter :: nxp1 = nx + 1
 
-  real,    parameter :: ftol  = 0.01   
+  real,    parameter :: ftol  = 0.01
   integer, parameter :: nsmax = 10000
 
   real, dimension(SIZE(Grlon)+nx2) :: rlon
@@ -103,11 +103,11 @@
   real, dimension(SIZE(Gwind,1)+nx2,SIZE(Gwind,2)+nx2) ::  &
         vort, wind, psl,    tbar,    thick,                &
                     psl_dx, tbar_dx, thick_dx,             &
-                    psl_dy, tbar_dy, thick_dy 
+                    psl_dy, tbar_dy, thick_dy
 
   real    :: vort_max, wind_max, psl_min, twc_max,   thick_max
   real    :: lon_vort,           lon_psl, lon_twc,   lon_thick
-  real    :: lat_vort,           lat_psl, lat_twc,   lat_thick            
+  real    :: lat_vort,           lat_psl, lat_twc,   lat_thick
   logical ::                              exist_twc, exist_thick
 
   integer, dimension(nsmax) :: idex, jdex
@@ -126,7 +126,7 @@
   integer :: ierr_pos, ierr_mag
 
   integer :: i, im, ip, ix, ixp3, ixp6
-  integer :: j, jm, jp, jx, jxp3, jxp6, jxp6h 
+  integer :: j, jm, jp, jx, jxp3, jxp6, jxp6h
   integer :: number, iter
   integer :: imm, jmm
   real    :: avg
@@ -147,18 +147,18 @@
 ! --- SETUP
 !-------------------------------------------------------------------
 
-  CALL GPAD2( Gwind,  wind    )    !  Wind speed at 850 mb 
-  CALL GPAD2( Gvort,  vort    )    !  Vorticity  at 850 mb 
+  CALL GPAD2( Gwind,  wind    )    !  Wind speed at 850 mb
+  CALL GPAD2( Gvort,  vort    )    !  Vorticity  at 850 mb
   CALL GPAD2( Gtbar,  tbar    )    !  Mean temp for warm core layer
   CALL GPAD2( Gpsl,   psl     )    !  Sea level pressure.
 if (do_thickness) then
-  CALL GPAD2( Gthick, thick   )    !  Thickness of 200 to 1000 mb layer 
+  CALL GPAD2( Gthick, thick   )    !  Thickness of 200 to 1000 mb layer
 end if
   CALL GPAD1( Grlon,  rlon, 0 )    !  Longitudes
   CALL GPAD1( Grlat,  rlat, 1 )    !  Latitudes
- 
+
 ! --- change sign of vorticity in southern hemisphere
-  vort(:,1:jxp6h) = -1.0 * vort(:,1:jxp6h) 
+  vort(:,1:jxp6h) = -1.0 * vort(:,1:jxp6h)
 
 ! --- change sign of temperature & thickness
 if (do_spline) then
@@ -174,10 +174,10 @@ end if
 if (do_spline) then
   CALL SPLIE2( rlon, rlat, psl,   psl_dy   )
   CALL SPLIE3( rlon, rlat, psl,   psl_dx   )
- 
+
   CALL SPLIE2( rlon, rlat, tbar,  tbar_dy  )
   CALL SPLIE3( rlon, rlat, tbar,  tbar_dx  )
- 
+
   CALL SPLIE2( rlon, rlat, thick, thick_dy )
   CALL SPLIE3( rlon, rlat, thick, thick_dx )
 end if
@@ -213,7 +213,7 @@ end if
   lat_vort = rlat(j)
 
 !-------------------------------------------------------------------
-! --- STEP 2: LOCATE LOCAL SEA LEVEL PRESSURE MIN 
+! --- STEP 2: LOCATE LOCAL SEA LEVEL PRESSURE MIN
 !-------------------------------------------------------------------
 
   ierr_pos  = 0
@@ -281,9 +281,9 @@ if (do_spline) then
 
   CALL SHAPE( rlon, rlat, tbar, tbar_dy, tbar_dx,           &
               p,    ftol, iter, fret,    ierr_mag, crit_twc )
- 
+
   exist_twc = exist_twc .and. ( ierr_mag == 0 )
- 
+
   endif
 else
 
@@ -344,7 +344,7 @@ if (do_thickness) then
               p,    ftol, iter,  fret,     ierr_mag,  crit_thick )
 
   exist_thick = exist_thick .and. ( ierr_mag == 0 )
- 
+
   endif
 end if
 !-------------------------------------------------------------------
@@ -400,7 +400,7 @@ end if
   if( number == 0 ) RETURN
 
   do i = 1,number
-    WRITE(iucy,*) idex(i),       jdex(i),              & 
+    WRITE(iucy,*) idex(i),       jdex(i),              &
               spsl_lon(i),   spsl_lat(i),              &
               swind_max(i), svort_max(i), spsl_min(i), &
                 stwc_is(i), sthick_is(i), stwc_max(i), sthick_max(i)
