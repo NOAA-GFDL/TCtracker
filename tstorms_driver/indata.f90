@@ -22,14 +22,14 @@
   logical :: use_sfc_wnd = .false.
 
   namelist / input / fn_u, fn_v, fn_vort, fn_tm, fn_slp, &
-                     use_sfc_wnd 
+                     use_sfc_wnd
 
 !=====================================================================
   contains
 
 !######################################################################
 
-  SUBROUTINE SET_GRID 
+  SUBROUTINE SET_GRID
 !=====================================================================
   implicit none
 !=====================================================================
@@ -51,15 +51,15 @@
   jmx = AXIS_LENGTH( file_u, 'lat'   )
   nmx = AXIS_LENGTH( file_u, 'time'  )
 
-  WRITE(*,*) '        ' 
-  WRITE(*,*) TRIM( fn_u    ) 
-  WRITE(*,*) TRIM( fn_v    ) 
-  WRITE(*,*) TRIM( fn_vort ) 
-  WRITE(*,*) TRIM( fn_tm   ) 
-  WRITE(*,*) TRIM( fn_slp  ) 
-  WRITE(*,*) '        ' 
+  WRITE(*,*) '        '
+  WRITE(*,*) TRIM( fn_u    )
+  WRITE(*,*) TRIM( fn_v    )
+  WRITE(*,*) TRIM( fn_vort )
+  WRITE(*,*) TRIM( fn_tm   )
+  WRITE(*,*) TRIM( fn_slp  )
+  WRITE(*,*) '        '
   WRITE(*,*) ' imx, jmx, nmx = ', imx, jmx, nmx
-  WRITE(*,*) '        ' 
+  WRITE(*,*) '        '
 
 !=====================================================================
   end SUBROUTINE SET_GRID
@@ -68,7 +68,7 @@
 
   SUBROUTINE SET_LOLA( rlon, rlat )
 !=====================================================================
-! --- SET LONGITUDE & LATITUDE ETC 
+! --- SET LONGITUDE & LATITUDE ETC
 !=====================================================================
   implicit none
   real, intent(out), dimension(:) :: rlon, rlat
@@ -80,7 +80,7 @@
   CALL READ_VARIABLE_1D( file_u, 'lon', rlon )
   CALL READ_VARIABLE_1D( file_u, 'lat', buf )
 
-  rlat(:) = buf(jmx:1:-1) 
+  rlat(:) = buf(jmx:1:-1)
 
 !--------------------------------------------------------
 
@@ -132,14 +132,14 @@
   CALL READ_VARIABLE_2D( file_u, 'u_ref', start(1:3), buf )
      ucomp(:,:) = buf(:,jmx:1:-1)
   CALL READ_VARIABLE_2D( file_v, 'v_ref', start(1:3), buf )
-     vcomp(:,:) = buf(:,jmx:1:-1) 
+     vcomp(:,:) = buf(:,jmx:1:-1)
 
   else
 
   CALL READ_VARIABLE_2D( file_u, 'u850', start(1:3), buf )
      ucomp(:,:) = buf(:,jmx:1:-1)
   CALL READ_VARIABLE_2D( file_v, 'v850', start(1:3), buf )
-     vcomp(:,:) = buf(:,jmx:1:-1) 
+     vcomp(:,:) = buf(:,jmx:1:-1)
 
   endif
 
@@ -150,15 +150,15 @@
 !-------------------------------------------------------------------
 
   CALL READ_VARIABLE_2D( file_vort, 'vort850', start(1:3), buf )
-     vor(:,:) = buf(:,jmx:1:-1) 
+     vor(:,:) = buf(:,jmx:1:-1)
 
 !-------------------------------------------------------------------
 ! --- THICKNESS BETWEEN 1000 AND 200 MB
 !-------------------------------------------------------------------
 
 ! --- data not available
- 
-     thick(:,:) = 0.0 
+
+     thick(:,:) = 0.0
 
 !-------------------------------------------------------------------
 ! --- MEAN TEMPERATURE FOR WARM CORE LAYER
@@ -170,10 +170,10 @@
 !-------------------------------------------------------------------
 ! --- Sea level pressure
 !-------------------------------------------------------------------
- 
+
   CALL READ_VARIABLE_2D( file_slp, 'slp', start(1:3), buf )
-!     psl(:,:) = 100.0 * buf(:,jmx:1:-1) 
-     psl(:,:) = buf(:,jmx:1:-1) 
+!     psl(:,:) = 100.0 * buf(:,jmx:1:-1)
+     psl(:,:) = buf(:,jmx:1:-1)
 
 !=====================================================================
   end SUBROUTINE GET_DATA
@@ -225,4 +225,3 @@
 
 !######################################################################
   end MODULE INDATA_MOD
-

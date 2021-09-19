@@ -1,6 +1,6 @@
   PROGRAM TRAJECTORY
 !===================================================================
-!  --- DETECT TROPICAL STORM TRAJECTORIES 
+!  --- DETECT TROPICAL STORM TRAJECTORIES
 !===================================================================
   use TS_TOOLS_MOD
   implicit none
@@ -30,7 +30,7 @@
   real,    dimension(numax)  :: rtot
 
   integer :: bon, num_traj, long_traj
-  integer :: l, i1, j1,  ncand 
+  integer :: l, i1, j1,  ncand
   integer :: inc, nwnd, nwndm, inc1, nr, m
 
   integer, dimension(1) :: imin
@@ -46,7 +46,7 @@
   real    :: dday !miz
 
   integer, dimension(nrmx)        :: day,  month, year, number, hour
-  real,    dimension(nrmx,numax)  :: rlon, rlat, wind,  psl, vmax 
+  real,    dimension(nrmx,numax)  :: rlon, rlat, wind,  psl, vmax
   logical, dimension(nrmx,numax)  :: available
   logical, dimension(nrmx,numax)  :: exist_wind, exist_vort, exist_twc, exist_thick, exist_maxw
 
@@ -64,9 +64,12 @@
   real     :: slat = -40. !miz
   logical  :: do_spline = .false.
   logical  :: do_thickness = .false.
+  character(len=1028) :: landmask_file = 'landsea.map'
+  character(len=1028) :: cmask_file = 'imask_2'
 
   namelist / input /  rcrit, wcrit, wcritm, nwcrit, do_filt, &
-       vcrit, twc_crit, thick_crit, nlat, slat, do_spline, do_thickness !miz
+      & vcrit, twc_crit, thick_crit, nlat, slat, do_spline, do_thickness, &
+      & landmask_file, cmask_file
 
 !===================================================================
 
@@ -122,7 +125,7 @@
                            psl_lon,  psl_lat,           &
                            wind_max, vort_max, psl_min, &
                            twc_is,   thick_is, twc_max, thick_max !miz
- 
+
            rlon(iday,jcyc) = psl_lon
            rlat(iday,jcyc) = psl_lat
             psl(iday,jcyc) = psl_min*0.01
@@ -142,18 +145,18 @@
       exist_thick(iday,jcyc) = thick_is .and. (thick_max >= thick_crit) !miz: thick_is
    end if
       available(iday,jcyc) = .true.
-      cycle 
+      cycle
 
       201 continue
       print *, ' BAD DATA AT JCYC: ', jcyc
-  
+
   end do
   end if
 
 ! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   end do
 
-      mdays = iday 
+      mdays = iday
       go to 102
   101 continue
       PRINT *, '*********************************************'
@@ -171,8 +174,8 @@
   dday=(hour(2)-hour(1))/24.
   if (dday == 0) dday = 1.
   write(*,*) 'dday=',dday
-  
- 
+
+
   num_traj  = 0
 
   do iday = 1,mdays-1
@@ -215,7 +218,7 @@
   rlat_i = rlat(l,inc) / RADIAN
 
 ! Tim. M
-! modify longitudes near 0 deg 
+! modify longitudes near 0 deg
 ! if ( rlon_0 > 350 degrees ) then
 !   if (rlon_i < 10) then
 !    rlon_i = rlon_i + 360
@@ -225,7 +228,7 @@
 !!    rlon_i = rlon_i - 360
 !    endif
 ! end
-!  dx = RADIUS * ( rlon_i - rlon_0 ) * cos(rlat_0) 
+!  dx = RADIUS * ( rlon_i - rlon_0 ) * cos(rlat_0)
 !  dy = RADIUS * ( rlat_i - rlat_0 )
 !  dr = sqrt( dx*dx + dy*dy )
  dr = RADIUS * acos( sin(rlat_0) * sin(rlat_i) +  cos(rlat_0) * cos(rlat_i) * cos(rlon_i - rlon_0) )
@@ -240,12 +243,12 @@
   end do ! end do loop over next time instance's storms
 
 !$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
- 999 continue       
+ 999 continue
 !$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 ! --- no more candidate storms
 ! this is the condition for the end of the track
-  if( ncand == 0 ) then 
+  if( ncand == 0 ) then
 ! zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
 ! --- check winds
@@ -267,7 +270,7 @@
   if(( long_traj > 1 ).and.( nwnd  >= nwcrit/dday ).and.(nwndm > 0)) then
 !  if(( long_traj > 1 ).and.( nwnd  >= nwcrit/dday )) then
 ! zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
- 
+
    num_traj  = num_traj + 1
 
 ! --- output trajectory info
@@ -294,7 +297,7 @@
                        vmax(ix(inc1),iy(inc1)), &
                        year1, month1, day1, hour1
     end do
- 
+
     WRITE(iuori,103) rlon(ix(1),iy(1)), rlat(ix(1),iy(1)), &
                    year0, month0, day0, hour0
 
@@ -363,7 +366,9 @@
 !    dx = ( rlon(bon_1(inc),bon_2(inc)) - rlon(i1,j1) )
 !    dy = ( rlat(bon_1(inc),bon_2(inc)) - rlat(i1,j1) )
 !    rtot(inc) = sqrt( dx*dx + dy*dy )
-     rtot(inc) = RADIUS * acos( sin(rlat(bon_1(inc),bon_2(inc))) * sin(rlat(i1,j1)) + cos(rlat(bon_1(inc),bon_2(inc))) * cos(rlat(i1,j1)) * cos(rlon(bon_1(inc),bon_2(inc)) - rlon(i1,j1)) )
+     rtot(inc) = RADIUS * acos( sin(rlat(bon_1(inc),bon_2(inc))) * sin(rlat(i1,j1)) +&
+        & cos(rlat(bon_1(inc),bon_2(inc))) * cos(rlat(i1,j1)) * cos(rlon(bon_1(inc),bon_2(inc)) -&
+        & rlon(i1,j1)) )
   end do
 
   imin = MINLOC( rtot(1:bon) )
@@ -384,7 +389,9 @@
 !    dx = ( rlon(icand(inc),jcand(inc)) - rlon(i1,j1) )
 !    dy = ( rlat(icand(inc),jcand(inc)) - rlat(i1,j1) )
 !    rtot(inc) = sqrt( dx*dx + dy*dy )
-     rtot(inc) = RADIUS * acos( sin(rlat(icand(inc),jcand(inc))) * sin(rlat(i1,j1)) + cos(rlat(icand(inc),jcand(inc))) * cos(rlat(i1,j1)) * cos(rlon(icand(inc),jcand(inc)) - rlon(i1,j1)) )
+     rtot(inc) = RADIUS * acos( sin(rlat(icand(inc),jcand(inc))) * sin(rlat(i1,j1)) +&
+        & cos(rlat(icand(inc),jcand(inc))) * cos(rlat(i1,j1)) * cos(rlon(icand(inc),jcand(inc)) -&
+        & rlon(i1,j1)) )
   end do
 
   imin = MINLOC( rtot(1:ncand) )
@@ -421,13 +428,13 @@
 ! --- FILTER DATA
 !===================================================================
 
-  if( do_filt ) CALL TS_FILTER(nlat,slat)
+  if( do_filt ) CALL TS_FILTER(nlat, slat, trim(landmask_file))
 
 !===================================================================
 ! --- STATS
 !===================================================================
- 
-  CALL TS_STATS ( do_filt )
+
+  CALL TS_STATS (do_filt, trim(cmask_file))
 
 !===================================================================
   end PROGRAM TRAJECTORY
