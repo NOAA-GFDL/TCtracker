@@ -1,7 +1,0 @@
-CPPFLAGS = -I/usr/local/include 
-FFLAGS = $(CPPFLAGS) -fltconsistency -stack_temps -safe_cray_ptr -ftz -i_dynamic -assume byterecl -g -i4 -r8 -O2 -nowarn -Wp,-w
-FC = ifort
-LD = ifort
-LDFLAGS = -limf -lm -lpthread -lrt -lnetcdff -lnetcdf -lhdf5 -lhdf5_hl
-CFLAGS = -D__IFC
-

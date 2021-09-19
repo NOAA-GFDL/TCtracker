@@ -1,5 +1,10 @@
 pkglibexec_PROGRAMS = trajectory_analysis_csc
-pkglibexec_SCRIPTS = dotraj_new.m rdtraj_new.m landfall.m regions_ibtrac.m
+
+matlabdir = $(pkglibexecdir)
+dist_matlab_DATA = dotraj_new.m rdtraj_new.m landfall.m regions_ibtrac.m
+
+mapfiledir = $(pkglibexecdir)
+dist_mapfile_DATA = landsea.map imask_2
 
 AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR) $(NETCDF_FCFLAGS)
 
