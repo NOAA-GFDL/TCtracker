@@ -6,7 +6,7 @@ SUBDIRS = \
   trajectory_analysis \
   tstorms_driver
 
-bin_SCRIPT = tropical_storms_wsfc
+bin_SCRIPTS = tropical_storms_wsfc
 EXTRA_DIST = tropical_storms_wsfc.in
 
 do_subst = $(SED) \
