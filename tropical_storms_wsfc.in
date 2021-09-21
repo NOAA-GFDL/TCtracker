@@ -1,31 +1,37 @@
 #!/bin/tcsh -f
-#------------------------------------
-# MOAB batch directives
-#PBS -N tropical_storms_wsfc.csh
-#PBS -l walltime=18:00:00
-#PBS -l size=2
-#PBS -j oe
-#PBS -o $HOME/msub_output/
-#PBS -r y
 
-# Variables passed by frepp
-set out_dir
-set yr1
-set yr2
-set descriptor
-set in_data_dir
-set argu
+# **********************************************************************
+# TCtracker - Tropical Storm Detection
+# Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Kyle Olivo, Keren Rosado and Seth Underwood
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+# **********************************************************************
 
-set SCRIPT_ROOT = `dirname $0`
-set SCRIPT_ROOT = `cd $SCRIPT_ROOT && pwd`
+# Useful directories
+set LIBEXEC_DIR = @pkglibexecdir@
 
-set year_beg = $yr1
-set year_end = $yr2
-set expname = $descriptor
-set data_dir = $in_data_dir
-set analysis_dir = $out_dir
+# Default values
+set year_beg = '0001'
+set year_end = '0001'
+set expname = 'Not Set'
+set data_dir = /dev/null
+set output_dir = /dev/null
 set do_wsfc = y
-set wind_th = 29.5
+set wind_th = 33.0
 set matlab = 1
 
 set getopt_list = "b:e:n:i:o:Ww:h"
@@ -47,8 +53,8 @@ while ("$argv[1]" != "--")
       set data_dir = `readlink -f "$argv[2]"`; shift argv; breaksw
    case -o:
       # For now, this only works on GNU Linux systems
-      # Ensure analysis_dir is not a relative path
-      set analysis_dir = `readlink -f "$argv[2]"`; shift argv; breaksw
+      # Ensure output_dir is not a relative path
+      set output_dir = `readlink -f "$argv[2]"`; shift argv; breaksw
    case -W:
       set do_wsfc = "n"; breaksw
    case -w:
@@ -90,17 +96,17 @@ if (`hostname -d` == "princeton.rdhpcs.noaa.gov") then
 endif
 
 if ($year_beg == "" || $year_end == "" || $expname == "" || \
-    $data_dir == "" || $analysis_dir == "") then
+    $data_dir == "" || $output_dir == "") then
    echo "Error: These options need values -- please consult the help screen (-h):"
    echo "Beginning year (-b): $year_beg"
    echo "Ending year (-e): $year_end"
    echo "Experiment (-n): $expname"
    echo "Input directory (-i): $data_dir"
-   echo "Output directory (-o): $analysis_dir"
+   echo "Output directory (-o): $output_dir"
    exit 1
 endif
 
-set analysis_dir = $analysis_dir/atmos_${year_beg}_${year_end}/Zhao.TC
+set output_dir = $output_dir/atmos_${year_beg}_${year_end}/Zhao.TC
 
 if ($gfdl) then
    source $MODULESHOME/init/csh
@@ -112,25 +118,25 @@ if ($gfdl) then
    module load nco
 endif
 
-set tstorms_driver = $SCRIPT_ROOT/tstorms_driver/tstorms_driver.exe
-set hurricane_cat1to5_output = ${analysis_dir}/hurricanes_cat1-5_wsfc/
-set hurricane_cat3to5_output = ${analysis_dir}/hurricanes_cat3-5_wsfc/
-set hurricane_cat4to5_output = ${analysis_dir}/hurricanes_cat4-5_wsfc/
+set tstorms_driver = $LIBEXEC_DIR/tstorms_driver@EXEEXT@
+set hurricane_cat1to5_output = ${output_dir}/hurricanes_cat1-5_wsfc/
+set hurricane_cat3to5_output = ${output_dir}/hurricanes_cat3-5_wsfc/
+set hurricane_cat4to5_output = ${output_dir}/hurricanes_cat4-5_wsfc/
 
 if ( "$do_wsfc" == "y" ) then
-   set cyclones_dir = $analysis_dir/cyclones_wsfc
-   set tstorms_dir = $analysis_dir/tropical_storms_wsfc/
+   set cyclones_dir = $output_dir/cyclones_wsfc
+   set tstorms_dir = $output_dir/tropical_storms_wsfc/
    if ( ! -e $tstorms_dir  ) mkdir -p $tstorms_dir
 else
-   set cyclones_dir = $analysis_dir/cyclones_w850
+   set cyclones_dir = $output_dir/cyclones_w850
 endif
 
 if ( ! -e $cyclones_dir  ) mkdir -p $cyclones_dir
 
-set TSTORM_TEMP = $TMPDIR/$analysis_dir
+set TSTORM_TEMP = $TMPDIR/$output_dir
 
 if ($gfdl) then
-   set TSTORM_TEMP = $FTMPDIR/$analysis_dir
+   set TSTORM_TEMP = $FTMPDIR/$output_dir
 endif
 mkdir -p $TSTORM_TEMP
 cd $TSTORM_TEMP
@@ -341,7 +347,7 @@ end
 
 if ( "$do_wsfc" == "y" ) then
    echo "beginning hurricane trajectory code..."
-   set trajectory_analysis  = $SCRIPT_ROOT/trajectory_analysis/trajectory_analysis_csc.exe
+   set trajectory_analysis  = $LIBEXEC_DIR/trajectory_analysis_csc@EXEEXT@
 
    cat << eof > nml_traj
 &input
@@ -356,8 +362,8 @@ if ( "$do_wsfc" == "y" ) then
    slat       =-70.
    do_spline  = .false.
    do_thickness = .false.
-   landmask_file = '$SCRIPT_ROOT/trajectory_analysis/landsea.map'
-   cmask_file = '$SCRIPT_ROOT/trajectory_analysis/imask_2'
+   landmask_file = '$LIBEXEC_DIR/landsea.map'
+   cmask_file = '$LIBEXEC_DIR/imask_2'
 &end
 eof
 

@@ -1,12 +1,10 @@
-
+%% What does thie function do?
+%%
+%% I know it opens a set of netcdf files, and then does something to them.
+%% Will need to get more information from miz later
 function dotraj_new
 
-% $$$ inmod ='/archive/miz2/GCM/omsk/c90l32_test2/analysis/tropical_storm/figures/'
-% $$$ outdir='/archive/miz2/GCM/omsk/c90l32_test2/analysis/tropical_storm/figures/tropical_cyclone/'
-% $$$ yr_beg=1981
-% $$$ yr_end=2005
-% $$$ expname='c90l32_test2';
-
+%% Open configuration file, generated from tropical_storms_wsfc script
 fid     = fopen('dotraj_nml');
 expname = fscanf(fid, '%s', 1)
 inmod   = fscanf(fid, '%s', 1)
@@ -18,19 +16,28 @@ yr_end  = fscanf(fid, '%d', 1)
 wind_th = fscanf(fid, '%d', 1)
 fclose(fid);
 
-%str=strcat('mkdir?',outdir); str(str=='?')=' '; system(str);
-%path (path,'/home/miz/AM2p12b/analysis/miztstorm/mizscripts/matlab/')
-path (path,'/home/miz/AM2p12b/mata_dotraj/')
+% I think some additional matlab scripts are collected from this directory
+%TODO: find out what files are used from this location, and get them into the package
+%path (path,'/home/miz/AM2p12b/mata_dotraj/')
 
 %nc64startup; 
+%% Extract data from a base AM2p12b atmos.static.nc file
+%TODO: Move this netcdf file
 fnstatic='/home/miz/AM2p12b/analysis/miztstorm/scripts/atmos.static.nc';
-f =netcdf(fnstatic,'nowrite');
-ncvars = var(f); latname='lat'; lonname='lon';
-v.lat =f{latname}(:); v.lon=f{lonname}(:); 
-v.lm=f{'land_mask'}(:,:); v.lm(v.lm>=0.5)=1; v.lm(v.lm<0.5)=0;
-v.nlat=length(v.lat); v.nlon=length(v.lon); v.ngrid=v.nlat*v.nlon;
-close(f); 
+%% Get the lat/lon variables
+v.lat = ncread(fnstatic, 'lat');
+v.lon = ncread(fnstatic, 'lon');
+%% Get the land_mask variable
+v.lm = ncread(fnstatic, 'land_mask');
+%% If 'land_mask' contains real, convert to an integer mask
+v.lm(v.lm>=0.5)=1;
+v.lm(v.lm<0.5)=0;
+%% Get the length of lat/lon and the size of the grid
+v.nlat=length(v.lat);
+v.nlon=length(v.lon);
+v.ngrid=v.nlat*v.nlon;
 
+%TODO: Need to figure out this as well, and bring in whatever files are needed!
 %comment out to use ibtrac: inobs='/home/miz/AM2p12b/analysis/miztstorm/obs/';
 inobs='/home/miz/AM2p12b/analysis/ibtracs/';
 
@@ -38,10 +45,6 @@ n2=0; m2=0;
 for yr=yr_beg:yr_end
   ts   =rdtraj_new(inmod,outc15, outc35, outc45, yr, 'mod',v,wind_th);
   tsobs=rdtraj_new(inobs,outc15, outc35, outc45, yr, 'obs',v,33);
-%  plottraj(v, ts, tsobs, inmod); 
-%  plottraj_monthly(v, ts, tsobs, inmod); 
-%  ts    = regions(ts,'mod');
-%  tsobs = regions(tsobs,'obs');
   ts    = regions_ibtrac(ts,'mod');
   tsobs = regions_ibtrac(tsobs,'obs');
   n1=n2+1; n2=n1+length(ts)   -1; v.tr   (n1:n2)=ts;
@@ -97,5 +100,4 @@ set(gca,'YDir','reverse','FontSize',fsize);
 printit(visfig,inmod,'wind_pres','scatter');
 
 exit
-
 
