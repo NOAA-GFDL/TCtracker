@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+
+# **********************************************************************
+# TCtracker - Tropical Storm Detection
+# Copyright (C) 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Kyle Olivo, Keren Rosado and Seth Underwood
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+# **********************************************************************
+
+import argparse
+import pathlib
+import os
+import tempfile
+import subprocess
+
+def str2bool(v):
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+def cat_files(inDir, beg_year, end_year):
+    #TODO: Add try/except around opens.
+    # Concatenate all `ori_YYYY` files into a single `ori` file
+    with open('ori', 'w') as outfile:
+        for year in range(beg_year, end_year):
+            fname=os.path.join(inDir, "ori_{:04d}".format(year))
+            with open(fname) as infile:
+                outfile.write(infile.read())
+
+def run_stats(inDir, outDir, beg_year, end_year, statType):
+    # Create a temporary working directory, and chdir to that directory
+    workDir=tempfile.TemporaryDirectory(prefix=os.path.basename(__file__)+'-')
+    os.chdir(workDir.name)
+    # Directory that contains additional scripts/executables
+    my_libexec_path = '@pkglibexecdir@'
+    # Concatinate all ori_YYYY files into a single ori file
+    cat_files(inDir, beg_year, end_year)
+    # Run the ori_stat executable
+    subprocess.run([os.path.join(my_libexec_path, 'stat_ori_mask')], input=b'&input /\n')
+    os.rename('stat_mo', os.path.join(outDir, 'stats_{0}_{1:04d}-{2:04d}'.format(statType, beg_year, end_year)))
+
+argparser = argparse.ArgumentParser()
+argparser.add_argument("-o",
+                       metavar="outDir",
+                       help="Directory to place output file",
+                       type=pathlib.Path,
+                       dest="outDir",
+                       default=os.getcwd())
+argparser.add_argument("inDir",
+                        help="Directory where tropical storm data are available",
+                        metavar="inDir",
+                        type=pathlib.Path)
+argparser.add_argument("beg_year",
+                        help="First year to process",
+                        metavar="beg_year",
+                        type=int)
+argparser.add_argument("end_year",
+                        help="Last year to process",
+                        metavar="end_year",
+                        type=int)
+argparser.add_argument("do_obs",
+                        help="Perform observation analysis using data in `obsDir`",
+                        metavar="do_obs",
+                        default="False",
+                        nargs='?',
+                        type=str2bool)
+argparser.add_argument("obsDir",
+                        help="Directory that contains the observational data",
+                        metavar="obsDir",
+                        type=pathlib.Path)
+args = argparser.parse_args()
+
+
+run_stats(args.inDir, args.outDir, args.beg_year, args.end_year, 'model')
+if args.do_obs:
+    run_stats(args.obsDir, args.outDir, args.beg_year, args.end_year, 'obs')

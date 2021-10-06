@@ -1,0 +1,38 @@
+# **********************************************************************
+# TCtracker - Tropical Storm Detection
+# Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Kyle Olivo, Keren Rosado and Seth Underwood
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+# **********************************************************************
+AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR)
+
+pkglibexec_PROGRAMS = stat_ori_mask
+nodist_pkglibexec_SCRIPTS = ori_stat.py
+nodist_stat_ori_mask_SOURCES = stat_ori_mask.f90
+BUILT_SOURCES = stat_ori_mask.f90 ori_stat.py
+EXTRA_DIST = stat_ori_mask.f90.in ori_stat.py.in
+
+%.f90: %.f90.in Makefile
+	$(do_subst) < $< > $@
+%.py: %.py.in Makefile
+	$(do_subst) < $< > $@
+
+include $(top_srcdir)/mkmods.mk
+include $(top_srcdir)/subst.mk
+
+clean-local:
+	-rm -rf $(BUILT_SOURCES)

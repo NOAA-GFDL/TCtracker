@@ -50,11 +50,11 @@ while ("$argv[1]" != "--")
    case -i:
       # For now, this only works on GNU Linux systems
       # Ensure data_dir is not a relative path
-      set data_dir = `readlink -f "$argv[2]"`; shift argv; breaksw
+      set data_dir = `perl -e 'use Cwd "abs_path";print abs_path(shift)' "$argv[2]"`; shift argv; breaksw
    case -o:
       # For now, this only works on GNU Linux systems
       # Ensure output_dir is not a relative path
-      set output_dir = `readlink -f "$argv[2]"`; shift argv; breaksw
+      set output_dir = `perl -e 'use Cwd "abs_path";print abs_path(shift)' "$argv[2]"`; shift argv; breaksw
    case -W:
       set do_wsfc = "n"; breaksw
    case -w:
