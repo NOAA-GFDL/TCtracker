@@ -48,13 +48,11 @@ while ("$argv[1]" != "--")
    case -n:
       set expname = "$argv[2]"; shift argv; breaksw
    case -i:
-      # For now, this only works on GNU Linux systems
       # Ensure data_dir is not a relative path
-      set data_dir = `perl -e 'use Cwd "abs_path";print abs_path(shift)' "$argv[2]"`; shift argv; breaksw
+      set data_dir = `perl -e 'use File::Spec;print File::Spec->canonpath(shift)' "$argv[2]"`; shift argv; breaksw
    case -o:
-      # For now, this only works on GNU Linux systems
       # Ensure output_dir is not a relative path
-      set output_dir = `perl -e 'use Cwd "abs_path";print abs_path(shift)' "$argv[2]"`; shift argv; breaksw
+      set output_dir = `perl -e 'use File::Spec;print File::Spec->canonpath(shift)' "$argv[2]"`; shift argv; breaksw
    case -W:
       set do_wsfc = "n"; breaksw
    case -w:
@@ -103,6 +101,12 @@ if ($year_beg == "" || $year_end == "" || $expname == "" || \
    echo "Experiment (-n): $expname"
    echo "Input directory (-i): $data_dir"
    echo "Output directory (-o): $output_dir"
+   exit 1
+endif
+
+# Check if data_dir exists
+if ( ! -e $data_dir) then
+   echo "Input directory '$data_dir' does not exist"
    exit 1
 endif
 
@@ -391,7 +395,7 @@ eof
          cp $cyclone_file cyclones
       endif
       set cyclone_filename = $cyclone_file:t
-      set year = `echo $cyclone_filename | awk -F "_" '{print $NF}'`
+      set year = `echo $cyclone_filename | awk -F "_" '{print $NF}'` # also needed for plot scripts below
       $trajectory_analysis < nml_traj
       if ($? != 0) then
          echo "ERROR: trajectory analysis failed.  Giving up"
@@ -406,3 +410,19 @@ eof
       rm trav
       rm stats
    end
+
+   # Do plots
+   # Determine the type of experiment [clim|obs]
+   if ( ($obs_first_year < 1950 ) || ( $obs_first_year > 2005 ) ) then
+      set experiment_type = clim
+   else
+      set experiment_type = obs
+   endif
+
+   echo "generating stats and plots"
+   if ( $experiment_type == obs ) then
+      $LIBEXEC_DIR/ori_stat.py $tstorms_dir $obs_first_year $year true $ibtrax_dir/obs
+   else
+      $LIBEXEC_DIR/ori_stat.py $tstorms_dir $obs_first_year $year false
+   endif
+endif
