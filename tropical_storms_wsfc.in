@@ -421,8 +421,8 @@ eof
 
    echo "generating stats and plots"
    if ( $experiment_type == obs ) then
-      $LIBEXEC_DIR/ori_stat.py $tstorms_dir $obs_first_year $year true $ibtrax_dir/obs
+      $LIBEXEC_DIR/ori_stat.py $ibtrax_dir/obs $obs_first_year $year 'obs'
    else
-      $LIBEXEC_DIR/ori_stat.py $tstorms_dir $obs_first_year $year false
+      $LIBEXEC_DIR/ori_stat.py $tstorms_dir $obs_first_year $year 'model'
    endif
 endif

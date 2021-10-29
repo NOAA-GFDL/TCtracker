@@ -20,11 +20,21 @@
 # **********************************************************************
 AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR)
 
-pkglibexec_PROGRAMS = stat_ori_mask
 nodist_pkglibexec_SCRIPTS = ori_stat.py
+pkglibexec_PROGRAMS = \
+  stat_ori_mask \
+  freq_ori
+
+freq_ori_SOURCES = freq_ori.f90
+
 nodist_stat_ori_mask_SOURCES = stat_ori_mask.f90
-BUILT_SOURCES = stat_ori_mask.f90 ori_stat.py
-EXTRA_DIST = stat_ori_mask.f90.in ori_stat.py.in
+
+BUILT_SOURCES = \
+  stat_ori_mask.f90 \
+  ori_stat.py
+EXTRA_DIST = \
+  stat_ori_mask.f90.in \
+  ori_stat.py.in
 
 %.f90: %.f90.in Makefile
 	$(do_subst) < $< > $@

@@ -26,11 +26,11 @@ else
 #--------------------------------------------------
    set indir    = $1 ; shift
    set outpix   = $1 ; shift
-   set year_beg = $1 ; shift                                          
-   set year_end = $1 ; shift        
+   set year_beg = $1 ; shift
+   set year_end = $1 ; shift
    set exp1     = $1 ; shift
    set exp0     = $1 ; shift
-   set opt      = $1                         
+   set opt      = $1
 #--------------------------------------------------
 endif
 
@@ -75,8 +75,8 @@ sed -e "s/TITLE/$exp1/" $xparam > xparam_updt
 #============================================================
 
 cat << eof > nml_long
- &input 
-   do_40ns = .true., 
+ &input
+   do_40ns = .true.,
    do_map  = .false.,
    do_lon  = .true.,
    do_lat  = .false.,
@@ -246,12 +246,12 @@ if ( $blind == y ) then
     gracebat $xarg $xdat
 else
     xmgrace $xarg $xdat
-endif 
+endif
 
 if ( -e snapshot.ps ) then
-   gzip snapshot.ps 
+   gzip snapshot.ps
    mv   snapshot.ps.gz $outpix
-endif 
+endif
 
 #======================================================================
 rm -f freq_ori.exe

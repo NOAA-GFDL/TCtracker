@@ -56,38 +56,33 @@ def run_stats(inDir, outDir, beg_year, end_year, statType):
     subprocess.run([os.path.join(my_libexec_path, 'stat_ori_mask')], input=b'&input /\n')
     os.rename('stat_mo', os.path.join(outDir, 'stats_{0}_{1:04d}-{2:04d}'.format(statType, beg_year, end_year)))
 
-argparser = argparse.ArgumentParser()
-argparser.add_argument("-o",
-                       metavar="outDir",
-                       help="Directory to place output file",
-                       type=pathlib.Path,
-                       dest="outDir",
-                       default=os.getcwd())
-argparser.add_argument("inDir",
+if __name__ ==  "__main__":
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument("-o",
+                           metavar="outDir",
+                           help="Directory to place output file",
+                           type=pathlib.Path,
+                           dest="outDir",
+                           default=os.getcwd())
+    argparser.add_argument("inDir",
                         help="Directory where tropical storm data are available",
                         metavar="inDir",
                         type=pathlib.Path)
-argparser.add_argument("beg_year",
+    argparser.add_argument("beg_year",
                         help="First year to process",
                         metavar="beg_year",
                         type=int)
-argparser.add_argument("end_year",
+    argparser.add_argument("end_year",
                         help="Last year to process",
                         metavar="end_year",
                         type=int)
-argparser.add_argument("do_obs",
-                        help="Perform observation analysis using data in `obsDir`",
-                        metavar="do_obs",
-                        default="False",
+    argparser.add_argument("statName",
+                        help="Name of statistics type (e.g. model, obs)",
+                        metavar="name",
+                        default="model",
                         nargs='?',
-                        type=str2bool)
-argparser.add_argument("obsDir",
-                        help="Directory that contains the observational data",
-                        metavar="obsDir",
-                        type=pathlib.Path)
-args = argparser.parse_args()
+                        type=str)
+    args = argparser.parse_args()
 
 
-run_stats(args.inDir, args.outDir, args.beg_year, args.end_year, 'model')
-if args.do_obs:
-    run_stats(args.obsDir, args.outDir, args.beg_year, args.end_year, 'obs')
+    run_stats(args.inDir, args.outDir, args.beg_year, args.end_year, args.StatName)
