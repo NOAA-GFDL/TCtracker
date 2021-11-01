@@ -12,6 +12,10 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([foreign tar-pax subdir-objects])
 
 AC_PROG_SED
+AC_PATH_PROG([GRACEBAT], [gracebat], [none])
+if test "$GRACEBAT" = "none"; then
+  AC_MSG_ERROR([Unable to find gracebat command in PATH])
+fi
 
 AC_PROG_FC([gfortran ifort])
 AC_FC_MODULE_FLAG
@@ -36,6 +40,8 @@ AC_SUBST([MODDIR],[.mods])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
+                 plot_tc_csc/tstorms/Makefile
+                 plot_tc_csc/tstorms/templates/Makefile
                  trajectory_analysis/Makefile
                  tstorms_driver/Makefile
 ])

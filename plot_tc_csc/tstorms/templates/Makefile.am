@@ -18,26 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = tstorms
-
-AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR)
-
-pkglibexec_PROGRAMS = \
-  stat_ori_mask \
-  freq_ori
-
-freq_ori_SOURCES = freq_ori.f90
-
-nodist_stat_ori_mask_SOURCES = stat_ori_mask.f90
-
-BUILT_SOURCES = \
-  stat_ori_mask.f90
-
-EXTRA_DIST = \
-  stat_ori_mask.f90.in
-
-include $(top_srcdir)/mkmods.mk
-include $(top_srcdir)/subst.mk
-
-clean-local:
-	-rm -rf $(BUILT_SOURCES)
+templatesdir = $(pkglibexecdir)/tstorms/templates
+dist_templates_DATA = \
+  geog.dat \
+  snap_shot.par

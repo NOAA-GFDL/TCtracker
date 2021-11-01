@@ -1,6 +1,7 @@
 /build
 *.o
 *.mod
+__pycache__/
 
 # http://www.gnu.org/software/automake
 

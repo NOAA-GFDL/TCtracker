@@ -420,9 +420,11 @@ eof
    endif
 
    echo "generating stats and plots"
+   setenv PYTHONPATH $LIBEXEC_DIR
    if ( $experiment_type == obs ) then
-      $LIBEXEC_DIR/ori_stat.py $ibtrax_dir/obs $obs_first_year $year 'obs'
+      python3 -m tstorms.ori_stat -o $tstorms_dir $ibtrax_dir/obs $obs_first_year $year 'obs'
+      python3 -m graph_snap_shot.py -o $tstorms_dir $tstorms_dir $ibtrax_dir/obs $first_year $last_year $expname
    else
-      $LIBEXEC_DIR/ori_stat.py $tstorms_dir $obs_first_year $year 'model'
+      python3 -m tstorms.ori_stat -o $tstorms_dir $tstorms_dir $obs_first_year $year 'model'
    endif
 endif

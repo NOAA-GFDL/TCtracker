@@ -18,23 +18,29 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = tstorms
+SUBDIRS = templates
 
-AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR)
 
-pkglibexec_PROGRAMS = \
-  stat_ori_mask \
-  freq_ori
-
-freq_ori_SOURCES = freq_ori.f90
-
-nodist_stat_ori_mask_SOURCES = stat_ori_mask.f90
+tstormspydir = $(pkglibexecdir)/tstorms
+dist_tstormspy_DATA = \
+  __init__.py \
+  argparse.py \
+  graph_snap_shot.py \
+  StormBox.py
+nodist_tstormspy_DATA = \
+  graph_snap_shot.py \
+  ori_stat.py
 
 BUILT_SOURCES = \
-  stat_ori_mask.f90
+  graph_snap_shot.py \
+  ori_stat.py
 
 EXTRA_DIST = \
-  stat_ori_mask.f90.in
+  graph_snap_shot.py.in \
+  ori_stat.py.in
+
+ori_stat.py: ori_stat.py.in
+graph_snap_shot.py: graph_snap_shot.py.in
 
 include $(top_srcdir)/mkmods.mk
 include $(top_srcdir)/subst.mk

@@ -1,0 +1,2152 @@
+# Grace project file
+#
+version 50002
+page size 792 612
+page scroll 5%
+page inout 5%
+link page off
+map font 0 to "Times-Roman", "Times-Roman"
+map font 1 to "Times-Italic", "Times-Italic"
+map font 2 to "Times-Bold", "Times-Bold"
+map font 3 to "Times-BoldItalic", "Times-BoldItalic"
+map font 4 to "Helvetica", "Helvetica"
+map font 5 to "Helvetica-Oblique", "Helvetica-Oblique"
+map font 6 to "Helvetica-Bold", "Helvetica-Bold"
+map font 7 to "Helvetica-BoldOblique", "Helvetica-BoldOblique"
+map font 8 to "Courier", "Courier"
+map font 9 to "Courier-Oblique", "Courier-Oblique"
+map font 10 to "Courier-Bold", "Courier-Bold"
+map font 11 to "Courier-BoldOblique", "Courier-BoldOblique"
+map font 12 to "Symbol", "Symbol"
+map font 13 to "ZapfDingbats", "ZapfDingbats"
+map color 0 to (255, 255, 255), "white"
+map color 1 to (0, 0, 0), "black"
+map color 2 to (255, 0, 0), "red"
+map color 3 to (0, 255, 0), "green"
+map color 4 to (0, 0, 255), "blue"
+map color 5 to (255, 255, 0), "yellow"
+map color 6 to (188, 143, 143), "brown"
+map color 7 to (220, 220, 220), "grey"
+map color 8 to (148, 0, 211), "violet"
+map color 9 to (0, 255, 255), "cyan"
+map color 10 to (255, 0, 255), "magenta"
+map color 11 to (255, 165, 0), "orange"
+map color 12 to (114, 33, 188), "indigo"
+map color 13 to (103, 7, 72), "maroon"
+map color 14 to (64, 224, 208), "turquoise"
+map color 15 to (0, 139, 0), "green4"
+default linewidth 1.0
+default linestyle 1
+default color 1
+default pattern 1
+default font 0
+default char size 1.000000
+default symbol size 1.000000
+background color 0
+page background fill on
+timestamp off
+timestamp 0.03, 0.03
+timestamp color 1
+timestamp rot 0
+timestamp font 0
+timestamp char size 1.000000
+timestamp def "Wed Nov 26 08:06:23 2003"
+r0 type above
+r0 linestyle 1
+r0 linewidth 1.0
+r0 color 1
+r0 line 0, 0, 0, 0
+r1 type above
+r1 linestyle 1
+r1 linewidth 1.0
+r1 color 1
+r1 line 0, 0, 0, 0
+r2 type above
+r2 linestyle 1
+r2 linewidth 1.0
+r2 color 1
+r2 line 0, 0, 0, 0
+r3 type above
+r3 linestyle 1
+r3 linewidth 1.0
+r3 color 1
+r3 line 0, 0, 0, 0
+r4 type above
+r4 linestyle 1
+r4 linewidth 1.0
+r4 color 1
+r4 line 0, 0, 0, 0
+g0 on
+g0 hidden false
+g0 type XY
+g0 stacked false
+g0 bar hgap 0.000000
+g0 fixedpoint off
+g0 fixedpoint type 0
+g0 fixedpoint xy 0.000000, 0.000000
+g0 fixedpoint format general general
+g0 fixedpoint prec 6, 6
+with g0
+    world xmin 0
+    world xmax 360
+    world ymin -40
+    world ymax 40
+    stack world 0, 0, 0, 0
+    view xmin 0.120000
+    view xmax 0.620000
+    view ymin 0.100000
+    view ymax 0.235000
+    title ""
+    title font 0
+    title size 1.500000
+    title color 1
+    subtitle "Obs"
+    subtitle font 2
+    subtitle size 1.000000
+    subtitle color 1
+    autoscale onread none
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 60
+    xaxis  tick minor ticks 1
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 7
+    xaxis  tick minor linewidth 2.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid on
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type auto
+    xaxis  tick type auto
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label ""
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 0
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 20
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 2.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.85
+    legend y1 0.8
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 1.0
+    legend box linestyle 1
+    legend box fill color 0
+    legend box fill pattern 1
+    legend font 0
+    legend char size 1.000000
+    legend color 1
+    legend length 4
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 1
+    s0 symbol size 0.070000
+    s0 symbol color 13
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 0
+    s0 line linestyle 1
+    s0 line linewidth 1.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "geog.dat"
+    s0 legend  ""
+    s1 hidden false
+    s1 type xy
+    s1 symbol 10
+    s1 symbol size 0.200000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 0
+    s1 line linestyle 1
+    s1 line linewidth 1.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xmap_1"
+    s1 legend  ""
+g1 on
+g1 hidden false
+g1 type XY
+g1 stacked false
+g1 bar hgap 0.000000
+g1 fixedpoint off
+g1 fixedpoint type 0
+g1 fixedpoint xy 0.000000, 0.000000
+g1 fixedpoint format general general
+g1 fixedpoint prec 6, 6
+with g1
+    world xmin 0
+    world xmax 360
+    world ymin 0
+    world ymax 4
+    stack world 0, 0, 0, 0
+    view xmin 0.120000
+    view xmax 0.620000
+    view ymin 0.350000
+    view ymax 0.490000
+    title ""
+    title font 0
+    title size 1.500000
+    title color 1
+    subtitle ""
+    subtitle font 2
+    subtitle size 1.000000
+    subtitle color 1
+    autoscale onread yaxes
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 60
+    xaxis  tick minor ticks 1
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 7
+    xaxis  tick minor linewidth 2.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid on
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type auto
+    xaxis  tick type auto
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label "By Longitude"
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 2
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 1
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 1.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.5
+    legend y1 0.8
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 1.0
+    legend box linestyle 1
+    legend box fill color 1
+    legend box fill pattern 0
+    legend font 0
+    legend char size 1.000000
+    legend color 1
+    legend length 4
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 0
+    s0 symbol size 1.000000
+    s0 symbol color 1
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 1
+    s0 line linestyle 1
+    s0 line linewidth 2.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "xlon_nh"
+    s0 legend  ""
+    s1 hidden false
+    s1 type xy
+    s1 symbol 0
+    s1 symbol size 1.000000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 1
+    s1 line linestyle 1
+    s1 line linewidth 2.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xlon_nh"
+    s1 legend  ""
+g2 on
+g2 hidden false
+g2 type XY
+g2 stacked false
+g2 bar hgap 0.000000
+g2 fixedpoint off
+g2 fixedpoint type 0
+g2 fixedpoint xy 0.000000, 0.000000
+g2 fixedpoint format general general
+g2 fixedpoint prec 6, 6
+with g2
+    world xmin 1
+    world xmax 12
+    world ymin 0
+    world ymax 15
+    stack world 0, 0, 0, 0
+    view xmin 0.120000
+    view xmax 0.620000
+    view ymin 0.550000
+    view ymax 0.690000
+    title ""
+    title font 0
+    title size 1.500000
+    title color 1
+    subtitle ""
+    subtitle font 2
+    subtitle size 1.000000
+    subtitle color 1
+    autoscale onread yaxes
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 1
+    xaxis  tick minor ticks 0
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 1
+    xaxis  tick minor linewidth 1.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid off
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type spec
+    xaxis  tick type spec
+    xaxis  tick spec 12
+    xaxis  tick major 0, 1
+    xaxis  ticklabel 0, "J"
+    xaxis  tick major 1, 2
+    xaxis  ticklabel 1, "F"
+    xaxis  tick major 2, 3
+    xaxis  ticklabel 2, "M"
+    xaxis  tick major 3, 4
+    xaxis  ticklabel 3, "A"
+    xaxis  tick major 4, 5
+    xaxis  ticklabel 4, "M"
+    xaxis  tick major 5, 6
+    xaxis  ticklabel 5, "J"
+    xaxis  tick major 6, 7
+    xaxis  ticklabel 6, "J"
+    xaxis  tick major 7, 8
+    xaxis  ticklabel 7, "A"
+    xaxis  tick major 8, 9
+    xaxis  ticklabel 8, "S"
+    xaxis  tick major 9, 10
+    xaxis  ticklabel 9, "O"
+    xaxis  tick major 10, 11
+    xaxis  ticklabel 10, "N"
+    xaxis  tick major 11, 12
+    xaxis  ticklabel 11, "D"
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label "Seasonal Cycle"
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 2
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 5
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 1.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.12
+    legend y1 0.69
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 1.0
+    legend box linestyle 0
+    legend box fill color 1
+    legend box fill pattern 0
+    legend font 2
+    legend char size 0.750000
+    legend color 1
+    legend length 3
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 0
+    s0 symbol size 1.000000
+    s0 symbol color 1
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 1
+    s0 line linestyle 1
+    s0 line linewidth 2.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "xscyc_nh"
+    s0 legend  "mean = {{ NH_OBS_MEAN }}"
+    s1 hidden false
+    s1 type xy
+    s1 symbol 0
+    s1 symbol size 1.000000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 1
+    s1 line linestyle 1
+    s1 line linewidth 2.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xscyc_nh"
+    s1 legend  "mean = {{ NH_MODEL_MEAN }}"
+g3 on
+g3 hidden false
+g3 type XY
+g3 stacked false
+g3 bar hgap 0.000000
+g3 fixedpoint off
+g3 fixedpoint type 0
+g3 fixedpoint xy 0.000000, 0.000000
+g3 fixedpoint format general general
+g3 fixedpoint prec 6, 6
+with g3
+    world xmin {{ BEG_YEAR-1 | int }}
+    world xmax {{ END_YEAR | int }}
+    world ymin 0
+    world ymax 80
+    stack world 0, 0, 0, 0
+    view xmin 0.120000
+    view xmax 0.620000
+    view ymin 0.750000
+    view ymax 0.890000
+    title "{{ PLOT_TITLE }}"
+    title font 2
+    title size 1.100000
+    title color 1
+    subtitle "Northern Hemisphere"
+    subtitle font 2
+    subtitle size 1.000000
+    subtitle color 1
+    autoscale onread yaxes
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 2
+    xaxis  tick minor ticks 1
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 7
+    xaxis  tick minor linewidth 2.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid on
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type auto
+    xaxis  tick type auto
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label "Time Series"
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 2
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 20
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 1.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.58
+    legend y1 0.99
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 2.0
+    legend box linestyle 0
+    legend box fill color 1
+    legend box fill pattern 0
+    legend font 2
+    legend char size 1.000000
+    legend color 1
+    legend length 4
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 0
+    s0 symbol size 1.000000
+    s0 symbol color 1
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 1
+    s0 line linestyle 1
+    s0 line linewidth 2.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "xts_nh"
+    s0 legend  "Obs"
+    s1 hidden false
+    s1 type xy
+    s1 symbol 0
+    s1 symbol size 1.000000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 1
+    s1 line linestyle 1
+    s1 line linewidth 2.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xts_nh"
+    s1 legend  "Model"
+g4 on
+g4 hidden false
+g4 type XY
+g4 stacked false
+g4 bar hgap 0.000000
+g4 fixedpoint off
+g4 fixedpoint type 0
+g4 fixedpoint xy 0.000000, 0.000000
+g4 fixedpoint format general general
+g4 fixedpoint prec 6, 6
+with g4
+    world xmin 0
+    world xmax 360
+    world ymin -40
+    world ymax 40
+    stack world 0, 0, 0, 0
+    view xmin 0.700000
+    view xmax 1.200000
+    view ymin 0.100000
+    view ymax 0.235000
+    title ""
+    title font 0
+    title size 1.500000
+    title color 1
+    subtitle "Model"
+    subtitle font 2
+    subtitle size 1.100000
+    subtitle color 1
+    autoscale onread none
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 60
+    xaxis  tick minor ticks 1
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 7
+    xaxis  tick minor linewidth 2.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid on
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type auto
+    xaxis  tick type auto
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label ""
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 0
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 20
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 1.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.5
+    legend y1 0.8
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 1.0
+    legend box linestyle 1
+    legend box fill color 1
+    legend box fill pattern 0
+    legend font 0
+    legend char size 1.000000
+    legend color 1
+    legend length 4
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 1
+    s0 symbol size 0.070000
+    s0 symbol color 13
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 0
+    s0 line linestyle 1
+    s0 line linewidth 1.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "xmap_2"
+    s0 legend  ""
+    s1 hidden false
+    s1 type xy
+    s1 symbol 10
+    s1 symbol size 0.200000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 0
+    s1 line linestyle 1
+    s1 line linewidth 1.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xmap_2"
+    s1 legend  ""
+g5 on
+g5 hidden false
+g5 type XY
+g5 stacked false
+g5 bar hgap 0.000000
+g5 fixedpoint off
+g5 fixedpoint type 0
+g5 fixedpoint xy 0.000000, 0.000000
+g5 fixedpoint format general general
+g5 fixedpoint prec 6, 6
+with g5
+    world xmin 0
+    world xmax 360
+    world ymin 0
+    world ymax 4
+    stack world 0, 0, 0, 0
+    view xmin 0.700000
+    view xmax 1.200000
+    view ymin 0.350000
+    view ymax 0.490000
+    title ""
+    title font 0
+    title size 1.500000
+    title color 1
+    subtitle ""
+    subtitle font 2
+    subtitle size 1.000000
+    subtitle color 1
+    autoscale onread yaxes
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 60
+    xaxis  tick minor ticks 1
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 7
+    xaxis  tick minor linewidth 2.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid on
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type auto
+    xaxis  tick type auto
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label ""
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 0
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 1
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 1.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.5
+    legend y1 0.8
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 1.0
+    legend box linestyle 1
+    legend box fill color 1
+    legend box fill pattern 0
+    legend font 0
+    legend char size 1.000000
+    legend color 1
+    legend length 4
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 0
+    s0 symbol size 1.000000
+    s0 symbol color 1
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 1
+    s0 line linestyle 1
+    s0 line linewidth 2.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "xlon_sh"
+    s0 legend  ""
+    s1 hidden false
+    s1 type xy
+    s1 symbol 0
+    s1 symbol size 1.000000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 1
+    s1 line linestyle 1
+    s1 line linewidth 2.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xlon_sh"
+    s1 legend  ""
+g6 on
+g6 hidden false
+g6 type XY
+g6 stacked false
+g6 bar hgap 0.000000
+g6 fixedpoint off
+g6 fixedpoint type 0
+g6 fixedpoint xy 0.000000, 0.000000
+g6 fixedpoint format general general
+g6 fixedpoint prec 6, 6
+with g6
+    world xmin 1
+    world xmax 12
+    world ymin 0
+    world ymax 15
+    stack world 0, 0, 0, 0
+    view xmin 0.700000
+    view xmax 1.200000
+    view ymin 0.550000
+    view ymax 0.690000
+    title ""
+    title font 0
+    title size 1.500000
+    title color 1
+    subtitle ""
+    subtitle font 2
+    subtitle size 1.000000
+    subtitle color 1
+    autoscale onread yaxes
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 1
+    xaxis  tick minor ticks 0
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 1
+    xaxis  tick minor linewidth 1.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid off
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type spec
+    xaxis  tick type spec
+    xaxis  tick spec 12
+    xaxis  tick major 0, 1
+    xaxis  ticklabel 0, "J"
+    xaxis  tick major 1, 2
+    xaxis  ticklabel 1, "A"
+    xaxis  tick major 2, 3
+    xaxis  ticklabel 2, "S"
+    xaxis  tick major 3, 4
+    xaxis  ticklabel 3, "O"
+    xaxis  tick major 4, 5
+    xaxis  ticklabel 4, "N"
+    xaxis  tick major 5, 6
+    xaxis  ticklabel 5, "D"
+    xaxis  tick major 6, 7
+    xaxis  ticklabel 6, "J"
+    xaxis  tick major 7, 8
+    xaxis  ticklabel 7, "F"
+    xaxis  tick major 8, 9
+    xaxis  ticklabel 8, "M"
+    xaxis  tick major 9, 10
+    xaxis  ticklabel 9, "A"
+    xaxis  tick major 10, 11
+    xaxis  ticklabel 10, "M"
+    xaxis  tick major 11, 12
+    xaxis  ticklabel 11, "J"
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label ""
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 0
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 5
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 1.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.7
+    legend y1 0.69
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 1.0
+    legend box linestyle 0
+    legend box fill color 1
+    legend box fill pattern 0
+    legend font 2
+    legend char size 0.750000
+    legend color 1
+    legend length 3
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 0
+    s0 symbol size 1.000000
+    s0 symbol color 1
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 1
+    s0 line linestyle 1
+    s0 line linewidth 2.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "xscyc_sh"
+    s0 legend  "mean = {{ SH_OBS_MEAN }}"
+    s1 hidden false
+    s1 type xy
+    s1 symbol 0
+    s1 symbol size 1.000000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 1
+    s1 line linestyle 1
+    s1 line linewidth 2.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xscyc_sh"
+    s1 legend  "mean = {{ SH_MODEL_MEAN }}"
+g7 on
+g7 hidden false
+g7 type XY
+g7 stacked false
+g7 bar hgap 0.000000
+g7 fixedpoint off
+g7 fixedpoint type 0
+g7 fixedpoint xy 0.000000, 0.000000
+g7 fixedpoint format general general
+g7 fixedpoint prec 6, 6
+with g7
+    world xmin {{ BEG_YEAR-1 | int }}
+    world xmax {{ END_YEAR | int }}
+    world ymin 0
+    world ymax 80
+    stack world 0, 0, 0, 0
+    view xmin 0.700000
+    view xmax 1.200000
+    view ymin 0.750000
+    view ymax 0.890000
+    title ""
+    title font 2
+    title size 1.100000
+    title color 1
+    subtitle "Southern Hemisphere"
+    subtitle font 2
+    subtitle size 1.000000
+    subtitle color 1
+    autoscale onread yaxes
+    xaxes scale Normal
+    yaxes scale Normal
+    xaxes invert off
+    yaxes invert off
+    xaxis  on
+    xaxis  type zero false
+    xaxis  offset 0.000000 , 0.000000
+    xaxis  bar on
+    xaxis  bar color 1
+    xaxis  bar linestyle 1
+    xaxis  bar linewidth 1.0
+    xaxis  label ""
+    xaxis  label layout para
+    xaxis  label place auto
+    xaxis  label char size 1.000000
+    xaxis  label font 0
+    xaxis  label color 1
+    xaxis  label op bottom
+    xaxis  tick off
+    xaxis  tick major 2
+    xaxis  tick minor ticks 1
+    xaxis  tick default 6
+    xaxis  tick place rounded true
+    xaxis  tick in
+    xaxis  tick major size 1.000000
+    xaxis  tick major color 7
+    xaxis  tick major linewidth 2.0
+    xaxis  tick major linestyle 1
+    xaxis  tick major grid on
+    xaxis  tick minor color 7
+    xaxis  tick minor linewidth 2.0
+    xaxis  tick minor linestyle 1
+    xaxis  tick minor grid on
+    xaxis  tick minor size 0.500000
+    xaxis  ticklabel on
+    xaxis  ticklabel prec 5
+    xaxis  ticklabel format general
+    xaxis  ticklabel append ""
+    xaxis  ticklabel prepend ""
+    xaxis  ticklabel angle 0
+    xaxis  ticklabel skip 0
+    xaxis  ticklabel stagger 0
+    xaxis  ticklabel op bottom
+    xaxis  ticklabel offset auto
+    xaxis  ticklabel offset 0.000000 , 0.010000
+    xaxis  ticklabel sign normal
+    xaxis  ticklabel start type auto
+    xaxis  ticklabel start 0.000000
+    xaxis  ticklabel stop type auto
+    xaxis  ticklabel stop 0.000000
+    xaxis  ticklabel char size 0.810000
+    xaxis  ticklabel font 2
+    xaxis  ticklabel color 1
+    xaxis  tick op both
+    xaxis  ticklabel type auto
+    xaxis  tick type auto
+    yaxis  on
+    yaxis  type zero false
+    yaxis  offset 0.000000 , 0.000000
+    yaxis  bar on
+    yaxis  bar color 1
+    yaxis  bar linestyle 1
+    yaxis  bar linewidth 1.0
+    yaxis  label ""
+    yaxis  label layout para
+    yaxis  label place auto
+    yaxis  label char size 1.000000
+    yaxis  label font 0
+    yaxis  label color 1
+    yaxis  label op left
+    yaxis  tick off
+    yaxis  tick major 20
+    yaxis  tick minor ticks 1
+    yaxis  tick default 6
+    yaxis  tick place rounded true
+    yaxis  tick in
+    yaxis  tick major size 1.000000
+    yaxis  tick major color 7
+    yaxis  tick major linewidth 2.0
+    yaxis  tick major linestyle 1
+    yaxis  tick major grid on
+    yaxis  tick minor color 1
+    yaxis  tick minor linewidth 1.0
+    yaxis  tick minor linestyle 1
+    yaxis  tick minor grid off
+    yaxis  tick minor size 0.500000
+    yaxis  ticklabel on
+    yaxis  ticklabel prec 5
+    yaxis  ticklabel format general
+    yaxis  ticklabel append ""
+    yaxis  ticklabel prepend ""
+    yaxis  ticklabel angle 0
+    yaxis  ticklabel skip 0
+    yaxis  ticklabel stagger 0
+    yaxis  ticklabel op left
+    yaxis  ticklabel offset auto
+    yaxis  ticklabel offset 0.000000 , 0.010000
+    yaxis  ticklabel sign normal
+    yaxis  ticklabel start type auto
+    yaxis  ticklabel start 0.000000
+    yaxis  ticklabel stop type auto
+    yaxis  ticklabel stop 0.000000
+    yaxis  ticklabel char size 0.810000
+    yaxis  ticklabel font 2
+    yaxis  ticklabel color 1
+    yaxis  tick op both
+    yaxis  ticklabel type auto
+    yaxis  tick type auto
+    altxaxis  off
+    altyaxis  off
+    legend on
+    legend loctype view
+    legend x1 0.5
+    legend y1 0.8
+    legend box color 1
+    legend box pattern 1
+    legend box linewidth 1.0
+    legend box linestyle 1
+    legend box fill color 1
+    legend box fill pattern 0
+    legend font 0
+    legend char size 1.000000
+    legend color 1
+    legend length 4
+    legend vgap 1
+    legend hgap 1
+    legend invert false
+    frame type 0
+    frame linestyle 1
+    frame linewidth 2.0
+    frame color 1
+    frame pattern 1
+    frame background color 0
+    frame background pattern 0
+    s0 hidden false
+    s0 type xy
+    s0 symbol 0
+    s0 symbol size 1.000000
+    s0 symbol color 1
+    s0 symbol pattern 1
+    s0 symbol fill color 1
+    s0 symbol fill pattern 0
+    s0 symbol linewidth 1.0
+    s0 symbol linestyle 1
+    s0 symbol char 65
+    s0 symbol char font 0
+    s0 symbol skip 0
+    s0 line type 1
+    s0 line linestyle 1
+    s0 line linewidth 2.0
+    s0 line color 1
+    s0 line pattern 1
+    s0 baseline type 0
+    s0 baseline off
+    s0 dropline off
+    s0 fill type 0
+    s0 fill rule 0
+    s0 fill color 1
+    s0 fill pattern 1
+    s0 avalue off
+    s0 avalue type 2
+    s0 avalue char size 1.000000
+    s0 avalue font 0
+    s0 avalue color 1
+    s0 avalue rot 0
+    s0 avalue format general
+    s0 avalue prec 3
+    s0 avalue prepend ""
+    s0 avalue append ""
+    s0 avalue offset 0.000000 , 0.000000
+    s0 errorbar off
+    s0 errorbar type both
+    s0 errorbar length 1.000000
+    s0 errorbar linewidth 1.0
+    s0 errorbar linestyle 1
+    s0 errorbar riser linewidth 1.0
+    s0 errorbar riser linestyle 1
+    s0 comment "xts_sh"
+    s0 legend  ""
+    s1 hidden false
+    s1 type xy
+    s1 symbol 0
+    s1 symbol size 1.000000
+    s1 symbol color 2
+    s1 symbol pattern 1
+    s1 symbol fill color 2
+    s1 symbol fill pattern 0
+    s1 symbol linewidth 1.0
+    s1 symbol linestyle 1
+    s1 symbol char 65
+    s1 symbol char font 0
+    s1 symbol skip 0
+    s1 line type 1
+    s1 line linestyle 1
+    s1 line linewidth 2.0
+    s1 line color 2
+    s1 line pattern 1
+    s1 baseline type 0
+    s1 baseline off
+    s1 dropline off
+    s1 fill type 0
+    s1 fill rule 0
+    s1 fill color 1
+    s1 fill pattern 1
+    s1 avalue off
+    s1 avalue type 2
+    s1 avalue char size 1.000000
+    s1 avalue font 0
+    s1 avalue color 1
+    s1 avalue rot 0
+    s1 avalue format general
+    s1 avalue prec 3
+    s1 avalue prepend ""
+    s1 avalue append ""
+    s1 avalue offset 0.000000 , 0.000000
+    s1 errorbar off
+    s1 errorbar type both
+    s1 errorbar length 1.000000
+    s1 errorbar linewidth 1.0
+    s1 errorbar linestyle 1
+    s1 errorbar riser linewidth 1.0
+    s1 errorbar riser linestyle 1
+    s1 comment "xts_sh"
+    s1 legend  ""
