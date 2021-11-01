@@ -27,7 +27,6 @@ class createDir(argparse.Action):
     """
 
     def __call__(self, parser, namespace, values, option_string=None):
-        print(f"values: '{values}'")
         if not os.path.exists(values):
             try:
                 values.mkdir(parents=True, exist_ok=True)

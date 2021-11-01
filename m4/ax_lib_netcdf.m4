@@ -98,7 +98,7 @@ AS_IF([test $with_netcdf != no],
 AC_DEFUN([_AX_C_LIB_NETCDF], [
 # Was a path to NetCDF given?
 AS_IF([test $with_netcdf != yes], [_ax_c_lib_netcdf_prefix=$with_netcdf])
-test -z ${_ax_c_lib_netcdf_prefix+x} && _ax_c_lib_netcdf_bin=$_ax_c_lib_netcdf_prefix/bin
+test ! -z ${_ax_c_lib_netcdf_prefix+x} && _ax_c_lib_netcdf_bin=$_ax_c_lib_netcdf_prefix/bin
 # Check to see if NC_CONFIG is in the path, or NETCDF_PREFIX/bin.
 AC_PATH_PROGS([NC_CONFIG], [nc-config], [], [$_ax_c_lib_netcdf_bin$PATH_SEPARATOR$PATH])
 # If nc-config found, use it to get information on the NetCDF library
@@ -238,15 +238,15 @@ AC_ARG_WITH([netcdf-fortran],
   [--with-netcdf-fortran=[yes/no/PATH]],
   [base directory of NetCDF Fortran installation])],
 [],
-[with_netcdf="yes"])
-AS_IF([test $with_netcdf != no],
+[with_netcdf_fortran="yes"])
+AS_IF([test $with_netcdf_fortran != no],
   [_AX_FC_LIB_NETCDF()])dnl
 ])
 
 AC_DEFUN([_AX_FC_LIB_NETCDF],[
 # Was a path to NetCDF given?
-AS_IF([test $with_netcdf != yes], [_ax_fc_lib_netcdf_prefix=$with_netcdf])
-test -z ${_ax_fc_lib_netcdf_prefix+x} && _ax_fc_lib_netcdf_bin=$_ax_fc_lib_netcdf_prefix/bin
+AS_IF([test $with_netcdf_fortran != yes], [_ax_fc_lib_netcdf_prefix=$with_netcdf_fortran])
+test ! -z ${_ax_fc_lib_netcdf_prefix+x} && _ax_fc_lib_netcdf_bin=$_ax_fc_lib_netcdf_prefix/bin
 # Check to see if NF_CONFIG is in the path, or NETCDF_PREFIX/bin.
 AC_PATH_PROGS([NF_CONFIG], [nf-config], [], [$_ax_fc_lib_netcdf_bin$PATH_SEPARATOR$PATH])
 # If nf-config found, use it to get information on the NetCDF library
@@ -254,23 +254,23 @@ AS_IF([test ! -z "${NF_CONFIG+x}"],[
   _ax_fc_lib_netcdf_fc=$(eval $NF_CONFIG --fc 2> /dev/null)
   _ax_fc_lib_netcdf_version=$(eval $NF_CONFIG --version 2> /dev/null)
   test -z $_ax_fc_lib_netcdf_prefix && _ax_fc_lib_netcdf_prefix=$(eval $NF_CONFIG --prefix 2> /dev/null)
-  _ax_fc_lib_netcdf_fcflags=$(eval $NF_CONFIG --fflags 2> /dev/null)
+  _ax_fc_lib_netcdf_cflags=$(eval $NF_CONFIG --fflags 2> /dev/null)
   # Some systems (e.g. Cray) use a compiler wrapper that automatically add the required flag, which
   # has nf-config --fflags not return the -I flag.  This causes issues if trying to not use the
   # wrapper.  Thus, we add the -I flag if the cflags variable doesn't have it.  This should be
   # harmless.
-  _ax_c_lib_netcdf_includedir=$(eval $NC_CONFIG --includedir 2> /dev/null)
-  echo "$_ax_c_lib_netcdf_cflags" | $GREP -e "-I$_ac_c_lib_netcdf_includedir" 2>&1 > /dev/null || _ax_c_lib_netcdf_cflags="$_ax_c_lib_netcdf_cflags -I$_ax_c_lib_netcdf_includedir"
+  _ax_fc_lib_netcdf_includedir=$(eval $NC_CONFIG --includedir 2> /dev/null)
+  echo "$_ax_fc_lib_netcdf_cflags" | $GREP -e "-I$_ax_fc_lib_netcdf_includedir" 2>&1 > /dev/null || _ax_fc_lib_netcdf_cflags="$_ax_fc_lib_netcdf_cflags -I$_ax_fc_lib_netcdf_includedir"
   # LIBS and LDFLAGS sorted based on prefix (e.g. -L and -l)
   for arg in $(eval $NF_CONFIG --flibs 2> /dev/null) ; do
     AS_CASE([$arg],
-            [-L*], [echo $_ax_fc_lib_netcdf_ldflags | $GREP -e "$arg" 2>&1 >/dev/null || _ax_fc_lib_netcdf_ldflags="$arg $_ax_c_lib_netcdf_ldflags"],
-            [-l*], [echo $_ax_fc_lib_netcdf_libs | $GREP -e "$arg" 2>&1 >/dev/null || _ax_fc_lib_netcdf_libs="$arg $_ax_c_lib_netcdf_libs"])
+            [-L*], [echo $_ax_fc_lib_netcdf_ldflags | $GREP -e "$arg" 2>&1 >/dev/null || _ax_fc_lib_netcdf_ldflags="$_ax_fc_lib_netcdf_ldflags $arg"],
+            [-l*], [echo $_ax_fc_lib_netcdf_libs | $GREP -e "$arg\b" 2>&1 >/dev/null || _ax_fc_lib_netcdf_libs="$_ax_fc_lib_netcdf_libs $arg"])
   done])
 AS_IF([test ! -z ${_ax_fc_lib_netcdf_prefix+x}], [
   # Check if nc-config was able to give us specific information.  If not,
   # Guess the locations for libs and headers, and libs flags
-  test -z "$_ax_fc_lib_netcdf_fcflags" && _ax_fc_lib_netcdf_fcflags=-I$_ax_fc_lib_netcdf_prefix/include
+  test -z "$_ax_fc_lib_netcdf_cflags" && _ax_fc_lib_netcdf_cflags=-I$_ax_fc_lib_netcdf_prefix/include
   test -z "$_ax_fc_lib_netcdf_ldflags" && _ax_fc_lib_netcdf_ldflags=-L$_ax_fc_lib_netcdf_prefix/lib
   test -z "$_ax_fc_lib_netcdf_libs" && _ax_fc_lib_netcdf_libs=-lnetcdff
 ])
@@ -319,7 +319,7 @@ AS_VAR_PUSHDEF([ax_netcdf_fcflags_search], [ax_cv_fcflags_netcdf])
 AC_CACHE_CHECK([netcdf.inc usability], [ax_netcdf_fcflags_search], [
 _ax_fc_lib_netcdf_save_FCFLAGS=$FCFLAGS
 # Check if the user already set NETCDF_FCFLAGS
-test -z "$NETCDF_FCFLAGS" && NETCDF_FCFLAGS=$_ax_fc_lib_netcdf_fcflags
+test -z "$NETCDF_FCFLAGS" && NETCDF_FCFLAGS=$_ax_fc_lib_netcdf_cflags
 AC_LANG_CONFTEST([AC_LANG_SOURCE([include 'netcdf.inc'])])
 for ax_netcdf_fcflags in '' "$NETCDF_FCFLAGS"; do
   AS_IF([test -z "$ax_netcdf_fcflags"],
@@ -378,7 +378,7 @@ with_netcdf_fortran="no"],[
 # Print the netCDF version, either from what we got with nf-config, or directly
 # from the library
 AC_MSG_CHECKING([the Fortran netCDF library version])
-AS_IF([test -z "$_ax_c_lib_netcdf_version"], [
+AS_IF([test -z "$_ax_fc_lib_netcdf_version"], [
 FCFLAGS="$NETCDF_FCFLAGS $_ax_fc_lib_netcdf_save_FCFLAGS"
 LDFLAGS="$NETCDF_FCLDFLAGS $_ax_fc_lib_netcdf_save_LDFLAGS"
 LIBS="$NETCDF_FCLIBS $_ax_fc_lib_netcdf_save_LIBS"

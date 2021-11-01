@@ -26,6 +26,7 @@ import tstorms
 import tstorms.argparse as tsargparse
 from tstorms.ori_stat import cat_ori_files
 import os
+import shutil
 import subprocess
 import jinja2
 import tempfile
@@ -126,8 +127,8 @@ if __name__ == "__main__":
     args = argparser.parse_args()
 
     gracebat_cmd = '@GRACEBAT@'
-    grace_template_dir = os.path.join(__file__, 'templates')
-
+    grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+    print(grace_template_dir)
     template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(grace_template_dir))
     template_env.keep_trailing_newline = True
     template_env.trim_blocks = True
@@ -166,4 +167,7 @@ if __name__ == "__main__":
         ]
         subprocess.run(grace_cmd)
 
-        os.rename('snapshot.ps', os.path.join(args.imgDir, 'snap_shot_{0:04d}-{1:04d}.ps'.format(args.beg_year, args.end_year)))
+        shutil.copyfile('snapshot.ps',
+                        os.path.join(args.outDir,
+                                     'snap_shot_{0:04d}-{1:04d}.ps'.format(args.beg_year,
+                                                                           args.end_year)))

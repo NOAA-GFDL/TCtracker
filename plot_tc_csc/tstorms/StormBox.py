@@ -1,5 +1,5 @@
 import re
-
+from typing import List
 
 class StormBox():
     """
@@ -12,7 +12,7 @@ class StormBox():
         self.storms = {}
         self.stats = {}
 
-    def add_storms(self, year: int, month_totals: list[int], year_total: list[int]):
+    def add_storms(self, year: int, month_totals: List[int], year_total: List[int]):
         """
         Add number of storms per month, and yearly total to StormBox
 
@@ -31,14 +31,14 @@ class StormBox():
         self.stats[name] = stats.split()
 
     @property
-    def years(self) -> list[int]:
+    def years(self) -> List[int]:
         """
         Simple getter function to return a list of years
         """
 
         return list(self.storms.keys())
 
-    def get_month_totals(self, year: int) -> list[int]:
+    def get_month_totals(self, year: int) -> List[int]:
         """
         Return number of storms per month, return a list.
         """
