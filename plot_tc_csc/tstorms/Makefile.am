@@ -18,23 +18,32 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-#
-# This directory stores libtool macros, put there by aclocal.
-ACLOCAL_AMFLAGS = -I m4
+SUBDIRS = templates
 
-SUBDIRS = \
-  plot_tc_csc \
-  trajectory_analysis \
-  tstorms_driver
 
-nodist_bin_SCRIPTS = tropical_storms_wsfc
-BUILT_SOURCES = tropical_storms_wsfc
-EXTRA_DIST = tropical_storms_wsfc.in
+tstormspydir = $(pkglibexecdir)/tstorms
+dist_tstormspy_DATA = \
+  __init__.py \
+  argparse.py \
+  graph_snap_shot.py \
+  StormBox.py
+nodist_tstormspy_DATA = \
+  graph_snap_shot.py \
+  ori_stat.py
 
-tropical_storms_wsfc: tropical_storms_wsfc.in Makefile
-	$(do_subst) < $< > $@
+BUILT_SOURCES = \
+  graph_snap_shot.py \
+  ori_stat.py
+
+EXTRA_DIST = \
+  graph_snap_shot.py.in \
+  ori_stat.py.in
+
+ori_stat.py: ori_stat.py.in
+graph_snap_shot.py: graph_snap_shot.py.in
+
+include $(top_srcdir)/mkmods.mk
+include $(top_srcdir)/subst.mk
 
 clean-local:
-	-rm -rf tropical_storms_wsfc
-
-include $(top_srcdir)/subst.mk
+	-rm -rf $(BUILT_SOURCES)

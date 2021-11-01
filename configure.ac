@@ -32,7 +32,20 @@ AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([foreign tar-pax subdir-objects])
 
+# Installer can set location of ibtracs_dir.  If not set at configure time
+# user will need to set IBTRACS_DIR or use the -O option.
+AC_ARG_WITH([ibtracs],
+  [AS_HELP_STRING([--with-ibtracs=[path]],
+    [Use ibtracs path as default ibtracs_dir])],
+    [test -d "$with_ibtracs" || AC_MSG_ERROR([ibtracs directory '$with_ibtracs' does not exist])],
+    [with_ibtracs='Not set'])
+AC_SUBST([ibtracs_dir], [$with_ibtracs])
+
 AC_PROG_SED
+AC_PATH_PROG([GRACEBAT], [gracebat], [none])
+if test "$GRACEBAT" = "none"; then
+  AC_MSG_ERROR([Unable to find gracebat command in PATH])
+fi
 
 AC_PROG_FC([gfortran ifort])
 AC_FC_MODULE_FLAG
@@ -50,6 +63,12 @@ if test "$with_netcdf_fortran" = "no"; then
 fi
 AC_LANG_POP([Fortran])
 
+# Check that python3 and python packages are available
+AC_PATH_PROGS([PYTHON], [python3 python])
+AX_PROG_PYTHON_VERSION([3.6], ,AC_MSG_ERROR([unable to find a python version >=3.6 in PATH]))
+
+AX_PYTHON_MODULE([jinja2], [t])
+
 # Define the directory where *.mod files will reside.
 # Used in Makefiles.
 AC_SUBST([MODDIR],[.mods])
@@ -57,6 +76,8 @@ AC_SUBST([MODDIR],[.mods])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
+                 plot_tc_csc/tstorms/Makefile
+                 plot_tc_csc/tstorms/templates/Makefile
                  trajectory_analysis/Makefile
                  tstorms_driver/Makefile
 ])

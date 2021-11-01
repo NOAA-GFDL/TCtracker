@@ -22,7 +22,9 @@
 pkglibexec_PROGRAMS = tstorms_driver
 
 AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR) $(NETCDF_FCFLAGS)
-LDADD = $(NETCDF_FCLDFLAGS) $(NETCDF_FCLIBS)
+
+tstorms_driver_LDADD = $(NETCDF_FCLDFLAGS) $(NETCDF_FCLIBS)
+tstorms_driver_LDFLAGS = $(NETCDF_FCLDFLAGS:-L%=-Wl,-rpath,%)
 
 tstorms_driver_SOURCES = \
   get_date.f90 \
@@ -34,6 +36,7 @@ tstorms_driver_SOURCES = \
   tstorms_drive.f90 \
   utilities.f90 \
   vorcomp.f90
+
 
 get_date.o: get_date_mod.$(FC_MODEXT)
 indata.o: indata_mod.$(FC_MODEXT)

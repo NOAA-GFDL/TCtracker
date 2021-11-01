@@ -33,8 +33,14 @@ set output_dir = /dev/null
 set do_wsfc = y
 set wind_th = 33.0
 set matlab = 1
+set ibtracs_dir = @ibtracs_dir@
+set plots_only = n
 
-set getopt_list = "b:e:n:i:o:Ww:h"
+if (${?IBTRACS_DIR}) then
+  set ibtracs_dir = ${IBTRACS_DIR}
+endif
+
+set getopt_list = "b:e:n:O:i:o:pWw:h"
 set argv = (`getopt $getopt_list $*`)
 if ("$argv" == "--") then
    echo "To get help, use -h"; exit 1
@@ -47,14 +53,16 @@ while ("$argv[1]" != "--")
       set year_end = "$argv[2]"; shift argv; breaksw
    case -n:
       set expname = "$argv[2]"; shift argv; breaksw
+   case -O:
+      set ibtracs_dir = "$argv[2]"; shift argv; breaksw
    case -i:
-      # For now, this only works on GNU Linux systems
       # Ensure data_dir is not a relative path
-      set data_dir = `readlink -f "$argv[2]"`; shift argv; breaksw
+      set data_dir = `perl -e 'use File::Spec;print File::Spec->canonpath(shift)' "$argv[2]"`; shift argv; breaksw
    case -o:
-      # For now, this only works on GNU Linux systems
       # Ensure output_dir is not a relative path
-      set output_dir = `readlink -f "$argv[2]"`; shift argv; breaksw
+      set output_dir = `perl -e 'use File::Spec;print File::Spec->canonpath(shift)' "$argv[2]"`; shift argv; breaksw
+   case -p:
+      set plots_only = "y"; breaksw
    case -W:
       set do_wsfc = "n"; breaksw
    case -w:
@@ -82,8 +90,10 @@ OPTIONS
    -b    First year to start processing data.
    -e    Last year to stop processing data.
    -n    Experiment name.
+   -O    Location of ibtracs data.
    -i    Location of post-processed input files.
    -o    Location for storing the analysis data and figures.
+   -p    Generate plots only
    -w    Set wind threshold
 EOF
    exit 1
@@ -106,16 +116,19 @@ if ($year_beg == "" || $year_end == "" || $expname == "" || \
    exit 1
 endif
 
+# Check if data_dir exists
+if ( ! -e $data_dir) then
+   echo "Input directory '$data_dir' does not exist"
+   exit 1
+endif
+
 set output_dir = $output_dir/atmos_${year_beg}_${year_end}/Zhao.TC
 
 if ($gfdl) then
    source $MODULESHOME/init/csh
    module use -a /home/fms/local/modulefiles
    module purge
-   module load netcdf/4.2
-   module load mpich2
    module load gcp
-   module load nco
 endif
 
 set tstorms_driver = $LIBEXEC_DIR/tstorms_driver@EXEEXT@
@@ -165,6 +178,9 @@ set file_first_year = `echo $file | awk -F "." '{print $2}' | awk -F "-" '{print
 set file_last_year = `echo $file | awk -F "." '{print $2}' | awk -F "-" '{print $2}' | cut -c 1-4`
 set start_month = `echo $file | awk -F "." '{print $2}' | awk -F "-" '{print $1}' | cut --complement -c 1-4`
 set end_month = `echo $file | awk -F "." '{print $2}' | awk -F "-" '{print $2}' | cut --complement -c 1-4`
+
+# If doing plots only, jump do plots
+if ( $plots_only == "y" ) goto plots_only
 
 # === Copy input files ===
 echo "copying input files..."
@@ -391,7 +407,7 @@ eof
          cp $cyclone_file cyclones
       endif
       set cyclone_filename = $cyclone_file:t
-      set year = `echo $cyclone_filename | awk -F "_" '{print $NF}'`
+      set year = `echo $cyclone_filename | awk -F "_" '{print $NF}'` # also needed for plot scripts below
       $trajectory_analysis < nml_traj
       if ($? != 0) then
          echo "ERROR: trajectory analysis failed.  Giving up"
@@ -406,3 +422,22 @@ eof
       rm trav
       rm stats
    end
+
+   plots_only:
+   # Do plots
+   # Determine the type of experiment [clim|obs]
+   if ( ($obs_first_year < 1950 ) || ( $obs_first_year > 2005 ) ) then
+      set experiment_type = clim
+   else
+      set experiment_type = obs
+   endif
+
+   echo "generating stats and plots"
+   alias python3 @PYTHON@
+   setenv PYTHONPATH $LIBEXEC_DIR
+   python3 -m tstorms.ori_stat -o $tstorms_dir $tstorms_dir $obs_first_year $obs_last_year 'model'
+   if ( $experiment_type == obs ) then
+      python3 -m tstorms.ori_stat -o $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year 'obs'
+      python3 -m tstorms.graph_snap_shot -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   endif
+endif
