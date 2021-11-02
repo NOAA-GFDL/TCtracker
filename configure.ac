@@ -22,7 +22,7 @@
 AC_PREREQ([2.69])
 
 AC_INIT([GFDL Tropical Storms Detection],
-        [2.0.0-alpha.1],
+        [2.0.0-alpha.2.dev],
         [gfdl.climate.model.info@noaa.gov],
         [TCtracker],
         [https://www.gfdl.noaa.gov/tstorms/])
@@ -51,6 +51,8 @@ AC_PROG_FC([gfortran ifort])
 AC_FC_MODULE_FLAG
 AC_FC_MODULE_EXTENSION
 AC_FC_MODULE_OUTPUT_FLAG
+AC_FC_FREEFORM()
+AC_FC_LINE_LENGTH([unlimited])
 
 AC_PROG_INSTALL
 

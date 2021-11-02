@@ -30,10 +30,17 @@ SUBDIRS = \
 
 nodist_bin_SCRIPTS = tropical_storms_wsfc
 BUILT_SOURCES = tropical_storms_wsfc
-EXTRA_DIST = tropical_storms_wsfc.in
+EXTRA_DIST = \
+  tropical_storms_wsfc.in \
+  Dockerfile \
+  INSTALL.md
 
 tropical_storms_wsfc: tropical_storms_wsfc.in Makefile
 	$(do_subst) < $< > $@
+
+dist_pkgdata_DATA = \
+  README.md \
+  LICENSE.md
 
 clean-local:
 	-rm -rf tropical_storms_wsfc
