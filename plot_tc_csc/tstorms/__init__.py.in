@@ -1,6 +1,6 @@
 # **********************************************************************
 # TCtracker - Tropical Storm Detection
-# Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Copyright (C) 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
 # Kyle Olivo, Keren Rosado and Seth Underwood
 #
 # This program is free software; you can redistribute it and/or
@@ -18,24 +18,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-#
-# This directory stores libtool macros, put there by aclocal.
-ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = \
-  plot_tc_csc \
-  share \
-  trajectory_analysis \
-  tstorms_driver
+from .StormBox import StormBox
+from .StormBox import read_storm_stats
 
-nodist_bin_SCRIPTS = tropical_storms_wsfc
-BUILT_SOURCES = tropical_storms_wsfc
-EXTRA_DIST = tropical_storms_wsfc.in
+__version__ = '@VERSION@'
 
-tropical_storms_wsfc: tropical_storms_wsfc.in Makefile
-	$(do_subst) < $< > $@
-
-clean-local:
-	-rm -rf tropical_storms_wsfc
-
-include $(top_srcdir)/subst.mk
