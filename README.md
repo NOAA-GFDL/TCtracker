@@ -20,7 +20,7 @@ great societal relevance such as: will the number of storms increase
 or decrease in a warming world? Will there be more or fewer
 destructive land-falling Atlantic hurricanes?
 
-NOAA/GFDL is one of the world’s leading centers of research in the
+NOAA/GFDL is one of the world's leading centers of research in the
 study of tropical storms in a changing climate. In addition to the
 climate models developed by GFDL, other key tools are needed.  TSTORMS
 allows us to:

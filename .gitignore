@@ -1,4 +1,4 @@
-/build
+/build*/
 *.o
 *.mod
 __pycache__/
