@@ -40,7 +40,7 @@ if (${?IBTRACS_DIR}) then
   set ibtracs_dir = ${IBTRACS_DIR}
 endif
 
-set getopt_list = "b:e:n:O:i:o:pWw:h"
+set getopt_list = "b:e:n:O:i:o:pWw:Vh"
 set argv = (`getopt $getopt_list $*`)
 if ("$argv" == "--") then
    echo "To get help, use -h"; exit 1
@@ -67,6 +67,8 @@ while ("$argv[1]" != "--")
       set do_wsfc = "n"; breaksw
    case -w:
       set wind_th = "$argv[2]"; shift argv; breaksw
+   case -V:
+      set print_version; breaksw
    case -h:
       set help; breaksw
    endsw
@@ -74,13 +76,18 @@ while ("$argv[1]" != "--")
 end
 shift argv
 
+if ($?print_version) then
+   echo "tropical_storms_wsfc (@PACKAGE_NAME@) @VERSION@"
+   exit 0
+endif
+
 if ($?help) then
    cat <<EOF
 NAME
    tropical_storms_wsfc
 
 SYNOPSIS
-   tropical_storms_wsfc.csh [-W] -b <year> -e <year> -n <experiment> -i <input directory> -o <output directory>
+   tropical_storms_wsfc [-W] -b <year> -e <year> -n <experiment> -i <input directory> -o <output directory>
 
 DESCRIPTION
    Creates figures and statistics from atmospheric data.
@@ -95,6 +102,8 @@ OPTIONS
    -o    Location for storing the analysis data and figures.
    -p    Generate plots only
    -w    Set wind threshold
+   -v    Print version information
+   -h    Print usage information
 EOF
    exit 1
 endif

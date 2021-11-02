@@ -21,10 +21,10 @@
 
 AC_PREREQ([2.69])
 
-AC_INIT([GFDL Tropical Storms Analysis],
-        [1.0.0],
+AC_INIT([GFDL Tropical Storms Detection],
+        [2.0.0-alpha.1],
         [gfdl.climate.model.info@noaa.gov],
-        [tstorms],
+        [TCtracker],
         [https://www.gfdl.noaa.gov/tstorms/])
 
 AC_CONFIG_SRCDIR([tstorms_driver/tstorms_drive.f90])
@@ -37,7 +37,7 @@ AM_INIT_AUTOMAKE([foreign tar-pax subdir-objects])
 AC_ARG_WITH([ibtracs],
   [AS_HELP_STRING([--with-ibtracs=[path]],
     [Use ibtracs path as default ibtracs_dir])],
-    [test -d "$with_ibtracs" || AC_MSG_ERROR([ibtracs directory '$with_ibtracs' does not exist])],
+    [test -d "$with_ibtracs" || AC_MSG_WARN([ibtracs directory '$with_ibtracs' does not exist])],
     [with_ibtracs='Not set'])
 AC_SUBST([ibtracs_dir], [$with_ibtracs])
 
@@ -78,6 +78,7 @@ AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
                  plot_tc_csc/tstorms/Makefile
                  plot_tc_csc/tstorms/templates/Makefile
+                 share/Makefile
                  trajectory_analysis/Makefile
                  tstorms_driver/Makefile
 ])

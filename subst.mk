@@ -1,4 +1,6 @@
 do_subst = $(SED) \
+  -e 's,[@]PACKAGE_NAME[@],$(PACKAGE_NAME),g' \
+  -e 's,[@]VERSION[@],$(VERSION),g' \
   -e 's,[@]datadir[@],$(datadir),g' \
   -e 's,[@]pkglibexecdir[@],$(pkglibexecdir),g' \
   -e 's,[@]EXEEXT[@],$(EXEEXT),g' \
