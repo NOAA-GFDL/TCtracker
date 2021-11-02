@@ -95,7 +95,8 @@ OPTIONS
    -p    Generate plots only
    -w    Set wind threshold
    -V    Print version information
-   -h    Print usage information```
+   -h    Print usage information
+```
 
 The input filenames are expected to be in this format: `atmos.1981010100-1981123123.slp.nc`.
 
