@@ -21,6 +21,4 @@
 
 from .StormBox import StormBox
 from .StormBox import read_storm_stats
-
-__version__ = '@VERSION@'
-
+from .config import _version as __version__

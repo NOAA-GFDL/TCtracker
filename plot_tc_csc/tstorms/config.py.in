@@ -1,0 +1,27 @@
+""" Variables expanded from configure
+
+The variables included in this module are variables that configure expands
+during the configure/build process.  These contain useful installation
+paths, and other items needed in the package.
+"""
+
+_version = '@VERSION@'
+
+# Binary executable extension (e.g. .exe on Windows)
+exeext = '@EXEEXT@'
+
+# Specific Paths
+prefix= '@prefix@'
+exec_prefix = '@exec_prefix@'
+datarootdir = '@datarootdir@'
+
+datadir = '@datadir@'
+libdir = '@libdir@'
+libexecdir = '@libexecdir@'
+
+pkgdatadir = '@pkgdatadir@'
+pkglibdir = '@pkglibdir@'
+pkglibexecdir = '@pkglibexecdir@'
+
+# Specific commands
+gracebat = '@GRACEBAT@'

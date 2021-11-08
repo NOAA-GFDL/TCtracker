@@ -35,6 +35,7 @@ import argparse
 from .StormBox import read_storm_stats
 from . import argparse as tsargparse
 from .ori_stat import cat_ori_files
+from .config import exeext, pkglibexecdir, gracebat
 import os
 import shutil
 import subprocess
@@ -63,7 +64,7 @@ do_lat  = .false.
 nexp    =  1
 /
 """
-    freq_ori_cmd = os.path.join('@pkglibexecdir@', 'freq_ori@EXEEXT@')
+    freq_ori_cmd = os.path.join(pkglibexecdir, 'freq_ori' + exeext)
     fstats = read_storm_stats(os.path.join(statDir, f'stats_{type}_{beg_year}-{end_year}'))
 
     xts = {}
@@ -136,7 +137,6 @@ if __name__ == "__main__":
                            type=str)
     args = argparser.parse_args()
 
-    gracebat_cmd = '@GRACEBAT@'
     grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 
     template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(grace_template_dir))
@@ -166,7 +166,7 @@ if __name__ == "__main__":
             out.write(snap_shot_par.render(snap_shot_data))
 
         grace_cmd = [
-            gracebat_cmd,
+            gracebat,
             "-printfile", "snapshot.ps",
             "-param", "snap_shot.par",
             "-hardcopy",
