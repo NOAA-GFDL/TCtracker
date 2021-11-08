@@ -75,6 +75,7 @@ AC_SUBST([MODDIR],[.mods])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
+                 plot_tc_csc/tstorms/config.py
                  plot_tc_csc/tstorms/Makefile
                  plot_tc_csc/tstorms/templates/Makefile
                  share/Makefile

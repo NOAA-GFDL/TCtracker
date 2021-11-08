@@ -21,22 +21,12 @@
 SUBDIRS = templates
 
 pkgpython_PYTHON = \
+  __init__.py \
   argparse.py \
+  config.py \
+  graph_snap_shot.py \
+  ori_stat.py \
   StormBox.py
-nodist_pkgpython_PYTHON = \
-  __init__.py \
-  graph_snap_shot.py \
-  ori_stat.py
-
-BUILT_SOURCES = \
-  __init__.py \
-  graph_snap_shot.py \
-  ori_stat.py
-
-EXTRA_DIST = \
-  __init__.py.in \
-  graph_snap_shot.py.in \
-  ori_stat.py.in
 
 include $(top_srcdir)/mkmods.mk
 include $(top_srcdir)/subst.mk
