@@ -43,9 +43,9 @@ AC_SUBST([ibtracs_dir], [$with_ibtracs])
 
 AC_PROG_SED
 AC_PATH_PROG([GRACEBAT], [gracebat], [none])
-if test "$GRACEBAT" = "none"; then
-  AC_MSG_ERROR([Unable to find gracebat command in PATH])
-fi
+AS_IF([test "$GRACEBAT" = "none"],
+  [AC_MSG_ERROR([Unable to find gracebat command in PATH])])
+
 
 AC_PROG_FC([gfortran ifort])
 AC_FC_MODULE_FLAG
@@ -60,9 +60,8 @@ AC_FC_FREEFORM()
 
 AC_LANG_PUSH([Fortran])
 AX_LIB_NETCDFF()
-if test "$with_netcdf_fortran" = "no"; then
-  AC_MSG_ERROR([Unable to find NetCDF Fortran library.])
-fi
+AS_IF([test "$with_netcdf_fortran" = "no"],
+  [AC_MSG_ERROR([Unable to find NetCDF Fortran library.])])
 AC_LANG_POP([Fortran])
 
 # Check that python3 and python packages are available
