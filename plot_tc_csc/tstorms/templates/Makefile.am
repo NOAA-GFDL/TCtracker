@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-templatesdir = $(pkglibexecdir)/tstorms/templates
+templatesdir = $(pkgpythondir)/templates
 dist_templates_DATA = \
   geog.dat \
   snap_shot.par

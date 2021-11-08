@@ -20,7 +20,7 @@
 # **********************************************************************
 
 import argparse
-import tstorms.argparse as tsargparse
+from . import argparse as tsargparse
 import os
 import shutil
 import tempfile

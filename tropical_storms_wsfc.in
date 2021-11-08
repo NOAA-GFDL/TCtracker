@@ -23,6 +23,7 @@
 
 # Useful directories
 set LIBEXEC_DIR = @pkglibexecdir@
+set PYTHONLIB_DIR = @pythondir@
 
 # Default values
 set year_beg = '0001'
@@ -138,6 +139,7 @@ if ($gfdl) then
    module use -a /home/fms/local/modulefiles
    module purge
    module load gcp
+   module load netcdf-c/4.7.3
 endif
 
 set tstorms_driver = $LIBEXEC_DIR/tstorms_driver@EXEEXT@
@@ -443,10 +445,10 @@ eof
 
    echo "generating stats and plots"
    alias python3 @PYTHON@
-   setenv PYTHONPATH $LIBEXEC_DIR
-   python3 -m tstorms.ori_stat -o $tstorms_dir $tstorms_dir $obs_first_year $obs_last_year 'model'
+   setenv PYTHONPATH $PYTHONLIB_DIR
+   python3 -m TCtracker.ori_stat -o $tstorms_dir $tstorms_dir $obs_first_year $obs_last_year 'model'
    if ( $experiment_type == obs ) then
-      python3 -m tstorms.ori_stat -o $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year 'obs'
-      python3 -m tstorms.graph_snap_shot -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+      python3 -m TCtracker.ori_stat -o $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year 'obs'
+      python3 -m TCtracker.graph_snap_shot -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    endif
 endif

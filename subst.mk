@@ -6,6 +6,8 @@ do_subst = $(SED) \
   -e 's,[@]EXEEXT[@],$(EXEEXT),g' \
   -e 's,[@]GRACEBAT[@],$(GRACEBAT),g' \
   -e 's,[@]PYTHON[@],$(PYTHON),g' \
+  -e 's,[@]pythondir[@],$(pythondir),g' \
+  -e 's,[@]pkgpythondir[@],$(pkgpythondir),g' \
   -e 's,[@]ibtracs_dir[@],$(ibtracs_dir),g'
 
 %.f90: %.f90.in Makefile

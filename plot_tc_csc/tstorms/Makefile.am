@@ -20,13 +20,10 @@
 # **********************************************************************
 SUBDIRS = templates
 
-
-tstormspydir = $(pkglibexecdir)/tstorms
-dist_tstormspy_DATA = \
+pkgpython_PYTHON = \
   argparse.py \
-  graph_snap_shot.py \
   StormBox.py
-nodist_tstormspy_DATA = \
+nodist_pkgpython_PYTHON = \
   __init__.py \
   graph_snap_shot.py \
   ori_stat.py
@@ -40,10 +37,6 @@ EXTRA_DIST = \
   __init__.py.in \
   graph_snap_shot.py.in \
   ori_stat.py.in
-
-ori_stat.py: ori_stat.py.in
-graph_snap_shot.py: graph_snap_shot.py.in
-__init__.py: __init__.py.in
 
 include $(top_srcdir)/mkmods.mk
 include $(top_srcdir)/subst.mk

@@ -66,9 +66,7 @@ fi
 AC_LANG_POP([Fortran])
 
 # Check that python3 and python packages are available
-AC_PATH_PROGS([PYTHON], [python3 python])
-AX_PROG_PYTHON_VERSION([3.6], ,AC_MSG_ERROR([unable to find a python version >=3.6 in PATH]))
-
+AM_PATH_PYTHON([3.6])
 AX_PYTHON_MODULE([jinja2], [t])
 
 # Define the directory where *.mod files will reside.
