@@ -23,10 +23,10 @@ import argparse
 import os
 import shutil
 import tempfile
-import subprocess
 
 from . import argparse as tsargparse
 from .config import exeext, pkglibexecdir, gracebat
+from .stat_ori_mask import stat_ori
 
 
 def cat_ori_files(inDir: str, beg_year: int, end_year: int):
@@ -51,7 +51,7 @@ def run_stats(inDir: str, beg_year: int, end_year: int):
     # Concatinate all ori_YYYY files into a single ori file
     cat_ori_files(inDir, beg_year, end_year)
     # Run the ori_stat executable
-    subprocess.run([os.path.join(pkglibexecdir, 'stat_ori_mask' + exeext)], input=b'&input /\n')
+    stat_ori(os.path.join(pkglibexecdir, 'imask_2'), False, False)
 
 
 if __name__ == "__main__":

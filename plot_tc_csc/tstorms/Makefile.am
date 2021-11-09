@@ -27,14 +27,24 @@ pkgpython_PYTHON = \
   ori_stat.py \
   StormBox.py
 nodist_pkgpython_PYTHON = \
-  config.py
+  config.py \
+  stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
 
 BUILT_SOURCES = \
-  config.py
-EXTRA_DIST = \
-  config.py.in
+  config.py \
+  stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
 
-include $(top_srcdir)/mkmods.mk
+EXTRA_DIST = \
+  config.py.in \
+  stat_ori_mask.f90
+
+%@PYTHON_EXTENSION_SUFFIX@: %.f90
+	$(F2PY) -c -m $(basename $(notdir $<)) \
+           --fcompiler=$(FC) \
+           --f90flags="$(FCFLAGS)" \
+           $(AM_LDFLAGS) $(LDFLAGS) \
+           $<
+
 include $(top_srcdir)/subst.mk
 
 clean-local:

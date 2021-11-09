@@ -68,6 +68,18 @@ AC_LANG_POP([Fortran])
 AM_PATH_PYTHON([3.6])
 AX_PYTHON_MODULE([jinja2], [t])
 
+# f2py for python/Fortran functionality
+AC_CHECK_PROGS([F2PY], [f2py3 f2py], [none])
+AS_IF([test "$F2PY" == "none"],
+  [AC_MSG_ERROR([Unable to find f2py in PATH])])
+# Get the Python extension for extension libraries
+AC_CHECK_PROGS([PYTHON_CONFIG], [python3-config python-config], [none])
+AS_IF([test "$PYTHON_CONFIG" == "none"],
+  [AC_MSG_ERROR([Unable to find python-config in PATH])])
+AC_MSG_CHECKING([for python's extension suffix])
+AC_SUBST([PYTHON_EXTENSION_SUFFIX],[$(eval $PYTHON_CONFIG --extension-suffix)])
+AC_MSG_RESULT([$PYTHON_EXTENSION_SUFFIX])
+
 # Define the directory where *.mod files will reside.
 # Used in Makefiles.
 AC_SUBST([MODDIR],[.mods])
@@ -75,7 +87,6 @@ AC_SUBST([MODDIR],[.mods])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
-                 plot_tc_csc/tstorms/config.py
                  plot_tc_csc/tstorms/Makefile
                  plot_tc_csc/tstorms/templates/Makefile
                  share/Makefile
