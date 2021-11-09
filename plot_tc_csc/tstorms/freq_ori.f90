@@ -1,8 +1,15 @@
-  PROGRAM FREQ_ORI
-!===================================================================
+SUBROUTINE freq_ori(do_40ns, do_map, do_lon, do_lat, do_latf, do_fot, traj_in)
   implicit none
-!-------------------------------------------------------------------
 
+  logical, intent(in) :: do_40ns
+  logical, intent(in) :: do_map
+  logical, intent(in) :: do_lon
+  logical, intent(in) :: do_lat
+  logical, intent(in) :: do_latf
+  logical, intent(in) :: do_fot
+  logical, intent(in) :: traj_in
+
+  !===================================================================
   integer, parameter :: ix   = 72
   integer, parameter :: jx   = 44
   integer, parameter :: ixp  = ix + 1
@@ -15,34 +22,21 @@
 
   real, dimension(ixp,jx) ::     freq
   real, dimension(ixp,3)  :: lon_freq
-  real, dimension(jx)     :: lat_freq 
+  real, dimension(jx)     :: lat_freq
 
-  real                    :: xcyc, ycyc,  rmax, rmin, rnyr
-  integer                 :: year, month, day,  hour
+  real                    :: xcyc, ycyc, rmax, rmin, rnyr
+  integer                 :: year, month, day, hour
   integer                 :: i, j, jb, je, n, nc
   integer                 :: nyr = 0
   integer                 :: yr0 = 0
   character*5             :: dummy
 
-  logical :: do_40ns = .true.
-  logical :: do_map  = .true.
-  logical :: do_lon  = .false.
-  logical :: do_lat  = .false.
-  logical :: do_latf = .false.
-  logical :: do_fot  = .false.
-  logical :: traj_in = .false.
-  integer :: nexp    = 1
+  integer :: nexp = 1
+  ! ===================================================================
 
-  namelist /input/ do_40ns, do_map, do_lon, do_lat, do_latf, &
-                   do_fot, nexp, traj_in
-
-!===================================================================
-
-  read(*,input)
-
-     freq(:,:) = 0.0
- lon_freq(:,:) = 0.0
- lat_freq(:)   = 0.0
+  freq(:,:) = 0.0
+  lon_freq(:,:) = 0.0
+  lat_freq(:)   = 0.0
 
 ! --- loop through file & count storms
 
@@ -70,12 +64,12 @@
   if ( i == ixp ) i = 1
 
      freq(i,j) =     freq(i,j) + 1.0
- lon_freq(i,1) = lon_freq(i,1) + 1.0 
- lat_freq(j)   = lat_freq(j)   + 1.0 
+ lon_freq(i,1) = lon_freq(i,1) + 1.0
+ lat_freq(j)   = lat_freq(j)   + 1.0
 
  if ( ycyc >= 0.0 ) then
     lon_freq(i,2) = lon_freq(i,2) + 1.0     ! nh
- else 
+ else
     lon_freq(i,3) = lon_freq(i,3) + 1.0     ! sh
  endif
 
@@ -90,7 +84,7 @@
   endif
       rnyr = rnyr * FLOAT( nexp )
 
-! --- overlap 
+! --- overlap
       freq(ixp,:) =     freq(1,:)
   lon_freq(ixp,:) = lon_freq(1,:)
 
@@ -105,7 +99,7 @@
   rmin = minval( freq )
   print *, ' max & min  = ', rmax, rmin
   print *, ' nyr & rnyr = ', nyr, rnyr
-  
+
 ! --- output
 
   if( do_40ns ) then
@@ -116,7 +110,7 @@
 
   if( do_map ) then
      OPEN (12, file='fmap', form='unformatted' )
-     WRITE(12) freq(:,jb:je) 
+     WRITE(12) freq(:,jb:je)
      CLOSE(12)
   endif
 
@@ -125,7 +119,7 @@
   do j = jb,je
      ycyc = ( j - 1 ) * dlat + slat
      ycyc = ( j - 1 ) * dlat + slat + 0.5*dlat
-     WRITE(12,99) ycyc, lat_freq(j) 
+     WRITE(12,99) ycyc, lat_freq(j)
   end do
      WRITE(12,*) '&'
      CLOSE(12)
@@ -136,7 +130,7 @@
   do j = jb,je
 !    ycyc = ( j - 1 ) * dlat + slat
      ycyc = ( j - 1 ) * dlat + slat + 0.5*dlat
-     WRITE(12,98) lat_freq(j), ycyc  
+     WRITE(12,98) lat_freq(j), ycyc
   end do
      WRITE(12,*) '&'
      CLOSE(12)
@@ -149,7 +143,7 @@
   do i = 1,ixp
 !    xcyc = ( i - 1 ) * dlon
      xcyc = ( i - 1 ) * dlon + 0.5*dlon
-     WRITE(12,99) xcyc, lon_freq(i,1) 
+     WRITE(12,99) xcyc, lon_freq(i,1)
      WRITE(13,99) xcyc, lon_freq(i,2)
      WRITE(14,99) xcyc, lon_freq(i,3)
   end do
@@ -165,4 +159,4 @@
  98 format( e13.5, f8.2 )
 
 !===================================================================
-  end PROGRAM FREQ_ORI
+END SUBROUTINE freq_ori

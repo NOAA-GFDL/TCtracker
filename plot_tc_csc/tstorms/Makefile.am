@@ -28,14 +28,17 @@ pkgpython_PYTHON = \
   StormBox.py
 nodist_pkgpython_PYTHON = \
   config.py \
+  freq_ori$(PYTHON_EXTENSION_SUFFIX) \
   stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
 
 BUILT_SOURCES = \
   config.py \
+  freq_ori$(PYTHON_EXTENSION_SUFFIX) \
   stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
 
 EXTRA_DIST = \
   config.py.in \
+  freq_ori.f90 \
   stat_ori_mask.f90
 
 %@PYTHON_EXTENSION_SUFFIX@: %.f90

@@ -1,4 +1,4 @@
-subroutine STAT_ORI(cmask, do_fancy, traj_in)
+SUBROUTINE stat_ori(cmask, do_fancy, traj_in)
   implicit none
   character(len=*), intent(in) :: cmask
   logical, intent(in) :: do_fancy
@@ -207,4 +207,4 @@ subroutine STAT_ORI(cmask, do_fancy, traj_in)
   16 format( '+',7('-'), '+',  61('-'), '+', 7('-'), '+' )
 
 !===================================================================
-end subroutine STAT_ORI
+END SUBROUTINE stat_ori

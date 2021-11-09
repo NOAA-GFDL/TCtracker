@@ -32,15 +32,17 @@ __all__ = [
 ]
 
 import argparse
-from .StormBox import read_storm_stats
-from . import argparse as tsargparse
-from .ori_stat import cat_ori_files
-from .config import exeext, pkglibexecdir, gracebat
 import os
 import shutil
 import subprocess
 import jinja2
 import tempfile
+
+from .StormBox import read_storm_stats
+from . import argparse as tsargparse
+from .ori_stat import cat_ori_files
+from .config import exeext, pkglibexecdir, gracebat
+from .freq_ori import freq_ori
 
 
 def generate_ori_data(type, template_env):
@@ -56,15 +58,6 @@ def generate_ori_data(type, template_env):
 
 def generate_plot_data(statDir, oriDir, beg_year, end_year, type):
     # Namelist required for freq_ori command
-    nml_input = b"""&input
-do_40ns = .true.
-do_map  = .false.
-do_lon  = .true.
-do_lat  = .false.
-nexp    =  1
-/
-"""
-    freq_ori_cmd = os.path.join(pkglibexecdir, 'freq_ori' + exeext)
     fstats = read_storm_stats(os.path.join(statDir, f'stats_{type}_{beg_year}-{end_year}'))
 
     xts = {}
@@ -90,7 +83,7 @@ nexp    =  1
     write_plot_data("xscyc_nh.dat", xscyc['NH'])
     write_plot_data("xscyc_sh.dat", xscyc['SH'])
 
-    subprocess.run([freq_ori_cmd], input=nml_input)
+    freq_ori(True, False, True, False, False, False, False)
     for region in ['gl', 'nh', 'sh']:
         with open(f"xlon_{region}.dat", 'a') as outfile:
             with open(f"flon_{region}") as infile:

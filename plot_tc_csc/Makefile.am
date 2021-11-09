@@ -22,12 +22,4 @@ SUBDIRS = tstorms
 
 AM_FCFLAGS = $(FC_MODINC). $(FC_MODOUT)$(MODDIR)
 
-pkglibexec_PROGRAMS = \
-  freq_ori
-
-freq_ori_SOURCES = freq_ori.f90
-
-EXTRA_DIST = \
-  stat_ori_mask.f90.in
-
 include $(top_srcdir)/mkmods.mk
