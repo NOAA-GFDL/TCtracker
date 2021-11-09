@@ -23,10 +23,16 @@ SUBDIRS = templates
 pkgpython_PYTHON = \
   __init__.py \
   argparse.py \
-  config.py \
   graph_snap_shot.py \
   ori_stat.py \
   StormBox.py
+nodist_pkgpython_PYTHON = \
+  config.py
+
+BUILT_SOURCES = \
+  config.py
+EXTRA_DIST = \
+  config.py.in
 
 include $(top_srcdir)/mkmods.mk
 include $(top_srcdir)/subst.mk
