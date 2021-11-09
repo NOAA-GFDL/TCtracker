@@ -416,8 +416,8 @@ end if
 !===================================================================
 
   WRITE(iucy,*) iday,  imon, iyear, number, ihour
-  WRITE(   *,*) iyear, imon, iday,  ihour,  number
-
+  !WRITE(   *,*) iyear, imon, iday,  ihour,  number
+  WRITE (*, FMT='(I4.4, TR2, 2(I3.2, TR2), I4.2, TR2, I7)') iyear, imon, iday, ihour, number
   if( number == 0 ) RETURN
 
   do i = 1,number

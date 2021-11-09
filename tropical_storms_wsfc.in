@@ -224,30 +224,23 @@ foreach var (${varlist})
       set n_year_end = `echo "${year_end}" | bc -l`
       if ( ${n_yra} <= ${n_year_end} && ${n_yrb} >= ${n_year_beg} ) then
          set filelist = (${filelist} ${file})
-         #echo Including file ${file}
-      endif
-
-      if ($#filelist > 500) then
-         if ($gfdl) then
-            dmget ${filelist}
-            gcp -cd ${filelist} $TSTORM_TEMP/tmp/
-         else
-            mkdir -p $TSTORM_TEMP/tmp/
-            cp ${filelist} $TSTORM_TEMP/tmp/
-         endif
-         set filelist = ()
       endif
    end
 end
 
 if ( $#filelist != 0 ) then
+   mkdir -p $TSTORM_TEMP/tmp/
    if ($gfdl) then
-      dmget ${filelist}
-      gcp -cd ${filelist} $TSTORM_TEMP/tmp/
+      # Get files in chunks of 500 files
+      echo ${filelist} | xargs -n 500 dmget
+      set cp = gcp
    else
-      mkdir -p $TSTORM_TEMP/tmp/
-      cp ${filelist} $TSTORM_TEMP/tmp/
+      set cp = cp
    endif
+   ${cp} ${filelist} $TSTORM_TEMP/tmp/
+else
+   echo "Nothing to do, ending"
+   exit 0
 endif
 
 echo "creating one year chunks, if needed..."
