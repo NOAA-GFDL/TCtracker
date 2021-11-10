@@ -3,11 +3,12 @@ do_subst = $(SED) \
   -e 's,[@]VERSION[@],$(VERSION),g' \
   -e 's,[@]EXEEXT[@],$(EXEEXT),g' \
   -e 's,[@]GRACEBAT[@],$(GRACEBAT),g' \
+  -e 's,[@]NCRCAT[@],$(NCRCAT),g' \
   -e 's,[@]PYTHON[@],$(PYTHON),g' \
   -e 's,[@]prefix[@],$(prefix),g' \
   -e 's,[@]exec_prefix[@],$(exec_prefix),g' \
   -e 's,[@]libdir[@],$(libdir),g' \
-  -e 's,[@]libexecdir[@],$(libdir),g' \
+  -e 's,[@]libexecdir[@],$(libexecdir),g' \
   -e 's,[@]datarootdir[@],$(datarootdir),g' \
   -e 's,[@]datadir[@],$(datadir),g' \
   -e 's,[@]pkgdatadir[@],$(pkgdatadir),g' \

@@ -267,7 +267,7 @@ foreach current_year (`seq $next_year_to_process 1 $year_end`)
             # File with desired 1 year chunk length does not exist, create it.
             @ yra = $current_year
             @ yrb = $current_year + 1
-            ncrcat -d time,"${yra}-01-01 06:00:00","${yrb}-01-01 00:00:00" \
+            @NCRCAT@ -d time,"${yra}-01-01 06:00:00","${yrb}-01-01 00:00:00" \
                    -o ../${prefix}.${var}.nc ${pp_type}.*.${var}.nc
          else
             echo " ERROR: cannot create 1 year chunk files for non-January start date"

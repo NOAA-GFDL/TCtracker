@@ -22,7 +22,7 @@
 AC_PREREQ([2.69])
 
 AC_INIT([GFDL Tropical Storms Detection],
-        [2.0.0-alpha.3-dev],
+        [2.0.0-alpha.3],
         [gfdl.climate.model.info@noaa.gov],
         [TCtracker],
         [https://www.gfdl.noaa.gov/tstorms/])
@@ -63,6 +63,11 @@ AX_LIB_NETCDFF()
 AS_IF([test "$with_netcdf_fortran" = "no"],
   [AC_MSG_ERROR([Unable to find NetCDF Fortran library.])])
 AC_LANG_POP([Fortran])
+
+# Check for the NCO used tools
+AC_PATH_PROG([NCRCAT], [ncrcat], [none])
+AS_IF([test "$NCRCAT" == "none"],
+  [AC_MSG_ERROR([Unable to find ncrcat in PATH])])
 
 # Check that python3 and python packages are available
 AM_PATH_PYTHON([3.6])
