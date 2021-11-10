@@ -62,6 +62,9 @@
 
   CALL SET_LOLA( rlon, rlat )
 
+
+  ! Write header
+  WRITE (*, FMT='(A4, TR2, A3, TR2, A3, TR2, A4, TR2, A7)') "year", "mon", "day", "hour", "#Storms"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   do n = 1,nmx                               ! --- TIME LOOP STARTS
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -72,10 +75,6 @@
 
   CALL GET_DATA( n, wind, vor, tbar, psl, thick, year, month, day, hour )
   if (year .lt. 100) year=year+1980
-
-  print *, '   '
-  print *, ' year, month, day, hour = ', year, month, day, hour
-  print *, '   '
 
 !-------------------------------------------------------------------
 ! --- FIND STORMS
@@ -105,4 +104,3 @@
 
 !===================================================================
 end PROGRAM TSTORMS_DRIVE
-
