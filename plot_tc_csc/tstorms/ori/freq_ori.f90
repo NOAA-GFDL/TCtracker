@@ -27,8 +27,8 @@ SUBROUTINE freq_ori(do_40ns, do_map, do_lon, do_lat, do_latf, do_fot, traj_in)
   real                    :: xcyc, ycyc, rmax, rmin, rnyr
   integer                 :: year, month, day, hour
   integer                 :: i, j, jb, je, n, nc
-  integer                 :: nyr = 0
-  integer                 :: yr0 = 0
+  integer                 :: nyr
+  integer                 :: yr0
   character*5             :: dummy
 
   integer :: nexp = 1
@@ -37,7 +37,8 @@ SUBROUTINE freq_ori(do_40ns, do_map, do_lon, do_lat, do_latf, do_fot, traj_in)
   freq(:,:) = 0.0
   lon_freq(:,:) = 0.0
   lat_freq(:)   = 0.0
-
+  yr0 = 0
+  nyr = 0
 ! --- loop through file & count storms
 
       OPEN( 12, file='ori', status='unknown' )

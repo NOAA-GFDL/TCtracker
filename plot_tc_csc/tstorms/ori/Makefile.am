@@ -1,6 +1,6 @@
 # **********************************************************************
 # TCtracker - Tropical Storm Detection
-# Copyright (C) 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
 # Kyle Olivo, Keren Rosado and Seth Underwood
 #
 # This program is free software; you can redistribute it and/or
@@ -18,5 +18,31 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
+tstormsoridir = $(pkgpythondir)/ori
 
-from .config import _version as __version__
+tstormsori_PYTHON = \
+  __init__.py \
+  StormBox.py
+nodist_tstormsori_PYTHON = \
+  freq_ori$(PYTHON_EXTENSION_SUFFIX) \
+  stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
+
+BUILT_SOURCES = \
+  freq_ori$(PYTHON_EXTENSION_SUFFIX) \
+  stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
+
+EXTRA_DIST = \
+  freq_ori.f90 \
+  stat_ori_mask.f90
+
+%@PYTHON_EXTENSION_SUFFIX@: %.f90
+	$(F2PY) -c -m $(basename $(notdir $<)) \
+           --fcompiler=$(FC) \
+           --f90flags="$(FCFLAGS)" \
+           $(AM_LDFLAGS) $(LDFLAGS) \
+           $<
+
+include $(top_srcdir)/subst.mk
+
+clean-local:
+	-rm -rf $(BUILT_SOURCES)

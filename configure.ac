@@ -93,7 +93,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
                  plot_tc_csc/tstorms/Makefile
-                 plot_tc_csc/tstorms/templates/Makefile
+                 plot_tc_csc/tstorms/ori/Makefile
+                 plot_tc_csc/tstorms/plots/Makefile
+                 plot_tc_csc/tstorms/plots/templates/Makefile
                  share/Makefile
                  trajectory_analysis/Makefile
                  tstorms_driver/Makefile

@@ -1,6 +1,6 @@
 # **********************************************************************
 # TCtracker - Tropical Storm Detection
-# Copyright (C) 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
 # Kyle Olivo, Keren Rosado and Seth Underwood
 #
 # This program is free software; you can redistribute it and/or
@@ -18,5 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
+SUBDIRS = templates
 
-from .config import _version as __version__
+tstormsplotsdir = $(pkgpythondir)/plots
+
+tstormsplots_PYTHON = \
+  __init__.py \
+  snapshot.py

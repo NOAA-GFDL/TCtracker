@@ -34,8 +34,7 @@ SUBROUTINE stat_ori(cmask, do_fancy, traj_in)
   integer, dimension(imomp,ireg)       :: icntmo, ispread
   real,    dimension(imomp,ireg)       :: avgmo,  stdmo
   integer, dimension(iyrmx)            :: iyr
-  character*2                          :: dum = '  '
-  integer                              :: yr0 = 0
+  integer                              :: yr0
   character*5                          :: dummy
 
   character*2, dimension(imomp) :: cmo = &
@@ -43,6 +42,7 @@ SUBROUTINE stat_ori(cmask, do_fancy, traj_in)
 
 !===================================================================
 
+  yr0 = 0
   icnt(:,:,:) = 0
 
 !------------------------------------------------------------
