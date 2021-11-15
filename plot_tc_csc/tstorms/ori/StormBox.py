@@ -28,6 +28,22 @@ class StormBox():
     hemisphere (NH)).
     """
 
+    region_titles = {
+        'G': 'Global',
+        'WA': 'West_Atlantic',
+        'EA': 'East_Atlantic',
+        'WP': 'West_Pacific',
+        'EP': 'East_Pacific',
+        'NI': 'North_Indian_Ocean',
+        'SI': 'South_Indian_Ocean',
+        'AU': 'Australia',
+        'SP': 'South_Pacific',
+        'SA': 'South_Atlantic',
+        'NH': 'Northern_Hemisphere',
+        'SH': 'Southern_Hemisphere',
+        'NA': 'NA'
+    }
+
     def __init__(self, id: int):
         self.id = id
         self.storms = {}
@@ -83,3 +99,11 @@ class StormBox():
         """
 
         return self.stats['mean']
+
+    @property
+    def region_title(self):
+        """
+        Return the region's long name
+        """
+
+        return self.region_titles[self.id]

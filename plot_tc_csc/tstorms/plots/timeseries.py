@@ -19,12 +19,11 @@
 # 02110-1301, USA.
 # **********************************************************************
 
-"""Tropical Storm Snapshot Plot Generator
+"""Tropical Storm Timeseries Plot Generator
 
-This module generates the Tropical Storm Snapshot plot using tracking data
+This module generates the Tropical Storm Timeseries plot using tracking data
 generated from a GCM.
 """
-
 import argparse
 import os
 import shutil
@@ -40,50 +39,10 @@ __all__ = [
     'generate_plot_data',
 ]
 
-def generate_ori_data(type, template_env):
-    ori_data = []
-    with open('ori', 'r') as infile:
-        for line in infile.readlines():
-            ln = line.split()
-            ori_data.append(f'{ln[0]} {ln[1]}')
-    geog_dat = template_env.get_template('geog.dat')
-    with open(f'ori_{type}.dat', 'w') as out:
-        out.write(geog_dat.render(data=ori_data))
 
-
-def generate_plot_data(ori, template_env):
-    ori_stats = ori.stats
-    xts = {}
-    for b in ['NH', 'SH']:
-        xts[b] = []
-        for y in ori_stats[b].years:
-            xts[b].append(f"{y} {ori_stats[b].get_year_total(y)}")
-
-    # mean data
-    xscyc = {}
-    # Northern Hemisphere
-    xscyc['NH'] = []
-    for i, v in enumerate(ori_stats['NH'].mean[:12], start=1):
-        xscyc['NH'].append(f"{i} {v}")
-    # Souther Hemisphere
-    xscyc['SH'] = []
-    for i, v in enumerate(ori_stats['SH'].mean[6:12] + ori_stats['SH'].mean[:6], start=1):
-        xscyc['SH'].append(f"{i} {v}")
-
-    ori.cat_ori_files()
-    generate_ori_data(ori.type, template_env)
-    write_plot_data("xts_nh.dat", xts['NH'])
-    write_plot_data("xts_sh.dat", xts['SH'])
-    write_plot_data("xscyc_nh.dat", xscyc['NH'])
-    write_plot_data("xscyc_sh.dat", xscyc['SH'])
-
-    ori.freq_ori(True, False, True, False, False, False, False)
-    for region in ['gl', 'nh', 'sh']:
-        with open(f"xlon_{region}.dat", 'a') as outfile:
-            with open(f"flon_{region}") as infile:
-                outfile.write(infile.read())
-
-    return ori_stats['NH'].mean[12], ori_stats['SH'].mean[12]
+def generate_plot_data(region_stats):
+    write_plot_data('grace.dat',
+                    [f"{y} {region_stats.get_year_total(y)}" for y in region_stats.years])
 
 
 def write_plot_data(file, array):
@@ -100,6 +59,10 @@ if __name__ == "__main__":
                            default=os.getcwd(),
                            type=tsargparse.absPath,
                            action=tsargparse.createDir)
+    argparser.add_argument("-H",
+                           help="Indicates plot is number of hurricanes",
+                           dest="do_hur",
+                           action='store_true')
     argparser.add_argument("inDir",
                            help="Directory where tropical storm data are available",
                            metavar="inDir",
@@ -124,6 +87,27 @@ if __name__ == "__main__":
                            type=str)
     args = argparser.parse_args()
 
+    storm_type = 'Tropical Storm'
+    if (args.do_hur):
+        storm_type = 'Hurricane (CAT. 1-5)'
+
+    # y_region contains the plot's y-axis max and tick mark increment numbers
+    y_region = {
+        'G': {'max': 110, 'inc': 10},
+        'WA': {'max': 20, 'inc': 2},
+        'EA': {'max': 10, 'inc': 1},
+        'WP': {'max': 50, 'inc': 5},
+        'EP': {'max': 30, 'inc': 5},
+        'NI': {'max': 10, 'inc': 1},
+        'SI': {'max': 20, 'inc': 2},
+        'AU': {'max': 20, 'inc': 2},
+        'SP': {'max': 30, 'inc': 5},
+        'SA': {'max': 10, 'inc': 1},
+        'NH': {'max': 80, 'inc': 10},
+        'SH': {'max': 50, 'inc': 5},
+        'NA': {'max': -1, 'inc': -1}
+    }
+
     grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
     template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(grace_template_dir))
     template_env.keep_trailing_newline = True
@@ -131,39 +115,38 @@ if __name__ == "__main__":
     template_env.lstrip_blocks = True
     template_env.rstrip_blocks = True
 
-    with tempfile.TemporaryDirectory() as tmpdir:
-        os.chdir(tmpdir)
-        obs = ori(args.obsDir, args.beg_year, args.end_year, 'obs')
-        model = ori(args.inDir, args.beg_year, args.end_year, 'model')
+    obs = ori(args.obsDir, args.beg_year, args.end_year, 'obs')
+    model = ori(args.inDir, args.beg_year, args.end_year, 'model')
 
-        nh_obs_mean, sh_obs_mean = generate_plot_data(obs, template_env)
-        nh_model_mean, sh_model_mean = generate_plot_data(model, template_env)
+    for region in ['G', 'WA', 'WP', 'EP', 'NH', 'SH']:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            os.chdir(tmpdir)
 
-        snapshot_par = template_env.get_template('snap_shot.par')
-        snapshot_data = {
-            "BEG_YEAR": args.beg_year,
-            "END_YEAR": args.end_year,
-            "NH_OBS_MEAN": nh_obs_mean,
-            "NH_MODEL_MEAN": nh_model_mean,
-            "SH_OBS_MEAN": sh_obs_mean,
-            "SH_MODEL_MEAN": sh_model_mean,
-            "PLOT_TITLE": args.expName,
-        }
-        with open('snapshot.par', 'w') as out:
-            out.write(snapshot_par.render(snapshot_data))
+            generate_plot_data(model.stats[region])
+            generate_plot_data(obs.stats[region])
 
-        plot_filename = f"snapshot_{args.beg_year}-{args.end_year}.ps"
-        grace_cmd = [
-            gracebat,
-            "-printfile", plot_filename,
-            "-param", "snapshot.par",
-            "-hardcopy",
-            "-graph", "3", "xts_nh.dat", "-graph", "7", "xts_sh.dat",
-            "-graph", "2", "xscyc_nh.dat", "-graph", "6", "xscyc_sh.dat",
-            "-graph", "1", "xlon_nh.dat", "-graph", "5", "xlon_sh.dat",
-            "-graph", "0", "ori_obs.dat", "-graph", "4", "ori_model.dat",
-        ]
-        subprocess.run(grace_cmd)
+            timeseries_par = template_env.get_template('time_series.par')
+            timeseries_data = {
+                'storm_type': storm_type,
+                'region_title': model.stats[region].region_title,
+                'YYMAX': y_region[region]['max'],
+                'YYINC': y_region[region]['inc'],
+                'exp': [args.expName, 'obs'],
+                'mean': [model.stats[region].mean[12], obs.stats[region].mean[12]]
+            }
+            with open('timeseries.par', 'w') as out:
+                out.write(timeseries_par.render(timeseries_data))
 
-        shutil.copyfile('snapshot.ps',
-                        os.path.join(args.outDir, plot_filename))
+            plot_filename = f"timeseries_{region}.ps"
+            grace_cmd = [
+                gracebat,
+                "-autoscale", "xy",
+                "-printfile", plot_filename,
+                "-param", "timeseries.par",
+                "-hardcopy",
+                "grace.dat",
+            ]
+            subprocess.run(grace_cmd)
+
+            shutil.copyfile(plot_filename,
+                            os.path.join(args.outDir, plot_filename))

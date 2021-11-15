@@ -442,6 +442,7 @@ eof
 
    if ( $experiment_type == obs ) then
       # Snapshot plot, comparing observational data with model data
-      python3 -m TCtracker.graph_snap_shot -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+      python3 -m TCtracker.plots.snapshot -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    endif
+   python3 -m TCtracker.plots.timeseries -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
 endif
