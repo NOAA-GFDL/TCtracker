@@ -22,5 +22,6 @@ templatesdir = $(pkgpythondir)/plots/templates
 dist_templates_DATA = \
   geog.dat \
   by_latitude.par \
+  by_longitude.par \
   snap_shot.par \
   time_series.par
