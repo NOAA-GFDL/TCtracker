@@ -30,18 +30,18 @@ class StormBox():
 
     region_titles = {
         'G': 'Global',
-        'WA': 'West_Atlantic',
-        'EA': 'East_Atlantic',
-        'WP': 'West_Pacific',
-        'EP': 'East_Pacific',
-        'NI': 'North_Indian_Ocean',
-        'SI': 'South_Indian_Ocean',
+        'WA': 'West Atlantic',
+        'EA': 'East Atlantic',
+        'WP': 'West Pacific',
+        'EP': 'East Pacific',
+        'NI': 'North Indian_Ocean',
+        'SI': 'South Indian_Ocean',
         'AU': 'Australia',
-        'SP': 'South_Pacific',
-        'SA': 'South_Atlantic',
-        'NH': 'Northern_Hemisphere',
-        'SH': 'Southern_Hemisphere',
-        'NA': 'NA'
+        'SP': 'South Pacific',
+        'SA': 'South Atlantic',
+        'NH': 'Northern Hemisphere',
+        'SH': 'Southern Hemisphere',
+        'NA': 'North Atlantic'
     }
 
     def __init__(self, id: int):

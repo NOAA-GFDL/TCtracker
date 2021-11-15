@@ -105,7 +105,7 @@ if __name__ == "__main__":
         'SA': {'max': 10, 'inc': 1},
         'NH': {'max': 80, 'inc': 10},
         'SH': {'max': 50, 'inc': 5},
-        'NA': {'max': -1, 'inc': -1}
+        'NA': {'max': 20, 'inc': 2}
     }
 
     grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
