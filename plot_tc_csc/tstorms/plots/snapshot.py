@@ -165,5 +165,5 @@ if __name__ == "__main__":
         ]
         subprocess.run(grace_cmd)
 
-        shutil.copyfile('snapshot.ps',
+        shutil.copyfile(plot_filename,
                         os.path.join(args.outDir, plot_filename))
