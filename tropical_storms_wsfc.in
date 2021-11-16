@@ -447,4 +447,5 @@ eof
    python3 -m TCtracker.plots.timeseries -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    python3 -m TCtracker.plots.by_latitude -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    python3 -m TCtracker.plots.by_longitude -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.by_region -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
 endif

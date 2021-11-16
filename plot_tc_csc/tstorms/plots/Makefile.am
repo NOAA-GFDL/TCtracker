@@ -26,5 +26,6 @@ tstormsplots_PYTHON = \
   __init__.py \
   by_latitude.py \
   by_longitude.py \
+  by_region.py \
   snapshot.py \
   timeseries.py

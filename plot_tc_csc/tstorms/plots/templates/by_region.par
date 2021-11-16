@@ -39,7 +39,7 @@ default color 1
 default pattern 1
 default font 4
 default char size 1.000000
-default symbol size 1.000000
+default symbol size 1.400000
 background color 0
 page background fill on
 timestamp off
@@ -48,7 +48,7 @@ timestamp color 1
 timestamp rot 0
 timestamp font 4
 timestamp char size 1.000000
-timestamp def "Fri Sep 27 12:53:41 2002"
+timestamp def "Fri Sep 27 13:44:01 2002"
 r0 type above
 r0 linestyle 1
 r0 linewidth 1.0
@@ -76,7 +76,7 @@ r4 color 1
 r4 line 0, 0, 0, 0
 g0 on
 g0 hidden false
-g0 type XY
+g0 type Chart
 g0 stacked false
 g0 bar hgap 0.000000
 g0 fixedpoint off
@@ -85,22 +85,22 @@ g0 fixedpoint xy 0.000000, 0.000000
 g0 fixedpoint format general general
 g0 fixedpoint prec 6, 6
 with g0
-    world xmin 0
-    world xmax 360
+    world xmin 0.5
+    world xmax 5.5
     world ymin 0
-    world ymax 5
+    world ymax 70
     stack world 0, 0, 0, 0
     view xmin 0.150000
-    view xmax 1.150000
-    view ymin 0.100000
-    view ymax 0.290000
+    view xmax 1.050000
+    view ymin 0.070000
+    view ymax 0.420000
     title ""
-    title font 0
-    title size 1.500000
+    title font 1
+    title size 1.200000
     title color 1
     subtitle "Southern Hemisphere"
     subtitle font 1
-    subtitle size 1.100000
+    subtitle size 1.000000
     subtitle color 1
     xaxes scale Normal
     yaxes scale Normal
@@ -109,32 +109,32 @@ with g0
     xaxis  on
     xaxis  type zero false
     xaxis  offset 0.000000 , 0.000000
-    xaxis  bar on
+    xaxis  bar off
     xaxis  bar color 1
     xaxis  bar linestyle 1
     xaxis  bar linewidth 1.0
-    xaxis  label "longitude"
+    xaxis  label ""
     xaxis  label layout para
     xaxis  label place auto
-    xaxis  label char size 0.850000
+    xaxis  label char size 0.800000
     xaxis  label font 1
     xaxis  label color 1
     xaxis  label op bottom
-    xaxis  tick on
-    xaxis  tick major 30
+    xaxis  tick off
+    xaxis  tick major 1
     xaxis  tick minor ticks 1
-    xaxis  tick default 6
+    xaxis  tick default 10
     xaxis  tick place rounded true
     xaxis  tick in
     xaxis  tick major size 1.000000
     xaxis  tick major color 7
     xaxis  tick major linewidth 2.0
     xaxis  tick major linestyle 1
-    xaxis  tick major grid on
+    xaxis  tick major grid off
     xaxis  tick minor color 7
     xaxis  tick minor linewidth 2.0
     xaxis  tick minor linestyle 1
-    xaxis  tick minor grid on
+    xaxis  tick minor grid off
     xaxis  tick minor size 0.500000
     xaxis  ticklabel on
     xaxis  ticklabel prec 5
@@ -152,30 +152,41 @@ with g0
     xaxis  ticklabel start 0.000000
     xaxis  ticklabel stop type auto
     xaxis  ticklabel stop 0.000000
-    xaxis  ticklabel char size 1.000000
+    xaxis  ticklabel char size 0.790000
     xaxis  ticklabel font 1
     xaxis  ticklabel color 1
     xaxis  tick op both
-    xaxis  ticklabel type auto
-    xaxis  tick type auto
+    xaxis  ticklabel type spec
+    xaxis  tick type spec
+    xaxis  tick spec 5
+    xaxis  tick major 0, 1
+    xaxis  ticklabel 0, "S_IND"
+    xaxis  tick major 1, 2
+    xaxis  ticklabel 1, "AUST"
+    xaxis  tick major 2, 3
+    xaxis  ticklabel 2, "S_PAC"
+    xaxis  tick major 3, 4
+    xaxis  ticklabel 3, "S_ATL"
+    xaxis  tick major 4, 5
+    xaxis  ticklabel 4, "S_HEM"
     yaxis  on
     yaxis  type zero false
     yaxis  offset 0.000000 , 0.000000
-    yaxis  bar on
+    yaxis  bar off
     yaxis  bar color 1
     yaxis  bar linestyle 1
     yaxis  bar linewidth 1.0
-    yaxis  label "{{ storm_type }} per year"
+    yaxis  label "number per year"
     yaxis  label layout para
     yaxis  label place auto
-    yaxis  label char size 0.850000
+    yaxis  label char size 0.910000
     yaxis  label font 1
     yaxis  label color 1
     yaxis  label op left
     yaxis  tick off
-    yaxis  tick major 1
+    yaxis  tick major 10
     yaxis  tick minor ticks 1
-    yaxis  tick default 6
+    yaxis  tick default 10
     yaxis  tick place rounded true
     yaxis  tick in
     yaxis  tick major size 1.000000
@@ -186,11 +197,11 @@ with g0
     yaxis  tick minor color 7
     yaxis  tick minor linewidth 2.0
     yaxis  tick minor linestyle 1
-    yaxis  tick minor grid off
+    yaxis  tick minor grid on
     yaxis  tick minor size 0.500000
     yaxis  ticklabel on
-    yaxis  ticklabel prec 5
-    yaxis  ticklabel format general
+    yaxis  ticklabel prec 0
+    yaxis  ticklabel format decimal
     yaxis  ticklabel append ""
     yaxis  ticklabel prepend ""
     yaxis  ticklabel angle 0
@@ -204,7 +215,7 @@ with g0
     yaxis  ticklabel start 0.000000
     yaxis  ticklabel stop type auto
     yaxis  ticklabel stop 0.000000
-    yaxis  ticklabel char size 1.000000
+    yaxis  ticklabel char size 0.970000
     yaxis  ticklabel font 1
     yaxis  ticklabel color 1
     yaxis  tick op both
@@ -212,52 +223,52 @@ with g0
     yaxis  tick type auto
     altxaxis  off
     altyaxis  off
-    legend on
+    legend off
     legend loctype view
-    legend x1 1.04
-    legend y1 0.8
-    legend box color 1
+    legend x1 1.07
+    legend y1 0.42
+    legend box color 0
     legend box pattern 1
     legend box linewidth 1.0
     legend box linestyle 1
     legend box fill color 0
     legend box fill pattern 1
-    legend font 0
+    legend font 1
     legend char size 0.800000
     legend color 1
-    legend length 4
+    legend length 1
     legend vgap 1
-    legend hgap 0
+    legend hgap 1
     legend invert false
     frame type 0
     frame linestyle 1
     frame linewidth 2.0
     frame color 1
     frame pattern 1
-    frame background color 0
+    frame background color 6
     frame background pattern 0
     s0 hidden false
-    s0 type xy
+    s0 type bar
     s0 symbol 0
-    s0 symbol size 1.000000
+    s0 symbol size 1.400000
     s0 symbol color 1
     s0 symbol pattern 1
     s0 symbol fill color 1
-    s0 symbol fill pattern 0
+    s0 symbol fill pattern 1
     s0 symbol linewidth 1.0
     s0 symbol linestyle 1
-    s0 symbol char 65
+    s0 symbol char 0
     s0 symbol char font 4
     s0 symbol skip 0
-    s0 line type 1
+    s0 line type 0
     s0 line linestyle 1
-    s0 line linewidth 2.0
+    s0 line linewidth 1.0
     s0 line color 1
     s0 line pattern 1
     s0 baseline type 0
     s0 baseline off
     s0 dropline off
-    s0 fill type 0
+    s0 fill type 1
     s0 fill rule 0
     s0 fill color 1
     s0 fill pattern 1
@@ -279,32 +290,32 @@ with g0
     s0 errorbar linestyle 1
     s0 errorbar riser linewidth 1.0
     s0 errorbar riser linestyle 1
-    s0 comment "xmgrdat"
-    s0 legend  ""
+    s0 comment "STDIN"
+    s0 legend  "{{ exp[0] }}"
     s1 hidden false
-    s1 type xy
+    s1 type bar
     s1 symbol 0
-    s1 symbol size 1.000000
-    s1 symbol color 2
+    s1 symbol size 1.400000
+    s1 symbol color 1
     s1 symbol pattern 1
     s1 symbol fill color 2
-    s1 symbol fill pattern 0
+    s1 symbol fill pattern 1
     s1 symbol linewidth 1.0
     s1 symbol linestyle 1
-    s1 symbol char 65
+    s1 symbol char 0
     s1 symbol char font 4
     s1 symbol skip 0
-    s1 line type 1
+    s1 line type 0
     s1 line linestyle 1
-    s1 line linewidth 2.0
+    s1 line linewidth 1.0
     s1 line color 2
     s1 line pattern 1
     s1 baseline type 0
     s1 baseline off
     s1 dropline off
-    s1 fill type 0
+    s1 fill type 1
     s1 fill rule 0
-    s1 fill color 1
+    s1 fill color 2
     s1 fill pattern 1
     s1 avalue off
     s1 avalue type 2
@@ -325,10 +336,10 @@ with g0
     s1 errorbar riser linewidth 1.0
     s1 errorbar riser linestyle 1
     s1 comment "xdat_sh"
-    s1 legend  ""
+    s1 legend  "{{ exp[1] }}"
 g1 on
 g1 hidden false
-g1 type XY
+g1 type Chart
 g1 stacked false
 g1 bar hgap 0.000000
 g1 fixedpoint off
@@ -337,22 +348,22 @@ g1 fixedpoint xy 0.000000, 0.000000
 g1 fixedpoint format general general
 g1 fixedpoint prec 6, 6
 with g1
-    world xmin 0
-    world xmax 360
+    world xmin 0.5
+    world xmax 5.5
     world ymin 0
-    world ymax 5
+    world ymax 70
     stack world 0, 0, 0, 0
     view xmin 0.150000
-    view xmax 1.150000
-    view ymin 0.390000
-    view ymax 0.580000
-    title ""
+    view xmax 1.050000
+    view ymin 0.520000
+    view ymax 0.870000
+    title "{{ storm_type }} ({{ year_start }}-{{ year_end }})"
     title font 1
-    title size 1.500000
+    title size 1.200000
     title color 1
     subtitle "Northern Hemisphere"
     subtitle font 1
-    subtitle size 1.090000
+    subtitle size 1.000000
     subtitle color 1
     xaxes scale Normal
     yaxes scale Normal
@@ -361,7 +372,7 @@ with g1
     xaxis  on
     xaxis  type zero false
     xaxis  offset 0.000000 , 0.000000
-    xaxis  bar on
+    xaxis  bar off
     xaxis  bar color 1
     xaxis  bar linestyle 1
     xaxis  bar linewidth 1.0
@@ -372,8 +383,8 @@ with g1
     xaxis  label font 4
     xaxis  label color 1
     xaxis  label op bottom
-    xaxis  tick on
-    xaxis  tick major 30
+    xaxis  tick off
+    xaxis  tick major 1
     xaxis  tick minor ticks 1
     xaxis  tick default 6
     xaxis  tick place rounded true
@@ -382,11 +393,11 @@ with g1
     xaxis  tick major color 7
     xaxis  tick major linewidth 2.0
     xaxis  tick major linestyle 1
-    xaxis  tick major grid on
+    xaxis  tick major grid off
     xaxis  tick minor color 7
     xaxis  tick minor linewidth 2.0
     xaxis  tick minor linestyle 1
-    xaxis  tick minor grid on
+    xaxis  tick minor grid off
     xaxis  tick minor size 0.500000
     xaxis  ticklabel on
     xaxis  ticklabel prec 5
@@ -404,28 +415,39 @@ with g1
     xaxis  ticklabel start 0.000000
     xaxis  ticklabel stop type auto
     xaxis  ticklabel stop 0.000000
-    xaxis  ticklabel char size 1.000000
+    xaxis  ticklabel char size 0.790000
     xaxis  ticklabel font 1
     xaxis  ticklabel color 1
     xaxis  tick op both
-    xaxis  ticklabel type auto
-    xaxis  tick type auto
+    xaxis  ticklabel type spec
+    xaxis  tick type spec
+    xaxis  tick spec 5
+    xaxis  tick major 0, 1
+    xaxis  ticklabel 0, "N_IND"
+    xaxis  tick major 1, 2
+    xaxis  ticklabel 1, "NW_PAC"
+    xaxis  tick major 2, 3
+    xaxis  ticklabel 2, "NE_PAC"
+    xaxis  tick major 3, 4
+    xaxis  ticklabel 3, "N_ATL"
+    xaxis  tick major 4, 5
+    xaxis  ticklabel 4, "N_HEM"
     yaxis  on
     yaxis  type zero false
     yaxis  offset 0.000000 , 0.000000
-    yaxis  bar on
+    yaxis  bar off
     yaxis  bar color 1
     yaxis  bar linestyle 1
     yaxis  bar linewidth 1.0
-    yaxis  label "{{ storm_type }} per year"
+    yaxis  label "number per year"
     yaxis  label layout para
     yaxis  label place auto
-    yaxis  label char size 0.850000
+    yaxis  label char size 0.900000
     yaxis  label font 1
     yaxis  label color 1
     yaxis  label op left
     yaxis  tick off
-    yaxis  tick major 1
+    yaxis  tick major 10
     yaxis  tick minor ticks 1
     yaxis  tick default 6
     yaxis  tick place rounded true
@@ -438,11 +460,11 @@ with g1
     yaxis  tick minor color 7
     yaxis  tick minor linewidth 2.0
     yaxis  tick minor linestyle 1
-    yaxis  tick minor grid off
+    yaxis  tick minor grid on
     yaxis  tick minor size 0.500000
     yaxis  ticklabel on
-    yaxis  ticklabel prec 5
-    yaxis  ticklabel format general
+    yaxis  ticklabel prec 0
+    yaxis  ticklabel format decimal
     yaxis  ticklabel append ""
     yaxis  ticklabel prepend ""
     yaxis  ticklabel angle 0
@@ -456,7 +478,7 @@ with g1
     yaxis  ticklabel start 0.000000
     yaxis  ticklabel stop type auto
     yaxis  ticklabel stop 0.000000
-    yaxis  ticklabel char size 1.000000
+    yaxis  ticklabel char size 0.970000
     yaxis  ticklabel font 1
     yaxis  ticklabel color 1
     yaxis  tick op both
@@ -466,20 +488,20 @@ with g1
     altyaxis  off
     legend on
     legend loctype view
-    legend x1 1.04
-    legend y1 0.575
+    legend x1 0.15
+    legend y1 0.87
     legend box color 1
-    legend box pattern 0
-    legend box linewidth 1.0
+    legend box pattern 1
+    legend box linewidth 2.0
     legend box linestyle 1
     legend box fill color 0
     legend box fill pattern 1
     legend font 1
-    legend char size 0.800000
+    legend char size 0.900000
     legend color 1
-    legend length 4
+    legend length 1
     legend vgap 1
-    legend hgap 0
+    legend hgap 1
     legend invert false
     frame type 0
     frame linestyle 1
@@ -489,27 +511,27 @@ with g1
     frame background color 6
     frame background pattern 0
     s0 hidden false
-    s0 type xy
+    s0 type bar
     s0 symbol 0
-    s0 symbol size 1.000000
+    s0 symbol size 1.400000
     s0 symbol color 1
     s0 symbol pattern 1
     s0 symbol fill color 1
-    s0 symbol fill pattern 0
+    s0 symbol fill pattern 1
     s0 symbol linewidth 1.0
     s0 symbol linestyle 1
-    s0 symbol char 65
+    s0 symbol char 0
     s0 symbol char font 4
     s0 symbol skip 0
-    s0 line type 1
+    s0 line type 0
     s0 line linestyle 1
-    s0 line linewidth 2.0
+    s0 line linewidth 1.0
     s0 line color 1
     s0 line pattern 1
     s0 baseline type 0
     s0 baseline off
     s0 dropline off
-    s0 fill type 0
+    s0 fill type 1
     s0 fill rule 0
     s0 fill color 1
     s0 fill pattern 1
@@ -531,32 +553,32 @@ with g1
     s0 errorbar linestyle 1
     s0 errorbar riser linewidth 1.0
     s0 errorbar riser linestyle 1
-    s0 comment "xmgrdat"
-    s0 legend  ""
+    s0 comment "xdat_nh"
+    s0 legend  "{{ exp[0] }}"
     s1 hidden false
-    s1 type xy
+    s1 type bar
     s1 symbol 0
-    s1 symbol size 1.000000
-    s1 symbol color 2
+    s1 symbol size 1.400000
+    s1 symbol color 1
     s1 symbol pattern 1
     s1 symbol fill color 2
-    s1 symbol fill pattern 0
+    s1 symbol fill pattern 1
     s1 symbol linewidth 1.0
     s1 symbol linestyle 1
-    s1 symbol char 65
+    s1 symbol char 0
     s1 symbol char font 4
     s1 symbol skip 0
-    s1 line type 1
+    s1 line type 0
     s1 line linestyle 1
-    s1 line linewidth 2.0
+    s1 line linewidth 1.0
     s1 line color 2
     s1 line pattern 1
     s1 baseline type 0
     s1 baseline off
     s1 dropline off
-    s1 fill type 0
+    s1 fill type 1
     s1 fill rule 0
-    s1 fill color 1
+    s1 fill color 2
     s1 fill pattern 1
     s1 avalue off
     s1 avalue type 2
@@ -577,256 +599,4 @@ with g1
     s1 errorbar riser linewidth 1.0
     s1 errorbar riser linestyle 1
     s1 comment "xdat_nh"
-    s1 legend  ""
-g2 on
-g2 hidden false
-g2 type XY
-g2 stacked false
-g2 bar hgap 0.000000
-g2 fixedpoint off
-g2 fixedpoint type 0
-g2 fixedpoint xy 0.000000, 0.000000
-g2 fixedpoint format general general
-g2 fixedpoint prec 6, 6
-with g2
-    world xmin 0
-    world xmax 360
-    world ymin 0
-    world ymax 5
-    stack world 0, 0, 0, 0
-    view xmin 0.150000
-    view xmax 1.150000
-    view ymin 0.680000
-    view ymax 0.870000
-    title "{{ storm_type }} Count by Longitude  ({{ year_start }}-{{ year_end }})"
-    title font 1
-    title size 1.100000
-    title color 1
-    subtitle "Global"
-    subtitle font 1
-    subtitle size 1.090000
-    subtitle color 1
-    xaxes scale Normal
-    yaxes scale Normal
-    xaxes invert off
-    yaxes invert off
-    xaxis  on
-    xaxis  type zero false
-    xaxis  offset 0.000000 , 0.000000
-    xaxis  bar on
-    xaxis  bar color 1
-    xaxis  bar linestyle 1
-    xaxis  bar linewidth 1.0
-    xaxis  label ""
-    xaxis  label layout para
-    xaxis  label place auto
-    xaxis  label char size 1.000000
-    xaxis  label font 4
-    xaxis  label color 1
-    xaxis  label op bottom
-    xaxis  tick on
-    xaxis  tick major 30
-    xaxis  tick minor ticks 1
-    xaxis  tick default 6
-    xaxis  tick place rounded true
-    xaxis  tick in
-    xaxis  tick major size 1.000000
-    xaxis  tick major color 7
-    xaxis  tick major linewidth 2.0
-    xaxis  tick major linestyle 1
-    xaxis  tick major grid on
-    xaxis  tick minor color 7
-    xaxis  tick minor linewidth 2.0
-    xaxis  tick minor linestyle 1
-    xaxis  tick minor grid on
-    xaxis  tick minor size 0.500000
-    xaxis  ticklabel on
-    xaxis  ticklabel prec 5
-    xaxis  ticklabel format general
-    xaxis  ticklabel append ""
-    xaxis  ticklabel prepend ""
-    xaxis  ticklabel angle 0
-    xaxis  ticklabel skip 0
-    xaxis  ticklabel stagger 0
-    xaxis  ticklabel op bottom
-    xaxis  ticklabel offset auto
-    xaxis  ticklabel offset 0.000000 , 0.010000
-    xaxis  ticklabel sign normal
-    xaxis  ticklabel start type auto
-    xaxis  ticklabel start 0.000000
-    xaxis  ticklabel stop type auto
-    xaxis  ticklabel stop 0.000000
-    xaxis  ticklabel char size 1.000000
-    xaxis  ticklabel font 1
-    xaxis  ticklabel color 1
-    xaxis  tick op both
-    xaxis  ticklabel type auto
-    xaxis  tick type auto
-    yaxis  on
-    yaxis  type zero false
-    yaxis  offset 0.000000 , 0.000000
-    yaxis  bar on
-    yaxis  bar color 1
-    yaxis  bar linestyle 1
-    yaxis  bar linewidth 1.0
-    yaxis  label "{{ storm_type }} per year"
-    yaxis  label layout para
-    yaxis  label place auto
-    yaxis  label char size 0.850000
-    yaxis  label font 1
-    yaxis  label color 1
-    yaxis  label op left
-    yaxis  tick off
-    yaxis  tick major 1
-    yaxis  tick minor ticks 1
-    yaxis  tick default 6
-    yaxis  tick place rounded true
-    yaxis  tick in
-    yaxis  tick major size 1.000000
-    yaxis  tick major color 7
-    yaxis  tick major linewidth 2.0
-    yaxis  tick major linestyle 1
-    yaxis  tick major grid on
-    yaxis  tick minor color 7
-    yaxis  tick minor linewidth 2.0
-    yaxis  tick minor linestyle 1
-    yaxis  tick minor grid off
-    yaxis  tick minor size 0.500000
-    yaxis  ticklabel on
-    yaxis  ticklabel prec 5
-    yaxis  ticklabel format general
-    yaxis  ticklabel append ""
-    yaxis  ticklabel prepend ""
-    yaxis  ticklabel angle 0
-    yaxis  ticklabel skip 0
-    yaxis  ticklabel stagger 0
-    yaxis  ticklabel op left
-    yaxis  ticklabel offset auto
-    yaxis  ticklabel offset 0.000000 , 0.010000
-    yaxis  ticklabel sign normal
-    yaxis  ticklabel start type auto
-    yaxis  ticklabel start 0.000000
-    yaxis  ticklabel stop type auto
-    yaxis  ticklabel stop 0.000000
-    yaxis  ticklabel char size 1.000000
-    yaxis  ticklabel font 1
-    yaxis  ticklabel color 1
-    yaxis  tick op both
-    yaxis  ticklabel type auto
-    yaxis  tick type auto
-    altxaxis  off
-    altyaxis  off
-    legend on
-    legend loctype view
-    legend x1 0.9
-    legend y1 0.94
-    legend box color 1
-    legend box pattern 1
-    legend box linewidth 1.0
-    legend box linestyle 0
-    legend box fill color 1
-    legend box fill pattern 0
-    legend font 1
-    legend char size 0.900000
-    legend color 1
-    legend length 4
-    legend vgap 1
-    legend hgap 0
-    legend invert false
-    frame type 0
-    frame linestyle 1
-    frame linewidth 2.0
-    frame color 1
-    frame pattern 1
-    frame background color 0
-    frame background pattern 0
-    s0 hidden false
-    s0 type xy
-    s0 symbol 0
-    s0 symbol size 1.000000
-    s0 symbol color 1
-    s0 symbol pattern 1
-    s0 symbol fill color 1
-    s0 symbol fill pattern 0
-    s0 symbol linewidth 1.0
-    s0 symbol linestyle 1
-    s0 symbol char 65
-    s0 symbol char font 4
-    s0 symbol skip 0
-    s0 line type 1
-    s0 line linestyle 1
-    s0 line linewidth 2.0
-    s0 line color 1
-    s0 line pattern 1
-    s0 baseline type 0
-    s0 baseline off
-    s0 dropline off
-    s0 fill type 0
-    s0 fill rule 0
-    s0 fill color 1
-    s0 fill pattern 1
-    s0 avalue off
-    s0 avalue type 2
-    s0 avalue char size 1.000000
-    s0 avalue font 4
-    s0 avalue color 1
-    s0 avalue rot 0
-    s0 avalue format general
-    s0 avalue prec 3
-    s0 avalue prepend ""
-    s0 avalue append ""
-    s0 avalue offset 0.000000 , 0.000000
-    s0 errorbar off
-    s0 errorbar type both
-    s0 errorbar length 1.000000
-    s0 errorbar linewidth 1.0
-    s0 errorbar linestyle 1
-    s0 errorbar riser linewidth 1.0
-    s0 errorbar riser linestyle 1
-    s0 comment "xmgrdat"
-    s0 legend  "{{ exp[0] }}"
-    s1 hidden false
-    s1 type xy
-    s1 symbol 0
-    s1 symbol size 1.000000
-    s1 symbol color 2
-    s1 symbol pattern 1
-    s1 symbol fill color 2
-    s1 symbol fill pattern 0
-    s1 symbol linewidth 1.0
-    s1 symbol linestyle 1
-    s1 symbol char 65
-    s1 symbol char font 4
-    s1 symbol skip 0
-    s1 line type 1
-    s1 line linestyle 1
-    s1 line linewidth 2.0
-    s1 line color 2
-    s1 line pattern 1
-    s1 baseline type 0
-    s1 baseline off
-    s1 dropline off
-    s1 fill type 0
-    s1 fill rule 0
-    s1 fill color 1
-    s1 fill pattern 1
-    s1 avalue off
-    s1 avalue type 2
-    s1 avalue char size 1.000000
-    s1 avalue font 4
-    s1 avalue color 1
-    s1 avalue rot 0
-    s1 avalue format general
-    s1 avalue prec 3
-    s1 avalue prepend ""
-    s1 avalue append ""
-    s1 avalue offset 0.000000 , 0.000000
-    s1 errorbar off
-    s1 errorbar type both
-    s1 errorbar length 1.000000
-    s1 errorbar linewidth 1.0
-    s1 errorbar linestyle 1
-    s1 errorbar riser linewidth 1.0
-    s1 errorbar riser linestyle 1
-    s1 comment "xdat_gl"
     s1 legend  "{{ exp[1] }}"
