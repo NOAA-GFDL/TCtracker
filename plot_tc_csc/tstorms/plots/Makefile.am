@@ -24,8 +24,10 @@ tstormsplotsdir = $(pkgpythondir)/plots
 
 tstormsplots_PYTHON = \
   __init__.py \
+  _plot_helpers.py \
   by_latitude.py \
   by_longitude.py \
   by_region.py \
+  seasonal_cycle.py \
   snapshot.py \
   timeseries.py

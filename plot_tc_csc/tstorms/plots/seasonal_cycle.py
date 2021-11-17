@@ -19,21 +19,24 @@
 # 02110-1301, USA.
 # **********************************************************************
 
-"""Tropical Storm Timeseries Plot Generator
+"""Tropical Storm Snapshot Plot Generator
 
-This module generates the Tropical Storm Timeseries plot using tracking data
+This module generates the Tropical Storm Snapshot plot using tracking data
 generated from a GCM.
 """
+
 import argparse
 import os
 import shutil
 import subprocess
 import jinja2
 import tempfile
+import collections
 
 from .. import argparse as tsargparse
 from ..config import gracebat
 from ..ori import ori
+from ._plot_helpers import template_env, write_plot_data
 
 __all__ = [
     'generate_plot_data',
@@ -41,10 +44,21 @@ __all__ = [
 
 
 def generate_plot_data(ori):
-    ori.freq_ori(do_40ns = True, do_map = False, do_lon = False, do_lat = True)
-    with open(f"grace.dat", 'a') as outfile:
-        with open(f"flat") as infile:
-            outfile.write(infile.read())
+    ori_stats = ori.stats
+
+    region_list = {'ns': ['NH', 'SH'],
+                   'nh': ['NH', 'NI', 'WP', 'EP', 'WA'],
+                   'sh': ['SH', 'SI', 'AU', 'SP', 'SA']}
+
+    for hemisphere in region_list.keys():
+        for region in region_list[hemisphere]:
+            stats = collections.deque(ori_stats[region].mean[0:12])
+            if hemisphere == 'sh' or region == 'SH':
+                stats.rotate(6)
+            out_mean = []
+            for i, mean in enumerate(stats, start=1):
+                out_mean.append(f"{i} {mean}")
+            write_plot_data(f"grace_{hemisphere}_{region}.dat", out_mean)
 
 
 if __name__ == "__main__":
@@ -56,10 +70,6 @@ if __name__ == "__main__":
                            default=os.getcwd(),
                            type=tsargparse.absPath,
                            action=tsargparse.createDir)
-    argparser.add_argument("-H",
-                           help="Indicates plot is number of hurricanes",
-                           dest="do_hur",
-                           action='store_true')
     argparser.add_argument("inDir",
                            help="Directory where tropical storm data are available",
                            metavar="inDir",
@@ -84,47 +94,50 @@ if __name__ == "__main__":
                            type=str)
     args = argparser.parse_args()
 
-    storm_type = 'Tropical Storm'
-    if (args.do_hur):
-        storm_type = 'Hurricane (CAT. 1-5)'
-
-    grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-    template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(grace_template_dir))
-    template_env.keep_trailing_newline = True
-    template_env.trim_blocks = True
-    template_env.lstrip_blocks = True
-    template_env.rstrip_blocks = True
-
-    obs = ori(args.obsDir, args.beg_year, args.end_year, 'obs')
-    model = ori(args.inDir, args.beg_year, args.end_year, 'model')
 
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
+        obs = ori(args.obsDir, args.beg_year, args.end_year, 'obs')
+        model = ori(args.inDir, args.beg_year, args.end_year, 'model')
 
         generate_plot_data(model)
         generate_plot_data(obs)
 
-        by_latitude_par = template_env.get_template('by_latitude.par')
-        by_latitude_data = {
-            'storm_type': storm_type,
+        sea_cyc_plot = {'ns': ["-graph", "0", "grace_ns_SH.dat",
+                               "-graph", "1", "grace_ns_NH.dat"],
+                        'nh': ["-graph", "0", "grace_nh_EP.dat",
+                               "-graph", "1", "grace_nh_NI.dat",
+                               "-graph", "2", "grace_nh_NH.dat",
+                               "-graph", "3", "grace_nh_WA.dat",
+                               "-graph", "4", "grace_nh_WP.dat"],
+                        'sh': ["-graph", "0", "grace_sh_SP.dat",
+                               "-graph", "1", "grace_sh_SI.dat",
+                               "-graph", "2", "grace_sh_SH.dat",
+                               "-graph", "3", "grace_sh_SA.dat",
+                               "-graph", "4", "grace_sh_AU.dat"]}
+
+        sea_cyc_data = {
             'year_start': args.beg_year,
             'year_end': args.end_year,
             'exp': [args.expName, 'obs'],
         }
-        with open('by_latitude.par', 'w') as out:
-            out.write(by_latitude_par.render(by_latitude_data))
+        sea_cyc_par = {}
+        for hemisphere in ['ns', 'nh', 'sh']:
+            sea_cyc_par[hemisphere] = template_env.get_template(f'sea_cyc_{hemisphere}.par')
 
-        plot_filename = "by_latitude.ps"
-        grace_cmd = [
-            gracebat,
-            "-autoscale", "y",
-            "-printfile", plot_filename,
-            "-param", "by_latitude.par",
-            "-hardcopy",
-            "grace.dat",
-        ]
-        subprocess.run(grace_cmd)
+            with open(sea_cyc_par[hemisphere].name, 'w') as out:
+                out.write(sea_cyc_par[hemisphere].render(sea_cyc_data))
 
-        shutil.copyfile(plot_filename,
-                        os.path.join(args.outDir, plot_filename))
-        print(f"Plot stored in '{os.path.join(args.outDir, plot_filename)}'")
+            plot_filename = f"sea_cyc_{hemisphere}_{args.beg_year}-{args.end_year}.ps"
+            grace_cmd = [
+                gracebat,
+                "-autoscale", "y",
+                "-printfile", plot_filename,
+                "-param", sea_cyc_par[hemisphere].name,
+                "-hardcopy",
+            ]
+            subprocess.run(grace_cmd+sea_cyc_plot[hemisphere])
+
+            shutil.copyfile(plot_filename,
+                            os.path.join(args.outDir, plot_filename))
+            print(f"Plot stored in '{os.path.join(args.outDir, plot_filename)}'")
