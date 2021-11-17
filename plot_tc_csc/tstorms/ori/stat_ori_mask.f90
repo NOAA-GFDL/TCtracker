@@ -16,10 +16,8 @@ SUBROUTINE stat_ori(cmask, do_fancy, traj_in)
 
   integer, dimension(ix,iy) :: imask
 
-  character*2, dimension(ireg) :: bx
-  data bx /' G','WA','EA','WP','EP','NI','SI','AU','SP','SA','NH','SH','NA'/
-
-!-------------------------------------------------------------------
+  character(len=2), dimension(ireg), parameter :: bx =&
+      & (/' G','WA','EA','WP','EP','NI','SI','AU','SP','SA','NH','SH','NA'/)
 
   integer, parameter :: iyrmx = 500
   integer, parameter :: imomx = 12
@@ -35,50 +33,46 @@ SUBROUTINE stat_ori(cmask, do_fancy, traj_in)
   real,    dimension(imomp,ireg)       :: avgmo,  stdmo
   integer, dimension(iyrmx)            :: iyr
   integer                              :: yr0
-  character*5                          :: dummy
+  character(len=5)                     :: dummy
 
-  character*2, dimension(imomp) :: cmo = &
-  (/ ' J',' F',' M',' A',' M',' J',' J',' A',' S',' O',' N',' D','Yr' /)
-
-!===================================================================
+  character(len=2), dimension(imomp), parameter :: cmo = &
+      & (/ ' J',' F',' M',' A',' M',' J',' J',' A',' S',' O',' N',' D','Yr' /)
 
   yr0 = 0
   icnt(:,:,:) = 0
 
-!------------------------------------------------------------
-! --- get mask
-!------------------------------------------------------------
+  !------------------------------------------------------------
+  ! --- get mask
+  !------------------------------------------------------------
+  open (10, FILE = trim(cmask), FORM = 'formatted')
+  do jj = 1,iy
+    read (10,114) ( imask(ii,jj), ii=1,ix )
+  end do
+  close (10)
+114 format( 360i3  )
 
- open ( 10, FILE = trim(cmask), FORM = 'formatted' )
- do jj = 1,iy
-    read(10,114) ( imask(ii,jj), ii=1,ix )
- end do
- close( 10 )
- 114 format( 360i3  )
+  lon0 =  0.0
+  dlon =  tpi / FLOAT( ix )
+  lat0 =  hpi - 0.5 *   pi / FLOAT( iy )
+  dlat =        2.0 * lat0 / FLOAT( iy - 1 )
 
-   lon0 =  0.0
-   dlon =  tpi / FLOAT( ix )
-   lat0 =  hpi - 0.5 *   pi / FLOAT( iy )
-   dlat =        2.0 * lat0 / FLOAT( iy - 1 )
+  !------------------------------------------------------------
+  ! --- loop through file & count storms
+  !------------------------------------------------------------
+  OPEN (12, file='ori', status='unknown')
+100 continue
+  if ( traj_in ) then
+    READ( 12,*,end=101 ) dummy, nc, year, month, day, hour
+    READ( 12,*)          xcyc, ycyc
+    do n = 2,nc
+      READ( 12,*)
+    end do
+  else
+    READ (12, *, end=101) xcyc, ycyc, year, month, day, hour
+  end if
 
-!------------------------------------------------------------
-! --- loop through file & count storms
-!------------------------------------------------------------
-
-      OPEN( 12, file='ori', status='unknown' )
-  100 continue
-      if ( traj_in ) then
-        READ( 12,*,end=101 ) dummy, nc, year, month, day, hour
-        READ( 12,*)          xcyc, ycyc
-        do n = 2,nc
-        READ( 12,*)
-        enddo
-      else
-        READ( 12,*,end=101 ) xcyc, ycyc, year, month, day, hour
-      endif
-
-  if( yr0 == 0 ) then
-      yr0 = year
+  if ( yr0 == 0 ) then
+    yr0 = year
     do ny = 1,iyrmx
       iyr(ny) = yr0 + ( ny - 1 )
     end do
@@ -88,123 +82,101 @@ SUBROUTINE stat_ori(cmask, do_fancy, traj_in)
 
   icnt(month,indyr,1) = icnt(month,indyr,1) + 1
 
-         jj = ( lat0 - ycyc ) / dlat + 1.5
-         ii = ( xcyc - lon0 ) / dlon + 1.5
-    if ( ii == 0  ) ii = ix
-    if ( ii >  ix ) ii = ii - ix
-         nr = imask(ii,jj)
+  jj = ( lat0 - ycyc ) / dlat + 1.5
+  ii = ( xcyc - lon0 ) / dlon + 1.5
+  if ( ii == 0  ) ii = ix
+  if ( ii >  ix ) ii = ii - ix
+  nr = imask(ii,jj)
 
-    if( nr > 0 ) icnt(month,indyr,nr) = icnt(month,indyr,nr) + 1
+  if( nr > 0 ) icnt(month,indyr,nr) = icnt(month,indyr,nr) + 1
 
-      go to 100
-  101 continue
-      CLOSE( 12 )
+  go to 100
+101 continue
+  CLOSE (12)
 
-   icnt(1:imomx,1:indyr,11) = SUM( icnt(1:imomx,1:indyr,2:6 ), 3 )
-   icnt(1:imomx,1:indyr,12) = SUM( icnt(1:imomx,1:indyr,7:10), 3 )
-   icnt(1:imomx,1:indyr,13) = SUM( icnt(1:imomx,1:indyr,2:3),  3 )
+  icnt(1:imomx,1:indyr,11) = SUM( icnt(1:imomx,1:indyr,2:6 ), 3 )
+  icnt(1:imomx,1:indyr,12) = SUM( icnt(1:imomx,1:indyr,7:10), 3 )
+  icnt(1:imomx,1:indyr,13) = SUM( icnt(1:imomx,1:indyr,2:3),  3 )
 
-   icnt(imomp,1:indyr,1:ireg) = SUM( icnt(1:imomx,1:indyr,1:ireg), 1 )
+  icnt(imomp,1:indyr,1:ireg) = SUM( icnt(1:imomx,1:indyr,1:ireg), 1 )
 
-   indyr0 = COUNT( iyr(1:indyr) > 0 )
+  indyr0 = COUNT( iyr(1:indyr) > 0 )
 
-!------------------------------------------------------------
-! --- statistics
-!------------------------------------------------------------
-
+  !------------------------------------------------------------
+  ! --- statistics
+  !------------------------------------------------------------
   icntmo(1:imomp,1:ireg) = SUM( icnt(1:imomp,1:indyr,1:ireg), 2 )
 
-   avgmo(1:imomp,1:ireg) = icntmo(1:imomp,1:ireg)
-   avgmo(1:imomp,1:ireg) =  avgmo(1:imomp,1:ireg) / FLOAT(indyr0)
+  avgmo(1:imomp,1:ireg) = icntmo(1:imomp,1:ireg)
+  avgmo(1:imomp,1:ireg) =  avgmo(1:imomp,1:ireg) / FLOAT(indyr0)
 
   stdmo(:,:) = 0.0
-  if( indyr > 1 ) then
-  do ny = 1,indyr
-  if( iyr(ny) > 0 ) then
-  stdmo(1:imomp,1:ireg) = stdmo(1:imomp,1:ireg)     + &
-                   ( FLOAT(icnt(1:imomp,ny,1:ireg)) - &
-                          avgmo(1:imomp,1:ireg) ) ** 2
-  end if
-  end do
-  div = 1.0 / FLOAT(indyr0-1)
-  stdmo(:,:) = SQRT( stdmo(:,:) * div )
-  endif
-
-    do m = 1,imomp
-  do nr = 1,ireg
-  ispread(m,nr) = MAXVAL( icnt(m,1:indyr,nr) )  &
-                - MINVAL( icnt(m,1:indyr,nr) )
-  end do
+  if ( indyr > 1 ) then
+    do ny = 1,indyr
+      if( iyr(ny) > 0 ) then
+        stdmo(1:imomp,1:ireg) = stdmo(1:imomp,1:ireg) +&
+            & ( FLOAT(icnt(1:imomp,ny,1:ireg)) - avgmo(1:imomp,1:ireg) ) ** 2
+      end if
     end do
+    div = 1.0 / FLOAT(indyr0-1)
+    stdmo(:,:) = SQRT( stdmo(:,:) * div )
+  end if
 
-!------------------------------------------------------------
-! --- output storm counts
-!------------------------------------------------------------
+  do m = 1,imomp
+    do nr = 1,ireg
+      ispread(m,nr) = MAXVAL( icnt(m,1:indyr,nr) ) - MINVAL( icnt(m,1:indyr,nr) )
+    end do
+  end do
 
-  OPEN( 12, file='stat_mo', status='unknown' )
-
+  !------------------------------------------------------------
+  ! --- output storm counts
+  !------------------------------------------------------------
+  OPEN (12, file='stat_mo', status='unknown')
 
   do nr = 1,ireg
-! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  if( do_fancy ) then
-! ----------------------------------------------
-  WRITE(12, *) '   '
-  WRITE(12, *) ' *** Box = ', bx(nr)
-  WRITE(12,16)
-  WRITE(12,10) ( cmo(m), m = 1,imomp )
-  WRITE(12,16)
-  do ny = 1,indyr
-!  if( iyr(ny) > 0 ) then
-  WRITE(12,11) iyr(ny), ( icnt(m,ny,nr), m = 1,imomp )
-!  end if
-  end do
-  WRITE(12,16)
-  WRITE(12,12)  ( icntmo(m,nr), m = 1,imomp )
-  WRITE(12,15)  (ispread(m,nr), m = 1,imomp )
-  WRITE(12,16)
-  WRITE(12,13)  (  avgmo(m,nr), m = 1,imomp )
-  WRITE(12,14)  (  stdmo(m,nr), m = 1,imomp )
-  WRITE(12,16)
-! ----------------------------------------------
-  else
-! ----------------------------------------------
-  WRITE(12, *) '   '
-  WRITE(12, *) ' *** Box = ', bx(nr)
-  WRITE(12,20) ( cmo(m), m = 1,imomp )
-  do ny = 1,indyr
-!  if( iyr(ny) > 0 ) then
-  WRITE(12,21) iyr(ny), ( icnt(m,ny,nr), m = 1,imomp )
-!  end if
-  end do
-  WRITE(12,22)  ( icntmo(m,nr), m = 1,imomp )
-  WRITE(12,25)  (ispread(m,nr), m = 1,imomp )
-  WRITE(12,23)  (  avgmo(m,nr), m = 1,imomp )
-  WRITE(12,24)  (  stdmo(m,nr), m = 1,imomp )
-! ----------------------------------------------
-  endif
-
-! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    if( do_fancy ) then
+      WRITE (12, *) '   '
+      WRITE (12, *) ' *** Box = ', bx(nr)
+      WRITE (12,16)
+      WRITE (12,10) ( cmo(m), m = 1,imomp )
+      WRITE (12,16)
+      do ny = 1,indyr
+        WRITE (12,11) iyr(ny), ( icnt(m,ny,nr), m = 1,imomp )
+      end do
+      WRITE (12,16)
+      WRITE (12,12)  ( icntmo(m,nr), m = 1,imomp )
+      WRITE (12,15)  (ispread(m,nr), m = 1,imomp )
+      WRITE (12,16)
+      WRITE (12,13)  (  avgmo(m,nr), m = 1,imomp )
+      WRITE (12,14)  (  stdmo(m,nr), m = 1,imomp )
+      WRITE (12,16)
+    else
+      WRITE (12, *) '   '
+      WRITE (12, *) ' *** Box = ', bx(nr)
+      WRITE (12,20) ( cmo(m), m = 1,imomp )
+      do ny = 1,indyr
+        WRITE (12,21) iyr(ny), ( icnt(m,ny,nr), m = 1,imomp )
+      end do
+      WRITE (12,22)  ( icntmo(m,nr), m = 1,imomp )
+      WRITE (12,25)  (ispread(m,nr), m = 1,imomp )
+      WRITE (12,23)  (  avgmo(m,nr), m = 1,imomp )
+      WRITE (12,24)  (  stdmo(m,nr), m = 1,imomp )
+    end if
   end do
 
-  CLOSE(12)
+  CLOSE (12)
+20 format( 2x, 5x,      13a6   )
+21 format( 2x, i5,      13i6   )
+22 format( 2x, 'sum  ', 13i6   )
+23 format( 2x, 'mean ', 13f6.1 )
+24 format( 2x, 'std  ', 13f6.1 )
+25 format( 2x, 'sprd ', 13i6   )
 
-!------------------------------------------------------------
-
-  20 format( 2x, 5x,      13a6   )
-  21 format( 2x, i5,      13i6   )
-  22 format( 2x, 'sum  ', 13i6   )
-  23 format( 2x, 'mean ', 13f6.1 )
-  24 format( 2x, 'std  ', 13f6.1 )
-  25 format( 2x, 'sprd ', 13i6   )
-
-  10 format( '| ', 5x,      ' |',12a5,   ' |', a6,   ' |' )
-  11 format( '| ', i4,1x,   ' |',12i5,   ' |', i6,   ' |' )
-  12 format( '| ', 'sum  ', ' |',12i5,   ' |', i6,   ' |' )
-  13 format( '| ', 'mean ', ' |',12f5.1, ' |', f6.1, ' |' )
-  14 format( '| ', 'std  ', ' |',12f5.1, ' |', f6.1, ' |' )
-  15 format( '| ', 'sprd ', ' |',12i5,   ' |', i6,   ' |' )
-  16 format( '+',7('-'), '+',  61('-'), '+', 7('-'), '+' )
-
-!===================================================================
+10 format( '| ', 5x,      ' |',12a5,   ' |', a6,   ' |' )
+11 format( '| ', i4,1x,   ' |',12i5,   ' |', i6,   ' |' )
+12 format( '| ', 'sum  ', ' |',12i5,   ' |', i6,   ' |' )
+13 format( '| ', 'mean ', ' |',12f5.1, ' |', f6.1, ' |' )
+14 format( '| ', 'std  ', ' |',12f5.1, ' |', f6.1, ' |' )
+15 format( '| ', 'sprd ', ' |',12i5,   ' |', i6,   ' |' )
+16 format( '+',7('-'), '+',  61('-'), '+', 7('-'), '+' )
 END SUBROUTINE stat_ori
