@@ -138,3 +138,4 @@ if __name__ == "__main__":
 
         shutil.copyfile(plot_filename,
                         os.path.join(args.outDir, plot_filename))
+        print(f"Plot stored in '{os.path.join(args.OutDir, plot_filename)}'")
