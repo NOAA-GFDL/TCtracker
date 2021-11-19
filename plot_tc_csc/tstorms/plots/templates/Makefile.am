@@ -24,6 +24,7 @@ dist_templates_DATA = \
   by_latitude.par \
   by_longitude.par \
   by_region.par \
+  duration.par \
   sea_cyc_nh.par \
   sea_cyc_ns.par \
   sea_cyc_sh.par \

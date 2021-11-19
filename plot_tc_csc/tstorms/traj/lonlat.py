@@ -1,6 +1,6 @@
 # **********************************************************************
 # TCtracker - Tropical Storm Detection
-# Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Copyright (C) 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
 # Kyle Olivo, Keren Rosado and Seth Underwood
 #
 # This program is free software; you can redistribute it and/or
@@ -18,17 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = templates
 
-tstormsplotsdir = $(pkgpythondir)/plots
+class lonlat():
+    def __init__(self, lon, lat):
+        self.lon = float(lon)
+        self.lat = float(lat)
 
-tstormsplots_PYTHON = \
-  __init__.py \
-  _plot_helpers.py \
-  by_latitude.py \
-  by_longitude.py \
-  by_region.py \
-  duration.py \
-  seasonal_cycle.py \
-  snapshot.py \
-  timeseries.py
+    def __str__(self):
+        return f"{self.lon}, {self.lat}"

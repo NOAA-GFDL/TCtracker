@@ -18,17 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = templates
+tstormstrajdir = $(pkgpythondir)/traj
 
-tstormsplotsdir = $(pkgpythondir)/plots
-
-tstormsplots_PYTHON = \
+tstormstraj_PYTHON = \
   __init__.py \
-  _plot_helpers.py \
-  by_latitude.py \
-  by_longitude.py \
-  by_region.py \
-  duration.py \
-  seasonal_cycle.py \
-  snapshot.py \
-  timeseries.py
+  lonlat.py \
+  storm_traj.py \
+  storm.py
