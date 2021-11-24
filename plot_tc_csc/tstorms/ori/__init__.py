@@ -18,6 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
+
+"""
+This module contains classes and other helper routines to read
+ori_<year> files that contain tropical storm data.
+"""
+
 import tempfile
 import os
 import shutil
@@ -32,6 +38,37 @@ all = ["ori",
        "StormBox"]
 
 class ori():
+    """Class to hold data for a group of `ori_<year>` files
+
+    Keyword Arguments:
+
+        - ori_dir -- Directory that contains the `ori_<year>` files.
+
+        - beg_year -- First year of `ori_<year>` data to process.
+
+        - end_year -- Last year of `ori_<year>` data to process.
+
+        - ori_type -- Type of data in directory.  Is typically 'obs' for
+            the observational `ori_<year>` files, or 'model' for model
+            generated `ori_<year>` files.  Default 'model'
+
+    Attributes:
+
+        - directory -- Holds `ori_dir`
+
+        - start_year -- Holds `beg_year`
+
+        - end_year -- Holds `end_year`
+
+        - type -- Holds `ori_type`
+
+        - stat_file -- Name of the statistics file using `ori_<start_year>`-
+            `ori_<end_year>` files.
+
+        - stats -- Dictionary of StormBox with region IDs as key.  Data
+            obtained form data in `stat_file`.
+    """
+
     def __init__(self,
                  ori_dir: str,
                  beg_year: int,
@@ -66,7 +103,41 @@ class ori():
                  do_latf = False,
                  do_fot = False,
                  traj_in = False):
-        """
+        """Run the freq_ori Fortran function on the ori data
+
+        This routine concatinates the ori_year files into a single `ori` file,
+        and then runs the freq_ori Fortran subroutine on the ori data.  This
+        routine will generate a series of files that can be used to generate
+        2D plots using Grace.
+
+        Keyword Arguments:
+
+            - do_40ns -- Bound the search between the 40°S and 40°N latitude.
+                Only affects `do_map`, `do_lat` and `do_latf`.
+
+            - do_map -- Produce frequency data for full globe.  Output placed
+                in file `fmap`.
+
+            - do_lon -- Produce frequency data based on longitude.  Output
+                placed in three region files: `flon_gl` (global), `flon_nh`
+                (northern hemisphere) and `flon_sh` (southern hemisphere) with
+                output:
+
+                <longitude> <frequency>
+
+            - do_lat -- Produce frequency data based on latitude.  Output
+                placed in `flat` file with output:
+
+                <latitude> <frequency>
+
+            - do_latf -- Same as `do_lat`, but output is switched:
+                <frequency> <latitude>
+
+            - do_fot -- Write frequency as a fraction of total number of
+                global storms.  Otherwise, frequency is fraction of storms
+                per year.
+
+            - traj_in -- Read in `traj` formated data
         """
 
         # Ensure the _correct_ ori file is in place
@@ -74,7 +145,10 @@ class ori():
         _freq_ori(do_40ns, do_map, do_lon, do_lat, do_latf, do_fot, traj_in)
 
     def _gen_stats(self):
-        """
+        """Generate storm statics from `ori_<year>` files
+
+        Runs the stat_ori Fortran subroutine on the `ori` files, and geneartes
+        monthly and annual statistics for different global regions.
         """
 
         stats_filename = 'stats_{0}_{1:04d}-{2:04d}'.format(self.type,
@@ -95,9 +169,10 @@ class ori():
         return os.path.realpath(stats_filename)
 
     def _read_stats(self):
-        """
+        """Read in stat file data
+
         Open a stat file, read in the contents, and return a dict of
-        StormBox's with the Box ID as the key.
+        StormBox's with the Box ID as keys.
         """
 
         # Regex patterns for box, storms (by year) and stats over the time

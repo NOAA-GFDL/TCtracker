@@ -35,6 +35,7 @@ import tempfile
 from .. import argparse as tsargparse
 from ..config import gracebat
 from ..ori import ori
+from ._plot_helpers import template_env, write_plot_data
 
 __all__ = [
     'generate_plot_data',
@@ -86,11 +87,6 @@ def generate_plot_data(ori, template_env):
     return ori_stats['NH'].mean[12], ori_stats['SH'].mean[12]
 
 
-def write_plot_data(file, array):
-    with open(file, "a") as f:
-        f.write("\n".join(array + ['&\n']))
-
-
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
     argparser.add_argument("-o",
@@ -123,13 +119,6 @@ if __name__ == "__main__":
                            metavar="expName",
                            type=str)
     args = argparser.parse_args()
-
-    grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-    template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(grace_template_dir))
-    template_env.keep_trailing_newline = True
-    template_env.trim_blocks = True
-    template_env.lstrip_blocks = True
-    template_env.rstrip_blocks = True
 
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)

@@ -1,34 +1,39 @@
+!> Generate storm frequency from ori file
+!!
+!! Reads in data from ori file, and calculates storm frequency for global, lat or lon, formatted
+!! to be read and plotted with the Grace 2D plotting tool.
 SUBROUTINE freq_ori(do_40ns, do_map, do_lon, do_lat, do_latf, do_fot, traj_in)
   implicit none
 
-  logical, intent(in) :: do_40ns
-  logical, intent(in) :: do_map
-  logical, intent(in) :: do_lon
-  logical, intent(in) :: do_lat
-  logical, intent(in) :: do_latf
-  logical, intent(in) :: do_fot
-  logical, intent(in) :: traj_in
+  logical, intent(in) :: do_40ns !< Bound latatude to 40°N and 40°S
+  logical, intent(in) :: do_map !< Produce fmap file with global frequency
+  logical, intent(in) :: do_lon !< Produce longitude frequency file `flon`
+  logical, intent(in) :: do_lat !< Produce latitude frequency file `flat`
+  logical, intent(in) :: do_latf !< Produce latitude frequency file `flat` with frequency first
+  logical, intent(in) :: do_fot !< Write frequency as fraction of total storms, instead of frac/year
+  logical, intent(in) :: traj_in !< Ori file uses `traj` file formatting
 
-  integer, parameter :: ix   = 72
-  integer, parameter :: jx   = 44
+  integer, parameter :: ix   = 72 ! Total number of longitude regions (360/dlon)
+  integer, parameter :: jx   = 44 ! Total number of latitude regions ((90-slat)/dlat)
   integer, parameter :: ixp  = ix + 1
-  real,    parameter :: dlon =   5.0
-  real,    parameter :: dlat =   4.0
-  real,    parameter :: slat = -86.0
+  real,    parameter :: dlon =   5.0 ! Longitude region delta
+  real,    parameter :: dlat =   4.0 ! Latitude region delta
+  real,    parameter :: slat = -86.0 ! Lowest southern latitude
 
-  integer, parameter :: j40s = 12
-  integer, parameter :: j40n = 33
+  integer, parameter :: j40s = 12 ! Closest index to 40°S (integer((-40-slat)/4)+1)
+  integer, parameter :: j40n = 33 ! Closest index to 40°N (jx-j40s+1)
 
-  real, dimension(ixp,jx) ::     freq
-  real, dimension(ixp,3)  :: lon_freq
-  real, dimension(jx)     :: lat_freq
+  real, dimension(ixp,jx) ::     freq ! Global storm frequency
+  real, dimension(ixp,3)  :: lon_freq ! Storm frequency for logitude, three different regions (G, NH, SH)
+  real, dimension(jx)     :: lat_freq ! Storm frequency for latitude
 
-  real                    :: xcyc, ycyc, rnyr
-  integer                 :: year, month, day, hour
+  real                    :: xcyc, ycyc ! lon, lat location of storm
+  real                    :: rnyr ! Number of years (or total number of storms if do_fot = .TRUE.)
+  integer                 :: year, month, day, hour ! year, month, day, hour of storm
   integer                 :: i, j, jb, je, n, nc
   integer                 :: nyr
   integer                 :: yr0
-  character*5             :: dummy
+  character*5             :: dummy ! Dummy string to hold character string when reading in data
 
   integer :: nexp = 1
 
@@ -107,25 +112,19 @@ SUBROUTINE freq_ori(do_40ns, do_map, do_lon, do_lat, do_latf, do_fot, traj_in)
     CLOSE (12)
   end if
 
-  if( do_lat ) then
+  if( do_lat .OR. do_latf) then
     OPEN (12, file='flat', form='formatted' )
     do j = jb,je
-      ycyc = ( j - 1 ) * dlat + slat
       ycyc = ( j - 1 ) * dlat + slat + 0.5*dlat
-      WRITE(12,99) ycyc, lat_freq(j)
+      if( do_lat ) then
+        WRITE(12,99) ycyc, lat_freq(j)
+      else
+        ! do_latf
+        WRITE (12,98) lat_freq(j), ycyc
+      end if
     end do
     WRITE(12,*) '&'
     CLOSE(12)
-  end if
-
-  if ( do_latf ) then
-    OPEN (12, file='flat', form='formatted' )
-    do j = jb,je
-      ycyc = ( j - 1 ) * dlat + slat + 0.5*dlat
-      WRITE (12,98) lat_freq(j), ycyc
-    end do
-    WRITE (12,*) '&'
-    CLOSE (12)
   end if
 
   if ( do_lon ) then

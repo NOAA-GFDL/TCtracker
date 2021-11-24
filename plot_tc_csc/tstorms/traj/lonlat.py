@@ -20,6 +20,13 @@
 # **********************************************************************
 
 class lonlat():
+    """Class to hold lon,lat location
+
+    Keyword Arguments:
+
+        - lon -- Longitude
+        - lat -- Latitude
+    """
     def __init__(self, lon, lat):
         self.lon = float(lon)
         self.lat = float(lat)

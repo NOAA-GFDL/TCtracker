@@ -28,6 +28,21 @@ __all__ = [
 ]
 
 class storm_traj():
+    """Class to hold strom trajaectory data
+
+    Keyword Arguments:
+
+        - year -- Year portion of storm track start date.
+        - month -- Month portion of storm track start date.
+        - day -- Day portion of storm track start date.
+        - hour -- Hour portion of storm track start date.
+        - track -- List of storm trajectory data.
+
+    Attributes:
+
+        - start_date == Datetime of storm's start date/time.
+        - track -- List of class Storm trajectories
+    """
 
     def __init__(self, year, month, day, hour, track):
        self.start_date = datetime.datetime(year, month, day, hour, tzinfo=datetime.timezone.utc)
@@ -35,4 +50,5 @@ class storm_traj():
 
     @property
     def duration(self):
+        """Return duration of storm"""
         return len(self.track)

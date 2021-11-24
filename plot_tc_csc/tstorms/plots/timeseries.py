@@ -34,6 +34,7 @@ import tempfile
 from .. import argparse as tsargparse
 from ..config import gracebat
 from ..ori import ori
+from ._plot_helpers import template_env, write_plot_data
 
 __all__ = [
     'generate_plot_data',
@@ -43,11 +44,6 @@ __all__ = [
 def generate_plot_data(region_stats):
     write_plot_data('grace.dat',
                     [f"{y} {region_stats.get_year_total(y)}" for y in region_stats.years])
-
-
-def write_plot_data(file, array):
-    with open(file, "a") as f:
-        f.write("\n".join(array + ['&\n']))
 
 
 if __name__ == "__main__":
@@ -107,13 +103,6 @@ if __name__ == "__main__":
         'SH': {'max': 50, 'inc': 5},
         'NA': {'max': 20, 'inc': 2}
     }
-
-    grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-    template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(grace_template_dir))
-    template_env.keep_trailing_newline = True
-    template_env.trim_blocks = True
-    template_env.lstrip_blocks = True
-    template_env.rstrip_blocks = True
 
     obs = ori(args.obsDir, args.beg_year, args.end_year, 'obs')
     model = ori(args.inDir, args.beg_year, args.end_year, 'model')

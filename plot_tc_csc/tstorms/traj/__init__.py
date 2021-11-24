@@ -19,6 +19,11 @@
 # 02110-1301, USA.
 # **********************************************************************
 
+"""
+This module contains classes and other helper routines to read
+traj_<year> files that contain tropical storm data.
+"""
+
 import re
 import os
 import collections
@@ -31,6 +36,29 @@ __all__ = [
 ]
 
 class traj():
+    """Class to hold data for a group of `traj_<year>` files
+
+    Keyword Arguments:
+
+        - traj_dir -- Directory that contains the `traj_<year>` files.
+
+        - beg_year -- First year of `traj_<year>` data to process.
+
+        - end_year -- Last year of `traj_<year>` data to process.
+
+    Attributes:
+
+        - directory -- Holds `traj_dir`
+
+        - start_year -- Holds `beg_year`
+
+        - end_year -- Holds `end_year`
+
+        - stroms -- Array of storm trajectories.
+
+        - tsteps_day -- Number of timesteps per day in traj_<year> files
+    """
+
     def __init__(self,
                  traj_dir: str,
                  beg_year: int,
@@ -42,6 +70,8 @@ class traj():
         self.tsteps_day = self._get_tsteps_day()
 
     def _get_tsteps_day(self):
+        """Determine the number of timesteps per day"""
+
         sec_day = datetime.timedelta(days=1)
         tstep = 0
         for storm in self.storms:
@@ -51,6 +81,7 @@ class traj():
         return sec_day / tstep
 
     def _read_storm_trajectories(self):
+        """Read in storm trajectories from traj_<year> files"""
 
         storm_trajs = []
         # RegEx expression to match storm start
@@ -76,10 +107,12 @@ class traj():
 
     @property
     def duration_count(self):
+        """Return a Counter of storm"""
         return collections.Counter([int(x.duration/self.tsteps_day) for x in self.storms])
 
     @property
     def duration_frac(self):
+        """Return a Counter of fraction of storms"""
         cnt = self.duration_count
         cnt_sum = sum(cnt.values())
         return {k: float(cnt[k]/cnt_sum) for k in cnt.keys()}

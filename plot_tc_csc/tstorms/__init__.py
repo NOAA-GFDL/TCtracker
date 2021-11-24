@@ -19,4 +19,10 @@
 # 02110-1301, USA.
 # **********************************************************************
 
+"""Tropical Storm Detection
+
+This module contains packages to read and plot tropical storm and hurricane
+data from global climate models.
+"""
+
 from .config import _version as __version__

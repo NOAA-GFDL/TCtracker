@@ -24,7 +24,7 @@ from typing import List
 
 class StormBox():
     """
-    Class to contain the yearly storm data by geographic box (e.g. Northenr
+    Class to contain the yearly storm data by geographic box (e.g. Northern
     hemisphere (NH)).
     """
 

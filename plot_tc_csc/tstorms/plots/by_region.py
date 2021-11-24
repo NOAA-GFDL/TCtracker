@@ -34,6 +34,7 @@ import tempfile
 from .. import argparse as tsargparse
 from ..config import gracebat
 from ..ori import ori
+from ._plot_helpers import template_env, write_plot_data
 
 __all__ = [
     'generate_plot_data',
@@ -41,6 +42,8 @@ __all__ = [
 
 
 def generate_plot_data(ori):
+    """Generate all data files required for 2D plot with Grace"""
+
     regions = {'nh': ['NI', 'WP', 'EP', 'WA', 'NH'],
                'sh': ['SI', 'AU', 'SP', 'SA', 'SH']}
 
@@ -49,11 +52,6 @@ def generate_plot_data(ori):
         for i, region in enumerate(regions[hemisphere], start=1):
             r_data.append(f"{i} {ori.stats[region].mean[12]}")
         write_plot_data(f"grace_{hemisphere}.dat", r_data)
-
-
-def write_plot_data(file, array):
-    with open(file, "a") as f:
-        f.write("\n".join(array + ['&\n']))
 
 
 if __name__ == "__main__":
@@ -96,13 +94,6 @@ if __name__ == "__main__":
     storm_type = 'Tropical Storm'
     if (args.do_hur):
         storm_type = 'Hurricane (CAT. 1-5)'
-
-    grace_template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-    template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(grace_template_dir))
-    template_env.keep_trailing_newline = True
-    template_env.trim_blocks = True
-    template_env.lstrip_blocks = True
-    template_env.rstrip_blocks = True
 
     obs = ori(args.obsDir, args.beg_year, args.end_year, 'obs')
     model = ori(args.inDir, args.beg_year, args.end_year, 'model')

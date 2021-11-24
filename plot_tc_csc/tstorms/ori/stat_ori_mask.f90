@@ -1,8 +1,15 @@
+!> Read in ori_year files, and calculate storm statistics
+!!
+!! Read in the ori file, and determine number of storms per month, per year,
+!! and calculate an annual mean, along with statistics for number of years read in, to include:
+!! total monthly sum, monthly spread, monthly mean, and monthly standard deviation.
+!!
+!! Output file `stat_mo`.
 SUBROUTINE stat_ori(cmask, do_fancy, traj_in)
   implicit none
-  character(len=*), intent(in) :: cmask
-  logical, intent(in) :: do_fancy
-  logical, intent(in) :: traj_in
+  character(len=*), intent(in) :: cmask !< Mask file to use
+  logical, intent(in) :: do_fancy !< Write stat_mo with a fancy output (more table-like)
+  logical, intent(in) :: traj_in !< Ori file uses `traj` file formatting
 
   integer, parameter :: ix   =  360
   integer, parameter :: iy   =  180
