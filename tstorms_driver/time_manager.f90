@@ -34,9 +34,10 @@
 !! deals with operations on time intervals while the second deals with
 !! operations that convert time intervals to dates for a given calendar.
 module time_manager_mod
-  implicit none
 
   use, intrinsic :: iso_fortran_env
+
+  implicit none
 
   private
 
