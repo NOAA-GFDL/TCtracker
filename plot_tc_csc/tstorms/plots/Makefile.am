@@ -18,7 +18,17 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-templatesdir = $(pkgpythondir)/templates
-dist_templates_DATA = \
-  geog.dat \
-  snap_shot.par
+SUBDIRS = templates
+
+tstormsplotsdir = $(pkgpythondir)/plots
+
+tstormsplots_PYTHON = \
+  __init__.py \
+  _plot_helpers.py \
+  by_latitude.py \
+  by_longitude.py \
+  by_region.py \
+  duration.py \
+  seasonal_cycle.py \
+  snapshot.py \
+  timeseries.py

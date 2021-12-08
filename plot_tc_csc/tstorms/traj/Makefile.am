@@ -18,24 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = \
-  ori \
-  plots \
-  traj
+tstormstrajdir = $(pkgpythondir)/traj
 
-pkgpython_PYTHON = \
+tstormstraj_PYTHON = \
   __init__.py \
-  argparse.py
-nodist_pkgpython_PYTHON = \
-  config.py
-
-BUILT_SOURCES = \
-  config.py
-
-EXTRA_DIST = \
-  config.py.in
-
-include $(top_srcdir)/subst.mk
-
-clean-local:
-	-rm -rf $(BUILT_SOURCES)
+  lonlat.py \
+  storm_traj.py \
+  storm.py

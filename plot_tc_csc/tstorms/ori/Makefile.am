@@ -18,22 +18,29 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = \
-  ori \
-  plots \
-  traj
+tstormsoridir = $(pkgpythondir)/ori
 
-pkgpython_PYTHON = \
+tstormsori_PYTHON = \
   __init__.py \
-  argparse.py
-nodist_pkgpython_PYTHON = \
-  config.py
+  StormBox.py
+nodist_tstormsori_PYTHON = \
+  freq_ori$(PYTHON_EXTENSION_SUFFIX) \
+  stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
 
 BUILT_SOURCES = \
-  config.py
+  freq_ori$(PYTHON_EXTENSION_SUFFIX) \
+  stat_ori_mask$(PYTHON_EXTENSION_SUFFIX)
 
 EXTRA_DIST = \
-  config.py.in
+  freq_ori.f90 \
+  stat_ori_mask.f90
+
+%@PYTHON_EXTENSION_SUFFIX@: %.f90
+	$(F2PY) -c -m $(basename $(notdir $<)) \
+           --fcompiler=$(FC) \
+           --f90flags="$(FCFLAGS)" \
+           $(AM_LDFLAGS) $(LDFLAGS) \
+           $<
 
 include $(top_srcdir)/subst.mk
 

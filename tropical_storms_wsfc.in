@@ -267,7 +267,7 @@ foreach current_year (`seq $next_year_to_process 1 $year_end`)
             # File with desired 1 year chunk length does not exist, create it.
             @ yra = $current_year
             @ yrb = $current_year + 1
-            ncrcat -d time,"${yra}-01-01 06:00:00","${yrb}-01-01 00:00:00" \
+            @NCRCAT@ -d time,"${yra}-01-01 06:00:00","${yrb}-01-01 00:00:00" \
                    -o ../${prefix}.${var}.nc ${pp_type}.*.${var}.nc
          else
             echo " ERROR: cannot create 1 year chunk files for non-January start date"
@@ -309,24 +309,24 @@ foreach current_year (`seq $next_year_to_process 1 $year_end`)
    endif
 
    cat << eof > nml_input
-&nml_tstorms
-   crit_vort  =  3.5E-5,
-   crit_twc   =  0.0,
-   crit_thick =  50.0,
-   crit_dist  =   4.0,
+ &nml_tstorms
+   crit_vort  =  3.5E-5
+   crit_twc   =  0.0
+   crit_thick =  50.0
+   crit_dist  =   4.0
    lat_bound_n =  70.0
    lat_bound_s = -70.0
    do_spline   = .false.
    do_thickness= .false.
-&end
-&input
-   fn_u    = '$u_ref_filename',
-   fn_v    = '$v_ref_filename',
-   fn_vort = '${filename_prefix}.vort850.nc',
-   fn_tm   = '${filename_prefix}.tm.nc',
-   fn_slp  = '${filename_prefix}.slp.nc',
-   use_sfc_wnd = $use_sfc_wnd,
-&end
+ &end
+ &input
+   fn_u    = '$u_ref_filename'
+   fn_v    = '$v_ref_filename'
+   fn_vort = '${filename_prefix}.vort850.nc'
+   fn_tm   = '${filename_prefix}.tm.nc'
+   fn_slp  = '${filename_prefix}.slp.nc'
+   use_sfc_wnd = $use_sfc_wnd
+ &end
 eof
 
    echo "beginning storm code..."
@@ -370,7 +370,7 @@ if ( "$do_wsfc" == "y" ) then
    set trajectory_analysis  = $LIBEXEC_DIR/trajectory_analysis_csc@EXEEXT@
 
    cat << eof > nml_traj
-&input
+ &input
    rcrit      =  1500.0
    wcrit      =  15.2
    vcrit      =  3.5e-5
@@ -384,7 +384,7 @@ if ( "$do_wsfc" == "y" ) then
    do_thickness = .false.
    landmask_file = '$LIBEXEC_DIR/landsea.map'
    cmask_file = '$LIBEXEC_DIR/imask_2'
-&end
+ &end
 eof
 
    if ($gfdl) then
@@ -439,9 +439,15 @@ eof
    echo "generating stats and plots"
    alias python3 @PYTHON@
    setenv PYTHONPATH $PYTHONLIB_DIR
-   python3 -m TCtracker.ori_stat -o $tstorms_dir $tstorms_dir $obs_first_year $obs_last_year 'model'
+
    if ( $experiment_type == obs ) then
-      python3 -m TCtracker.ori_stat -o $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year 'obs'
-      python3 -m TCtracker.graph_snap_shot -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+      # Snapshot plot, comparing observational data with model data
+      python3 -m TCtracker.plots.snapshot -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    endif
+   python3 -m TCtracker.plots.timeseries -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.by_latitude -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.by_longitude -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.by_region -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.seasonal_cycle -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.duration -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
 endif

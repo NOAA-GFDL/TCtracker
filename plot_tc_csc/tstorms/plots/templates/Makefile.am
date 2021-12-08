@@ -18,24 +18,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = \
-  ori \
-  plots \
-  traj
-
-pkgpython_PYTHON = \
-  __init__.py \
-  argparse.py
-nodist_pkgpython_PYTHON = \
-  config.py
-
-BUILT_SOURCES = \
-  config.py
-
-EXTRA_DIST = \
-  config.py.in
-
-include $(top_srcdir)/subst.mk
-
-clean-local:
-	-rm -rf $(BUILT_SOURCES)
+templatesdir = $(pkgpythondir)/plots/templates
+dist_templates_DATA = \
+  geog.dat \
+  by_latitude.par \
+  by_longitude.par \
+  by_region.par \
+  duration.par \
+  sea_cyc_nh.par \
+  sea_cyc_ns.par \
+  sea_cyc_sh.par \
+  snap_shot.par \
+  time_series.par

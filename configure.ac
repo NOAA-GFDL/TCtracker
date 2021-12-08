@@ -22,7 +22,7 @@
 AC_PREREQ([2.69])
 
 AC_INIT([GFDL Tropical Storms Detection],
-        [2.0.0-alpha.3-dev],
+        [2.0.0-alpha.3],
         [gfdl.climate.model.info@noaa.gov],
         [TCtracker],
         [https://www.gfdl.noaa.gov/tstorms/])
@@ -64,6 +64,11 @@ AS_IF([test "$with_netcdf_fortran" = "no"],
   [AC_MSG_ERROR([Unable to find NetCDF Fortran library.])])
 AC_LANG_POP([Fortran])
 
+# Check for the NCO used tools
+AC_PATH_PROG([NCRCAT], [ncrcat], [none])
+AS_IF([test "$NCRCAT" == "none"],
+  [AC_MSG_ERROR([Unable to find ncrcat in PATH])])
+
 # Check that python3 and python packages are available
 AM_PATH_PYTHON([3.6])
 AX_PYTHON_MODULE([jinja2], [t])
@@ -84,11 +89,13 @@ AC_MSG_RESULT([$PYTHON_EXTENSION_SUFFIX])
 # Used in Makefiles.
 AC_SUBST([MODDIR],[.mods])
 
-AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  plot_tc_csc/Makefile
                  plot_tc_csc/tstorms/Makefile
-                 plot_tc_csc/tstorms/templates/Makefile
+                 plot_tc_csc/tstorms/ori/Makefile
+                 plot_tc_csc/tstorms/plots/Makefile
+                 plot_tc_csc/tstorms/plots/templates/Makefile
+                 plot_tc_csc/tstorms/traj/Makefile
                  share/Makefile
                  trajectory_analysis/Makefile
                  tstorms_driver/Makefile

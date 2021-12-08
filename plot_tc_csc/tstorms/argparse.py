@@ -19,9 +19,21 @@
 # 02110-1301, USA.
 # **********************************************************************
 
+"""argparse helper classes
+
+This module contains helper classes that extend the argparse module.
+"""
+
 import argparse
 import os
 import pathlib
+
+__all__ = [
+    "dirExists",
+    "createDir",
+    "absPath",
+    "str2bool"
+]
 
 
 class dirExists(argparse.Action):
