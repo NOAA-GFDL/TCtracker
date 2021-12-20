@@ -72,6 +72,7 @@ AS_IF([test "$NCRCAT" == "none"],
 # Check that python3 and python packages are available
 AM_PATH_PYTHON([3.6])
 AX_PYTHON_MODULE([jinja2], [t])
+AX_PYTHON_MODULE([pyferret], [t])
 
 # f2py for python/Fortran functionality
 AC_CHECK_PROGS([F2PY], [f2py3 f2py], [none])
@@ -97,6 +98,7 @@ AC_CONFIG_FILES([Makefile
                  plot_tc_csc/tstorms/plots/templates/Makefile
                  plot_tc_csc/tstorms/traj/Makefile
                  share/Makefile
+                 share/ferret_jnl/Makefile
                  trajectory_analysis/Makefile
                  tstorms_driver/Makefile
 ])

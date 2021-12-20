@@ -81,19 +81,19 @@ class ori():
         self.stat_file = self._gen_stats()
         self.stats = self._read_stats()
 
-    def cat_ori_files(self): # inDir: str, beg_year: int, end_year: int):
+    def cat_ori_files(self, fname="ori"):
         """
         Concatinate ori_[YYYY] files into a single `ori` file.  The single
         `ori` file is required for certain plots.
         """
 
         # Concatenate all `ori_YYYY` files into a single `ori` file
-        with open('ori', 'w') as outfile:
+        with open(fname, 'w') as outfile:
             for year in range(self.start_year, self.end_year + 1):
                 fname = os.path.join(self.directory, "ori_{:04d}".format(year))
                 with open(fname) as infile:
                     outfile.write(infile.read())
-        return os.path.realpath('ori')
+        return os.path.realpath(fname)
 
     def freq_ori(self,
                  do_40ns = True,

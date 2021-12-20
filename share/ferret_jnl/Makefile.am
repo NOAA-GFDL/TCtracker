@@ -1,4 +1,4 @@
-# **********************************************************************
+#**********************************************************************
 # TCtracker - Tropical Storm Detection
 # Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
 # Kyle Olivo, Keren Rosado and Seth Underwood
@@ -18,6 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
-SUBDIRS = ferret_jnl
+ferretjnldir = $(pkgdatadir)/ferret_jnl
 
-dist_pkgdata_DATA = frepp-tropical_storms_wsfc.csh
+dist_ferretjnl_DATA = \
+  tstorm_nplots_40ns.jnl \
+  tstorm_plot_ori_points.jnl \
+  tstorm_plot_settings.jnl \
+  tstorm_region_box.jnl
