@@ -450,4 +450,6 @@ eof
    python3 -m TCtracker.plots.by_region -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    python3 -m TCtracker.plots.seasonal_cycle -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    python3 -m TCtracker.plots.duration -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.jmaps_freq -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.jmaps_ori -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
 endif
