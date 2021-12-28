@@ -13,9 +13,9 @@
 ! label_opt determines if number of storms is included in label (default 1)
 
 query/ignore $3%40ns|40ns|epac_atl|ind_wpac|sh|<argument 3 can be "40ns", "epac_atl", "ind_wpac", or "sh"%
-query/ignore $4%0|1|2|<argument 4 can be "0", "1", or "2"%
-query/ignore $5%0|1|<argument 5 can be "0"(off) or "1"(on)%
-query/ignore $6%0|1|2|<argument 6 can be "0" or "1"%
+query/ignore $4%0|0|1|2|<argument 4 can be "0", "1", or "2"%
+query/ignore $5%0|0|1|<argument 5 can be "0"(off) or "1"(on)%
+query/ignore $6%0|0|1|2|<argument 6 can be "0" or "1"%
 
 ! Redirect stdout to /dev/null.  Comment out if debugging
 set redirect/clobber/file="/dev/null" STDOUT
@@ -24,19 +24,10 @@ define symbol plot_title = $2
 define symbol tstorm_plot_region = $3%40ns%
 define symbol land_opt = $4%1%
 define symbol box_opt = $5%0%
-define symbol label_opt = $5%1%
+define symbol label_opt = $6%1%
 
 go bold
-go tstorm_plot_settings
-
-! -----------------------------------------------------------------------------
-! --- count number of storms in data set
-! -----------------------------------------------------------------------------
-!sp wc -l < fin.$1 > tmp.txt
-!sp cat tmp.txt | perl -e 'foreach(<>){print qq(define symbol nts = $_)}' > lll.jnl
-!sp cat lll.jnl
-!go lll.jnl
-!sp rm lll.jnl tmp.txt
+go tstorm_plot_settings ($tstorm_plot_region)
 
 ! -----------------------------------------------------------------------------
 ! --- plot dummy map

@@ -65,7 +65,7 @@ if __name__ == "__main__":
     pyferret.addpath(os.path.join(pkgdatadir, 'ferret_jnl'))
 
     # Initialize plot window
-    pyfer_run("go tstorm_nplots_40ns 2")
+    pyfer_run("go tstorm_nplots 2")
 
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)

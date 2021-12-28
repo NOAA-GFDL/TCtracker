@@ -73,6 +73,7 @@ AS_IF([test "$NCRCAT" == "none"],
 AM_PATH_PYTHON([3.6])
 AX_PYTHON_MODULE([jinja2], [t])
 AX_PYTHON_MODULE([pyferret], [t])
+AX_PYTHON_MODULE([scipy.io], [t])
 
 # f2py for python/Fortran functionality
 AC_CHECK_PROGS([F2PY], [f2py3 f2py], [none])

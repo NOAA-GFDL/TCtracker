@@ -21,7 +21,7 @@
 ferretjnldir = $(pkgdatadir)/ferret_jnl
 
 dist_ferretjnl_DATA = \
-  tstorm_nplots_40ns.jnl \
+  tstorm_nplots.jnl \
   tstorm_plot_ori_points.jnl \
   tstorm_plot_settings.jnl \
   tstorm_region_box.jnl

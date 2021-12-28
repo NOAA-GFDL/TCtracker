@@ -78,7 +78,13 @@ def generate_plot_data(ori, template_env):
     write_plot_data("xscyc_nh.dat", xscyc['NH'])
     write_plot_data("xscyc_sh.dat", xscyc['SH'])
 
-    ori.freq_ori(True, False, True, False, False, False, False)
+    ori.freq_ori(do_40ns=True,
+                 do_map=False,
+                 do_lon=True,
+                 do_lat=False,
+                 do_latf = False,
+                 do_fot = False,
+                 traj_in = False)
     for region in ['gl', 'nh', 'sh']:
         with open(f"xlon_{region}.dat", 'a') as outfile:
             with open(f"flon_{region}") as infile:

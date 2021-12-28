@@ -3,7 +3,7 @@
 ! Description: plot tropical storm positions
 
 !                                  arg 1
-! usage:   GO tstorm_nplots_40ns [nplots]
+! usage:   GO tstorm_nplots [nplots]
 
 ! nplots is the number of plots per page (1-5, default 1)
 !        if nplots is greater than 1, then this creates viewports
