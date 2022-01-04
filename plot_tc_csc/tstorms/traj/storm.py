@@ -28,27 +28,25 @@ __all__ = [
 ]
 
 class storm():
-        """Class to hold strom trajaectory
+    """Class to hold strom trajaectory
 
-        Keyword Arguments:
-
-            - lon -- Longitude of storm location
-            - lat -- Latitude of storm location
-            - wind -- Surface wind speed (m/s)
-            - psl -- Pressure at sea level (hPa), Value -999 is missing data.
-            - year -- Year portion of storm track start date.
-            - month -- Month portion of storm track start date.
-            - day -- Day portion of storm track start date.
-            - hour -- Hour portion of storm track start date.
-            - track -- List of storm trajectory data.
+    Keyword Arguments:
+        - lon -- Longitude of storm location
+        - lat -- Latitude of storm location
+        - wind -- Surface wind speed (m/s)
+        - psl -- Pressure at sea level (hPa), Value -999 is missing data.
+        - year -- Year portion of storm track start date.
+        - month -- Month portion of storm track start date.
+        - day -- Day portion of storm track start date.
+        - hour -- Hour portion of storm track start date.
+        - track -- List of storm trajectory data.
 
         Attributes:
-
-            - position = lon/lat of storm position
-            - wind -- Surface wind speed (m/s)
-            - psl -- Pressure at sea level (hPa)
-            - date -- Date of track data
-        """
+        - position = lon/lat of storm position
+        - wind -- Surface wind speed (m/s)
+        - psl -- Pressure at sea level (hPa)
+        - date -- Date of track data
+    """
 
     def __init__(self, lon, lat, wind, psl, year, mon, day, hour):
         self.position = lonlat(float(lon), float(lat))
