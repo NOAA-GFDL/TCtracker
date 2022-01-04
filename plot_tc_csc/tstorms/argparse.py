@@ -64,7 +64,8 @@ class createDir(argparse.Action):
             try:
                 values.mkdir(parents=True, exist_ok=True)
             except Exception as err:
-                parser.error(f"unable to create directory '{values}': {err.args[1]}")
+                parser.error(f"unable to create directory '{values}':",
+                             f"{err.args[1]}")
         else:
             setattr(namespace, self.dest, values)
 

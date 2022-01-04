@@ -29,9 +29,7 @@ import argparse
 import os
 import shutil
 import subprocess
-import jinja2
 import tempfile
-import collections
 
 from .. import argparse as tsargparse
 from ..config import gracebat
@@ -47,7 +45,7 @@ def generate_plot_data(traj):
     frac = traj.duration_frac
     write_plot_data(
         "grace.dat",
-        [f"{n} {frac[n] if n in frac.keys() else 0.0}"\
+        [f"{n} {frac[n] if n in frac.keys() else 0.0}"
          for n in range(max(frac.keys()) + 1)])
 
 
@@ -65,7 +63,8 @@ if __name__ == "__main__":
                            dest="do_hur",
                            action='store_true')
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                "available",
                            metavar="inDir",
                            type=tsargparse.absPath,
                            action=tsargparse.dirExists)
@@ -101,7 +100,7 @@ if __name__ == "__main__":
         generate_plot_data(model)
         generate_plot_data(obs)
 
-        duration_par = template_env.get_template(f'duration.par')
+        duration_par = template_env.get_template('duration.par')
         duration_data = {
             'storm_type': storm_type,
             'year_start': args.beg_year,

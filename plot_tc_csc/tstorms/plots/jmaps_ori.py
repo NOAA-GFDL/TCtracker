@@ -11,10 +11,13 @@ from .. import argparse as tsargparse
 from ..config import pkgdatadir
 from ..ori import ori
 
+
 def pyfer_run(cmd):
     (err, errmsg) = pyferret.run(cmd)
     if err != pyferret.FERR_OK:
-        sys.exit(f'pyFerret command "{cmd}" failed with status={err}: {errmsg}')
+        sys.exit(f'pyFerret command "{cmd}" failed with status={err}:',
+                 f'{errmsg}')
+
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
@@ -26,7 +29,8 @@ if __name__ == "__main__":
                            type=tsargparse.absPath,
                            action=tsargparse.createDir)
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                "available",
                            metavar="inDir",
                            type=tsargparse.absPath,
                            action=tsargparse.dirExists)

@@ -25,4 +25,4 @@ This module contains packages to read and plot tropical storm and hurricane
 data from global climate models.
 """
 
-from .config import _version as __version__
+from .config import _version as __version__  # noqa: F401

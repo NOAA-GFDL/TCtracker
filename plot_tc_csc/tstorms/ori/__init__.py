@@ -34,8 +34,9 @@ from .stat_ori_mask import stat_ori as _stat_ori
 from .StormBox import StormBox
 from .freq_ori import freq_ori as _freq_ori
 
-all = ["ori",
-       "StormBox"]
+__all__ = ["ori",
+           "StormBox"]
+
 
 class ori():
     """Class to hold data for a group of `ori_<year>` files
@@ -73,7 +74,7 @@ class ori():
                  ori_dir: str,
                  beg_year: int,
                  end_year: int,
-                 ori_type = 'model'):
+                 ori_type='model'):
         self.directory = ori_dir
         self.start_year = beg_year
         self.end_year = end_year
@@ -96,13 +97,13 @@ class ori():
         return os.path.realpath(fname)
 
     def freq_ori(self,
-                 do_40ns = True,
-                 do_map = True,
-                 do_lon = False,
-                 do_lat = False,
-                 do_latf = False,
-                 do_fot = False,
-                 traj_in = False):
+                 do_40ns=True,
+                 do_map=True,
+                 do_lon=False,
+                 do_lat=False,
+                 do_latf=False,
+                 do_fot=False,
+                 traj_in=False):
         """Run the freq_ori Fortran function on the ori data
 
         This routine concatinates the ori_year files into a single `ori` file,

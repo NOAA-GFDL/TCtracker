@@ -29,7 +29,6 @@ import argparse
 import os
 import shutil
 import subprocess
-import jinja2
 import tempfile
 import collections
 
@@ -71,7 +70,8 @@ if __name__ == "__main__":
                            type=tsargparse.absPath,
                            action=tsargparse.createDir)
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                "available",
                            metavar="inDir",
                            type=tsargparse.absPath,
                            action=tsargparse.dirExists)
@@ -93,7 +93,6 @@ if __name__ == "__main__":
                            metavar="expName",
                            type=str)
     args = argparser.parse_args()
-
 
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
@@ -123,12 +122,14 @@ if __name__ == "__main__":
         }
         sea_cyc_par = {}
         for hemisphere in ['ns', 'nh', 'sh']:
-            sea_cyc_par[hemisphere] = template_env.get_template(f'sea_cyc_{hemisphere}.par')
+            sea_cyc_par[hemisphere] = \
+                template_env.get_template(f'sea_cyc_{hemisphere}.par')
 
             with open(sea_cyc_par[hemisphere].name, 'w') as out:
                 out.write(sea_cyc_par[hemisphere].render(sea_cyc_data))
 
-            plot_filename = f"sea_cyc_{hemisphere}_{args.beg_year}-{args.end_year}.ps"
+            plot_filename = \
+                f"sea_cyc_{hemisphere}_{args.beg_year}-{args.end_year}.ps"
             grace_cmd = [
                 gracebat,
                 "-autoscale", "y",
@@ -136,8 +137,9 @@ if __name__ == "__main__":
                 "-param", sea_cyc_par[hemisphere].name,
                 "-hardcopy",
             ]
-            subprocess.run(grace_cmd+sea_cyc_plot[hemisphere])
+            subprocess.run(grace_cmd + sea_cyc_plot[hemisphere])
 
             shutil.copyfile(plot_filename,
                             os.path.join(args.outDir, plot_filename))
-            print(f"Plot stored in '{os.path.join(args.outDir, plot_filename)}'")
+            print("Plot stored in",
+                  f"'{os.path.join(args.outDir, plot_filename)}'")

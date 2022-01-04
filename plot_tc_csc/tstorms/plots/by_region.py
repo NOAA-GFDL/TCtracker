@@ -28,7 +28,6 @@ import argparse
 import os
 import shutil
 import subprocess
-import jinja2
 import tempfile
 
 from .. import argparse as tsargparse
@@ -68,7 +67,8 @@ if __name__ == "__main__":
                            dest="do_hur",
                            action='store_true')
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                "available",
                            metavar="inDir",
                            type=tsargparse.absPath,
                            action=tsargparse.dirExists)

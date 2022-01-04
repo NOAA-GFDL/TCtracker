@@ -17,22 +17,23 @@ from ..ori import ori as _ori
 def _pyfer_run(cmd):
     (err, errmsg) = _pyferret.run(cmd)
     if err != _pyferret.FERR_OK:
-        _sys.exit(f'pyFerret command "{cmd}" failed with status={err}: {errmsg}')
+        _sys.exit(f'pyFerret command "{cmd}" failed with status={err}:',
+                  f'{errmsg}')
 
 
 def generate_data(ori, grid):
     with _tempfile.TemporaryDirectory() as tmpdir:
         _os.chdir(tmpdir)
 
-        ori.freq_ori(do_40ns = False,
-                     do_map = True,
-                     do_lon = False,
-                     do_lat = False,
-                     do_latf = False,
-                     do_fot = False,
-                     traj_in = False)
+        ori.freq_ori(do_40ns=False,
+                     do_map=True,
+                     do_lon=False,
+                     do_lat=False,
+                     do_latf=False,
+                     do_fot=False,
+                     traj_in=False)
         fmap_file = _scipy_io.FortranFile('fmap', 'r')
-        freq = fmap_file.read_reals(dtype='f4').reshape((73,44), order='F')
+        freq = fmap_file.read_reals(dtype='f4').reshape((73, 44), order='F')
         fmap_file.close()
 
     lon_axis = grid.axes[_pyferret.X_AXIS]
@@ -44,8 +45,7 @@ def generate_data(ori, grid):
                  'axis_names': (lon_axis.name, lat_axis.name),
                  'axis_units': (lon_axis.unit, lat_axis.unit),
                  'axis_coords': (lon_axis.coords, lat_axis.coords),
-                 'data': freq_masked*10,
-                }
+                 'data': freq_masked * 10}
     return freq_dict
 
 
@@ -59,7 +59,8 @@ if __name__ == "__main__":
                            type=_tsargparse.absPath,
                            action=_tsargparse.createDir)
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                " available",
                            metavar="inDir",
                            type=_tsargparse.absPath,
                            action=_tsargparse.dirExists)
@@ -89,10 +90,10 @@ if __name__ == "__main__":
 
     # Initialize pyferret
     _pyferret.start(memsize=128,
-                   journal=False,
-                   verify=False,
-                   unmapped=True,
-                   quiet=True)
+                    journal=False,
+                    verify=False,
+                    unmapped=True,
+                    quiet=True)
 
     # Add ferret_jnl to ferret search path(s)
     _pyferret.addenv(FER_GO=_os.path.join(_pkgdatadir, 'ferret_jnl'))
@@ -101,8 +102,14 @@ if __name__ == "__main__":
     _pyfer_run("go tstorm_nplots 2")
     _pyfer_run("go tstorm_plot_settings 40ns yes")
     # Create pyferret axes
-    lon_axis = _pyferret.FerAxis(range(0,361,5), axtype=_pyferret.AXISTYPE_LONGITUDE, name='FREQ_X', unit='degrees_east')
-    lat_axis = _pyferret.FerAxis(range(-86,87,4), axtype=_pyferret.AXISTYPE_LATITUDE, name='FREQ_Y', unit='degrees_north')
+    lon_axis = _pyferret.FerAxis(range(0, 361, 5),
+                                 axtype=_pyferret.AXISTYPE_LONGITUDE,
+                                 name='FREQ_X',
+                                 unit='degrees_east')
+    lat_axis = _pyferret.FerAxis(range(-86, 87, 4),
+                                 axtype=_pyferret.AXISTYPE_LATITUDE,
+                                 name='FREQ_Y',
+                                 unit='degrees_north')
     freq_grid = _pyferret.FerGrid((lon_axis, lat_axis), name="FREQ_grid")
 
     obs_freq = generate_data(obs, freq_grid)
@@ -113,7 +120,8 @@ if __name__ == "__main__":
 
     # Variables for plot data
     fer_shade_pal = 'exciting_cmyk'
-    fer_shade_qual = '/nolabels/hlimits=($lon_span)/vlimits=($lat_span)/levels=($lev_span)'
+    fer_shade_qual = \
+        '/nolabels/hlimits=($lon_span)/vlimits=($lat_span)/levels=($lev_span)'
     fer_land_res = 60
     fer_land_color = 'gray'
 
@@ -123,16 +131,16 @@ if __name__ == "__main__":
         # Add to plot (viewport 1)
         _pyfer_run("set viewport v1")
         _pyferret.shadeplot(obs_freq['name'],
-                           pal=fer_shade_pal,
-                           qual=fer_shade_qual)
+                            pal=fer_shade_pal,
+                            qual=fer_shade_qual)
         _pyferret.shadeland(res=fer_land_res, color=fer_land_color)
         _pyfer_run("label ($label_xp),($label_yp),-1,0,0.2 obs")
 
         # Add model to plot (viewport v2)
         _pyfer_run("set viewport v2")
         _pyferret.shadeplot(model_freq['name'],
-                           pal=fer_shade_pal,
-                           qual=fer_shade_qual)
+                            pal=fer_shade_pal,
+                            qual=fer_shade_qual)
         _pyferret.shadeland(res=fer_land_res, color=fer_land_color)
         _pyfer_run(f"label ($label_xp),($label_yp),-1,0,0.2 {args.expName}")
 
@@ -141,4 +149,4 @@ if __name__ == "__main__":
 
         # Save plot
         _shutil.copyfile(plot_filename,
-                        _os.path.join(args.outDir, plot_filename))
+                         _os.path.join(args.outDir, plot_filename))

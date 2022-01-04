@@ -28,7 +28,6 @@ import argparse
 import os
 import shutil
 import subprocess
-import jinja2
 import tempfile
 
 from .. import argparse as tsargparse
@@ -43,7 +42,8 @@ __all__ = [
 
 def generate_plot_data(region_stats):
     write_plot_data('grace.dat',
-                    [f"{y} {region_stats.get_year_total(y)}" for y in region_stats.years])
+                    [f"{y} {region_stats.get_year_total(y)}"
+                     for y in region_stats.years])
 
 
 if __name__ == "__main__":
@@ -60,7 +60,8 @@ if __name__ == "__main__":
                            dest="do_hur",
                            action='store_true')
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                "available",
                            metavar="inDir",
                            type=tsargparse.absPath,
                            action=tsargparse.dirExists)
@@ -121,7 +122,8 @@ if __name__ == "__main__":
                 'YYMAX': y_region[region]['max'],
                 'YYINC': y_region[region]['inc'],
                 'exp': [args.expName, 'obs'],
-                'mean': [model.stats[region].mean[12], obs.stats[region].mean[12]]
+                'mean': [model.stats[region].mean[12],
+                         obs.stats[region].mean[12]]
             }
             with open('timeseries.par', 'w') as out:
                 out.write(timeseries_par.render(timeseries_data))
@@ -139,4 +141,5 @@ if __name__ == "__main__":
 
             shutil.copyfile(plot_filename,
                             os.path.join(args.outDir, plot_filename))
-            print(f"Plot stored in '{os.path.join(args.outDir, plot_filename)}'")
+            print("Plot stored in",
+                  f"'{os.path.join(args.outDir, plot_filename)}'")
