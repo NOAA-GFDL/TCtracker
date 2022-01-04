@@ -150,3 +150,4 @@ if __name__ == "__main__":
         # Save plot
         _shutil.copyfile(plot_filename,
                          _os.path.join(args.outDir, plot_filename))
+        print(f"Plot stored in '{_os.path.join(args.outDir, plot_filename)}'")
