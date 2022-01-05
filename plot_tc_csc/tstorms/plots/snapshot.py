@@ -29,7 +29,6 @@ import argparse
 import os
 import shutil
 import subprocess
-import jinja2
 import tempfile
 
 from .. import argparse as tsargparse
@@ -40,6 +39,7 @@ from ._plot_helpers import template_env, write_plot_data
 __all__ = [
     'generate_plot_data',
 ]
+
 
 def generate_ori_data(type, template_env):
     ori_data = []
@@ -68,7 +68,8 @@ def generate_plot_data(ori, template_env):
         xscyc['NH'].append(f"{i} {v}")
     # Souther Hemisphere
     xscyc['SH'] = []
-    for i, v in enumerate(ori_stats['SH'].mean[6:12] + ori_stats['SH'].mean[:6], start=1):
+    for i, v in enumerate(ori_stats['SH'].mean[6:12] +
+                          ori_stats['SH'].mean[:6], start=1):
         xscyc['SH'].append(f"{i} {v}")
 
     ori.cat_ori_files()
@@ -78,7 +79,13 @@ def generate_plot_data(ori, template_env):
     write_plot_data("xscyc_nh.dat", xscyc['NH'])
     write_plot_data("xscyc_sh.dat", xscyc['SH'])
 
-    ori.freq_ori(True, False, True, False, False, False, False)
+    ori.freq_ori(do_40ns=True,
+                 do_map=False,
+                 do_lon=True,
+                 do_lat=False,
+                 do_latf=False,
+                 do_fot=False,
+                 traj_in=False)
     for region in ['gl', 'nh', 'sh']:
         with open(f"xlon_{region}.dat", 'a') as outfile:
             with open(f"flon_{region}") as infile:
@@ -97,7 +104,8 @@ if __name__ == "__main__":
                            type=tsargparse.absPath,
                            action=tsargparse.createDir)
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                "available",
                            metavar="inDir",
                            type=tsargparse.absPath,
                            action=tsargparse.dirExists)

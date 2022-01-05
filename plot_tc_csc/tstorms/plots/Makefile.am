@@ -29,6 +29,8 @@ tstormsplots_PYTHON = \
   by_longitude.py \
   by_region.py \
   duration.py \
+  jmaps_freq.py \
+  jmaps_ori.py \
   seasonal_cycle.py \
   snapshot.py \
   timeseries.py

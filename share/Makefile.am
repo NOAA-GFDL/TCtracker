@@ -18,5 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
+SUBDIRS = ferret_jnl
 
 dist_pkgdata_DATA = frepp-tropical_storms_wsfc.csh

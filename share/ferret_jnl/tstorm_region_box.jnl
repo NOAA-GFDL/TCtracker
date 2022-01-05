@@ -1,0 +1,16 @@
+\cancel mode verify
+
+! Description: draw tropical storm region boxes
+
+ppl aline 1,0,0,360,0           ! equator
+ppl aline 1,40,0,40,40          ! w side of n_ind
+ppl aline 1,105,0,105,40        ! n_ind, w_pac bndry
+ppl aline 1,200,0,200,40        ! w_pac, e_pac bndry
+ppl aline 1,295,0,257,21.7      ! e_pac, n_atl bndry
+ppl aline 1,257,21.7,257,40     ! e_pac, n_atl bndry
+ppl aline 1,30,-40,30,0         ! w side of s_ind
+ppl aline 1,105,-40,105,0       ! s_ind, aus bndry
+ppl aline 1,165,-40,165,0       ! aus, s_pac bndry
+ppl aline 1,265,-40,265,0       ! e side of s_pac
+
+set mode/last verify

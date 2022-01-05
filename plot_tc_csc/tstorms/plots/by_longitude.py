@@ -28,7 +28,6 @@ import argparse
 import os
 import shutil
 import subprocess
-import jinja2
 import tempfile
 
 from .. import argparse as tsargparse
@@ -44,7 +43,7 @@ __all__ = [
 def generate_plot_data(ori):
     """Generate all data files required for 2D plot with Grace"""
 
-    ori.freq_ori(do_40ns = True, do_map = False, do_lon = True, do_lat = False)
+    ori.freq_ori(do_40ns=True, do_map=False, do_lon=True, do_lat=False)
     for region in ['gl', 'nh', 'sh']:
         _append_file(f'flon_{region}', f'grace_{region}.dat')
 
@@ -69,7 +68,8 @@ if __name__ == "__main__":
                            dest="do_hur",
                            action='store_true')
     argparser.add_argument("inDir",
-                           help="Directory where tropical storm data are available",
+                           help="Directory where tropical storm data are " +
+                                "available",
                            metavar="inDir",
                            type=tsargparse.absPath,
                            action=tsargparse.dirExists)

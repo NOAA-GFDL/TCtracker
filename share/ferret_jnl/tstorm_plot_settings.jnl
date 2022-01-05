@@ -1,0 +1,54 @@
+\cancel mode verify
+
+! Description: Tropical Storm plot label and axis settings
+
+!                                    arg 1        arg 2
+! usage:   GO tstorm_plot_settings ["region"] ["use_nl_lev"]
+
+! region may be "40ns", "epac_atl", "ind_wpac", or "sh"
+! use_nl_lev may be "yes", "y", "true", "no", "n" or "false"
+
+query/ignore $1%40ns|40ns|epac_atl|ind_wpac|sh|<argument 1 can be "40ns", "epac_atl", "ind_wpac", or "sh"%
+query/ignore $2%yes|yes|no|true|false|y|n|0|1|<argument 2 can be "yes", "y", "true", "no", "n" or "false"%
+
+define symbol tstorm_plot_region = $1%40ns%
+define symbol use_nl_lev = $2%yes%
+
+if ($tstorm_plot_region%|40ns>TRUE|*>FALSE%) then
+    ! 40ns
+    define symbol label_xp = 0
+    define symbol label_yp = 50
+    define symbol lon_span = 0.:360.:30.
+    define symbol lat_span = -40.:40.:10.
+    define symbol lev_span = 0.,20.,2.
+elif ($tstorm_plot_region%|epac_atl>TRUE|*>FALSE%) then
+    ! epac_atl
+    define symbol label_xp = 180
+    define symbol label_yp = 45
+    define symbol lon_span = 180.:360.:15.
+    define symbol lat_span = 0.:40.:5.
+    define symbol lev_span = 0.,20.,2.
+elif ($tstorm_plot_region%|ind_wpac>TRUE|*>FALSE%) then
+    ! ind_wpac
+    define symbol label_xp = 45
+    define symbol label_yp = 45
+    define symbol lon_span = 45.:225.:15.
+    define symbol lat_span = 0.:40.:5.
+    define symbol lev_span = 0.,14.,2.
+else
+    ! sh
+    define symbol label_xp = 30
+    define symbol label_yp = 5
+    define symbol lon_span = 30.:240.:15.
+    define symbol lat_span = -40.:0.:5.
+    define symbol lev_span = 0.,14.,2.
+endif
+
+if ($use_nl_lev%|yes|y|true|1>TRUE|*>FALSE%) then
+    define symbol lev_span = (0.)(1.)(2.)(4.)(8.)(16.)(32.)
+endif
+
+cancel symbol tstorm_plot_region
+cancel symbol use_nl_lev
+
+set mode/last verify

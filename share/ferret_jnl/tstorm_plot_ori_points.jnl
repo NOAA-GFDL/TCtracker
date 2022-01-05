@@ -1,0 +1,102 @@
+\cancel mode verify
+
+! Description: plot tropical storm positions
+
+!                       arg 1   arg 2     arg 3      arg 4      arg 5      arg 6
+! usage:   GO plot_ori [file] ["title"] ["region"] [land_opt] [box_opt] [label_opt]
+
+! file is filename to read in
+! title to be used in viewport name
+! region may be "40ns", "epac_atl", "ind_wpac", or "sh" (default "40ns")
+! land_opt defines how to show the land, may be 0, 1, or 2 (default 1)
+! box_opt indicates if a box should be drawn around global regions (default 0)
+! label_opt determines if number of storms is included in label (default 1)
+
+query/ignore $3%40ns|40ns|epac_atl|ind_wpac|sh|<argument 3 can be "40ns", "epac_atl", "ind_wpac", or "sh"%
+query/ignore $4%0|0|1|2|<argument 4 can be "0", "1", or "2"%
+query/ignore $5%0|0|1|<argument 5 can be "0"(off) or "1"(on)%
+query/ignore $6%0|0|1|2|<argument 6 can be "0" or "1"%
+
+! Redirect stdout to /dev/null.  Comment out if debugging
+set redirect/clobber/file="/dev/null" STDOUT
+
+define symbol plot_title = $2
+define symbol tstorm_plot_region = $3%40ns%
+define symbol land_opt = $4%1%
+define symbol box_opt = $5%0%
+define symbol label_opt = $6%1%
+
+go bold
+go tstorm_plot_settings ($tstorm_plot_region)
+
+! -----------------------------------------------------------------------------
+! --- plot dummy map
+! -----------------------------------------------------------------------------
+use etopo60
+define axis/x=0:360:5 xx
+define axis/y=-86:86:4 yy
+define grid/x=xx/y=yy gxy
+shade/set_up/palette=white/nokey/nolabels/hlimits=($lon_span)/vlimits=($lat_span) rose[g=gxy]
+ppl shade
+
+! -----------------------------------------------------------------------------
+! --- plot topography
+! -----------------------------------------------------------------------------
+if "`($land_opt) eq 0`" then
+  go land
+elif "`($land_opt) eq 1`" then
+   go fland 60 blue_light overlay all
+   go fland 60 green_dark
+else
+  go fland 60 terrestrial overlay all
+  go land
+endif
+
+! -----------------------------------------------------------------------------
+! --- plot boxes
+! -----------------------------------------------------------------------------
+if " `($box_opt) eq 1` " then
+    go tstorm_region_box
+endif
+
+
+! -----------------------------------------------------------------------------
+! --- read in data set and collect statistacs
+! -----------------------------------------------------------------------------
+set data/ez/format=delimited/delimiters=" "/type=longitude,latitude,numeric/var=lon,lat,year ($1)
+statistics year
+define symbol start_year = ($stat_min)
+define symbol end_year = ($stat_max)
+define symbol nstorms = ($stat_ngood)
+
+! -----------------------------------------------------------------------------
+! --- plot origin point for storms
+! -----------------------------------------------------------------------------
+plot/set_up/symbol=88/hlimits=($lon_span)/vlimits=($lat_span)/vs lon,lat
+go remove_logo
+go unlabel 4
+go unlabel 5
+ppl pen 1,2
+ppl line 1,88,3
+ppl plot/overlay
+
+! -----------------------------------------------------------------------------
+! --- plot label
+! -----------------------------------------------------------------------------
+
+if "`($label_opt) eq 1` " then
+    label ($label_xp),($label_yp),-1,0,0.15  ($plot_title) ($start_year)-($end_year)    ($nstorms) storms
+else
+    label ($label_xp),($label_yp),-1,0,0.15  ($plot_title) ($start_year)-($end_year)
+endif
+
+cancel symbol label_xp
+cancel symbol label_yp
+cancel symbol lon_span
+cancel symbol lat_span
+cancel symbol start_year
+cancel symbol end_year
+cancel symbol nstorms
+cancel data ($1)
+cancel redirect STDOUT
+set mode/last verify

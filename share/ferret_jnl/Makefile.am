@@ -1,6 +1,6 @@
-# **********************************************************************
+#**********************************************************************
 # TCtracker - Tropical Storm Detection
-# Copyright (C) 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
+# Copyright (C) 1997-2008, 2021 Frederic Vitart, Joe Sirutis, Ming Zhao,
 # Kyle Olivo, Keren Rosado and Seth Underwood
 #
 # This program is free software; you can redistribute it and/or
@@ -18,11 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 # **********************************************************************
+ferretjnldir = $(pkgdatadir)/ferret_jnl
 
-"""Tropical Storm Detection
-
-This module contains packages to read and plot tropical storm and hurricane
-data from global climate models.
-"""
-
-from .config import _version as __version__  # noqa: F401
+dist_ferretjnl_DATA = \
+  tstorm_nplots.jnl \
+  tstorm_plot_ori_points.jnl \
+  tstorm_plot_settings.jnl \
+  tstorm_region_box.jnl

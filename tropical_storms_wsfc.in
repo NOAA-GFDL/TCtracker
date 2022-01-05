@@ -140,6 +140,7 @@ if ($gfdl) then
    module purge
    module load gcp
    module load netcdf-c/4.7.3
+   module load pyferret/7.6.3
 endif
 
 set tstorms_driver = $LIBEXEC_DIR/tstorms_driver@EXEEXT@
@@ -438,7 +439,11 @@ eof
 
    echo "generating stats and plots"
    alias python3 @PYTHON@
-   setenv PYTHONPATH $PYTHONLIB_DIR
+   if ( $?PYTHONPATH ) then
+      setenv PYTHONPATH ${PYTHONLIB_DIR}:${PYTHONPATH}
+   else
+      setenv PYTHONPATH ${PYTHONLIB_DIR}
+   endif
 
    if ( $experiment_type == obs ) then
       # Snapshot plot, comparing observational data with model data
@@ -450,4 +455,6 @@ eof
    python3 -m TCtracker.plots.by_region -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    python3 -m TCtracker.plots.seasonal_cycle -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
    python3 -m TCtracker.plots.duration -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.jmaps_freq -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
+   python3 -m TCtracker.plots.jmaps_ori -o $tstorms_dir $tstorms_dir $ibtracs_dir/obs $obs_first_year $obs_last_year $expname
 endif

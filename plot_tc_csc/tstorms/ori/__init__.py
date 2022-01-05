@@ -34,8 +34,9 @@ from .stat_ori_mask import stat_ori as _stat_ori
 from .StormBox import StormBox
 from .freq_ori import freq_ori as _freq_ori
 
-all = ["ori",
-       "StormBox"]
+__all__ = ["ori",
+           "StormBox"]
+
 
 class ori():
     """Class to hold data for a group of `ori_<year>` files
@@ -73,7 +74,7 @@ class ori():
                  ori_dir: str,
                  beg_year: int,
                  end_year: int,
-                 ori_type = 'model'):
+                 ori_type='model'):
         self.directory = ori_dir
         self.start_year = beg_year
         self.end_year = end_year
@@ -81,28 +82,28 @@ class ori():
         self.stat_file = self._gen_stats()
         self.stats = self._read_stats()
 
-    def cat_ori_files(self): # inDir: str, beg_year: int, end_year: int):
+    def cat_ori_files(self, fname="ori"):
         """
         Concatinate ori_[YYYY] files into a single `ori` file.  The single
         `ori` file is required for certain plots.
         """
 
         # Concatenate all `ori_YYYY` files into a single `ori` file
-        with open('ori', 'w') as outfile:
+        with open(fname, 'w') as outfile:
             for year in range(self.start_year, self.end_year + 1):
                 fname = os.path.join(self.directory, "ori_{:04d}".format(year))
                 with open(fname) as infile:
                     outfile.write(infile.read())
-        return os.path.realpath('ori')
+        return os.path.realpath(fname)
 
     def freq_ori(self,
-                 do_40ns = True,
-                 do_map = True,
-                 do_lon = False,
-                 do_lat = False,
-                 do_latf = False,
-                 do_fot = False,
-                 traj_in = False):
+                 do_40ns=True,
+                 do_map=True,
+                 do_lon=False,
+                 do_lat=False,
+                 do_latf=False,
+                 do_fot=False,
+                 traj_in=False):
         """Run the freq_ori Fortran function on the ori data
 
         This routine concatinates the ori_year files into a single `ori` file,
