@@ -22,7 +22,7 @@
 AC_PREREQ([2.69])
 
 AC_INIT([GFDL Tropical Storms Detection],
-        [2.0.0-alpha.3],
+        [2.0.0-alpha.4],
         [gfdl.climate.model.info@noaa.gov],
         [TCtracker],
         [https://www.gfdl.noaa.gov/tstorms/])
