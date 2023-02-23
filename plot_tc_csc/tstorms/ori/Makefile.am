@@ -37,9 +37,8 @@ EXTRA_DIST = \
 
 %@PYTHON_EXTENSION_SUFFIX@: %.f90
 	$(F2PY) -c -m $(basename $(notdir $<)) \
-           --fcompiler=$(FC) \
-           --f90flags="$(FCFLAGS)" \
-           $(AM_LDFLAGS) $(LDFLAGS) \
+           --f90exec=$(FC) \
+           --f90flags="$(FCFLAGS) $(AM_LDFLAGS) $(LDFLAGS)" \
            $<
 
 include $(top_srcdir)/subst.mk
