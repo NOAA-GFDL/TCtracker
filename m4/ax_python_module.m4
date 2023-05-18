@@ -51,6 +51,8 @@ AC_DEFUN([AX_PYTHON_MODULE],[
         then
             AC_MSG_ERROR(failed to find required module $1)
             exit 1
+        else
+            AC_MSG_WARN("unable to find module $1 but carrying on")
         fi
     fi
 ])
